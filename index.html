@@ -5,85 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swizzl AI</title>
     <style>
-        /* Basic reset and styles */
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         body {
-            background-color: #f4f4f4;
+            background-color: #f9fafb;
             color: #333;
-            line-height: 1.6;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            padding: 20px;
         }
         .container {
-            max-width: 800px;
-            width: 90%;
-            background: #fff;
-            padding: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            color: #1f2937;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 40px;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h1, h2 {
-            color: #333;
-            margin-bottom: 1rem;
+        h2 {
+            color: #111827;
+            font-size: 2rem;
+            margin-bottom: 15px;
         }
         p {
-            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
         }
-        .team {
-            margin-top: 2rem;
-        }
-        .team-member {
-            margin-bottom: 1.5rem;
-        }
+
+        /* Button Styles */
         .button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: #0073e6;
-            color: #fff;
+            padding: 12px 24px;
+            background-color: #3b82f6;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 5px;
             text-decoration: none;
-            border-radius: 4px;
-            margin-top: 1rem;
+            font-size: 1rem;
+            margin-top: 20px;
         }
         .button:hover {
-            background: #005bb5;
+            background-color: #2563eb;
+        }
+
+        /* Team Member Section */
+        .team-member {
+            margin-bottom: 20px;
+        }
+        .team-member h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+        }
+        .team-member p {
+            color: #6b7280;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Swizzl AI</h1>
-        <p>Swizzl AI is an AI-driven platform designed to enhance sales processes by qualifying leads and preparing customers for purchase decisions. It aims to increase conversion rates and reduce appointment times by providing sales teams with insights into customer needs and tailored coaching strategies.</p>
+        <!-- Header Section -->
+        <header>
+            <h1>Swizzl AI</h1>
+            <p>Unlock sales potential with AI-driven insights</p>
+        </header>
         
-        <h2>Platform Highlights</h2>
-        <p>The platform integrates seamlessly with existing websites and sales funnels, offering tools suitable for both seasoned and new sales professionals.</p>
-        
-        <h2>Leadership Team</h2>
-        <div class="team">
+        <!-- Platform Highlights Section -->
+        <div class="section">
+            <h2>Platform Highlights</h2>
+            <p>Swizzl AI integrates seamlessly with your existing website and sales funnel, helping you increase conversion rates and prepare clients for a faster, data-driven decision-making process. Tailored insights allow you to connect more effectively with each customer’s needs.</p>
+        </div>
+
+        <!-- Leadership Team Section -->
+        <div class="section">
+            <h2>Leadership Team</h2>
             <div class="team-member">
                 <h3>Andrew Glaser</h3>
-                <p>Co-Founder and CEO, a Jobs to Be Done expert with experience as a C-level executive and three-time founder.</p>
+                <p>Co-Founder and CEO, a seasoned C-level executive with three successful startups and an expert in Jobs to Be Done.</p>
             </div>
             <div class="team-member">
                 <h3>Bob Moesta</h3>
-                <p>Co-Founder, CEO of ReWired Group, original creator of Jobs to Be Done, and seven-time founder.</p>
+                <p>Co-Founder, CEO of ReWired Group, a pioneer in Jobs to Be Done and serial founder with seven ventures.</p>
             </div>
             <div class="team-member">
                 <h3>David Randall (DR)</h3>
-                <p>Founding Product Manager, with roles as a PM, designer, and researcher in both startups and Fortune 500 companies.</p>
+                <p>Founding Product Manager with extensive experience in Fortune 500 and startup environments as PM, designer, and researcher.</p>
             </div>
             <div class="team-member">
                 <h3>Petrus J.v. Rensburg</h3>
-                <p>Founding Engineer, a full-stack engineer, three-time founder, and two-time CTO.</p>
+                <p>Founding Engineer, full-stack developer, with multiple CTO roles and founder experience.</p>
             </div>
         </div>
-        
+
+        <!-- Call to Action Button -->
         <a href="https://swizzl.ai" class="button">Learn More</a>
     </div>
 </body>
