@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Tigre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Actor:wght@400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&display=swap');
+
+    /* Root Variables */
+    :root {
+      --default-font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Reset and Basic Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--default-font-family);
+      background-color: #f5f5f5;
+    }
+
+    /* Main Content */
+    .container {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Le Tigre Page */
+    .le-tigre {
+      background: #ffffff;
+      text-align: center;
+      font-family: 'Actor', sans-serif;
+    }
+
+    .le-tigre-image {
+      width: 100%;
+      max-width: 404px;
+      height: auto;
+      margin: 20px auto;
+      background: url('./assets/images/d0122c0a73d564dad2077e9f7536bcfd411e2350.png') no-repeat center;
+      background-size: cover;
+    }
+
+    .section-title {
+      font-size: 40px;
+      margin: 20px 0;
+      color: #000;
+    }
+
+    .subheading {
+      font-size: 20px;
+      margin: 10px 0 20px;
+      color: #000;
+    }
+
+    /* Button */
+    .button {
+      display: inline-block;
+      background-color: #664787;
+      color: #ffffff;
+      padding: 15px 30px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      font-size: 17px;
+      margin: 20px auto;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .button:hover {
+      background-color: #543a6e;
+    }
+
+    /* Sales Challenge */
+    .sales-challenge {
+      margin: 40px 20px;
+      font-family: 'Patrick Hand', sans-serif;
+      font-size: 36px;
+      color: #000;
+    }
+
+    .sales-challenge strong {
+      color: #ff0000;
+    }
+
+    /* Three Ways Section */
+    .three-ways {
+      background: #f4f0f5;
+      padding: 40px 20px;
+      margin: 40px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .three-ways h3 {
+      font-size: 20px;
+      color: #242424;
+      margin-bottom: 30px;
+    }
+
+    .three-ways-icons,
+    .three-ways-labels {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-bottom: 20px;
+    }
+
+    .three-ways-icons img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .three-ways-labels span {
+      font-size: 18px;
+      color: #000;
+    }
+
+    .three-ways-desc p {
+      font-size: 16px;
+      color: #000;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .three-ways-icons,
+      .three-ways-labels {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .section-title {
+        font-size: 32px;
+      }
+      .sales-challenge {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="le-tigre">
+
+      <!-- Hero Image -->
+      <div class="le-tigre-image"></div>
+
+      <!-- Headings -->
+      <h1 class="section-title">Fix the broken handoff between Marketing and Sales</h1>
+      <p class="subheading">
+        We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.
+      </p>
+
+      <!-- Book a Demo Button -->
+      <a href="#" class="button">Book a Demo</a>
+
+      <!-- Sales Challenge -->
+      <h2 class="section-title">Does this sound like you?</h2>
+      <div class="sales-challenge">
+        <p>
+          “Marketing’s sending us leads, sure, but they’re tossing them over the fence with <strong>no context.</strong> We get these names, but there’s <strong>zero clarity</strong> on who’s actually worth our time! We have to spend a <strong>ton of time</strong> just figuring out if someone’s even serious—it’s like <strong>we’re guessing</strong> half the time.
+        </p>
+        <p>
+          The real kicker? We have no idea why these people are here in the first place. Why are they looking at our product? What’s driving them? That’s the gold we need to actually close, and that’s the most valuable insight that only my top salespeople uncover consistently.”
+        </p>
+      </div>
+
+      <!-- Three Ways Section -->
+      <div class="three-ways">
+        <h3>3 Ways We Connect Sales and Marketing</h3>
+
+        <!-- Icons and Labels -->
+        <div class="three-ways-icons">
+          <img src="./assets/images/icon-qualify.png" alt="Qualify Icon">
+          <img src="./assets/images/icon-accelerate.png" alt="Accelerate Icon">
+          <img src="./assets/images/icon-win-trust.png" alt="Win Trust Icon">
+        </div>
+        <div class="three-ways-labels">
+          <span>Qualify</span>
+          <span>Accelerate</span>
+          <span>Win Trust</span>
+        </div>
+
+        <!-- Descriptions -->
+        <div class="three-ways-desc">
+          <p><strong>Qualify:</strong> We weed out those who won’t buy.</p>
+          <p><strong>Accelerate:</strong> We accelerate interested but skittish prospects.</p>
+          <p><strong>Win Trust:</strong> We get you the why before the first call.</p>
+        </div>
+      </div>
+
+      <!-- Book a Demo Button -->
+      <a href="#" class="button">Book a Demo</a>
+
+    </div>
+  </div>
+
+</body>
+</html>

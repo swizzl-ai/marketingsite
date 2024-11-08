@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Design Previews</title>
+  <title>Current Site</title>
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- Font Awesome -->
@@ -69,38 +69,16 @@
       color: #0056b3;
     }
 
-    /* Main content */
-    .container {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Button List */
-    .button-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .button-list a {
-      display: block;
-      padding: 15px 25px;
-      background: linear-gradient(45deg, #6a11cb, #2575fc);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 500;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-      max-width: 300px;
+    /* Fullscreen iframe */
+    .iframe-container {
       width: 100%;
+      height: calc(100vh - 60px); /* Adjust for header height */
     }
 
-    .button-list a:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -109,23 +87,14 @@
   <!-- Sticky Header with Breadcrumb -->
   <header class="header">
     <nav class="breadcrumb">
-      <span class="home-icon"><i class="fas fa-home"></i></span>
+      <a href="index.html" class="home-icon"><i class="fas fa-home"></i></a>
+      <span>Current Site</span>
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
-
-    <!-- Button List -->
-    <div class="button-list">
-      <a href="le_tigre.html">Le Tigre</a>
-      <a href="blue_steele.html">Blue Steele</a>
-      <a href="magnum.html">Magnum</a>
-      <a href="currentsite.html">Current Site</a>
-      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=573%3A75&node-id=573-76&node-type=frame&viewport=671%2C1190%2C0.31&t=I15T2cUbpaTuJY18-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=573%3A76" target="_blank">Ecommerce Figma</a>
-      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=94%3A6035&node-id=509-5113&node-type=frame&viewport=160%2C-1696%2C0.19&t=jU0QQQeaHboAmlkE-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=509%3A5113" target="_blank">Andrew's Redesign</a>
-    </div>
-
+  <!-- Fullscreen Iframe Content -->
+  <div class="iframe-container">
+    <iframe src="https://swizzl.ai"></iframe>
   </div>
 
 </body>
