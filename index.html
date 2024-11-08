@@ -1,135 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swizzl Site Redesign</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.css">
-    <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        body {
-            background-color: #f9fafb;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        header h1 {
-            font-size: 2.8rem;
-            color: #1f2937;
-        }
-
-        /* Button Styles */
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #800020;
-            color: #ffffff;
-            text-align: center;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1rem;
-            margin-top: 20px;
-        }
-        .button:hover {
-            background-color: #600018;
-        }
-
-        .sticky-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 10px 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .breadcrumb li {
-            display: flex;
-            align-items: center;
-        }
-
-        .breadcrumb li:not(:last-child)::after {
-            content: "›";
-            margin: 0 10px;
-            color: #666;
-        }
-
-        .breadcrumb a {
-            color: #333;
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover {
-            color: #800020;
-        }
-
-        .home-icon {
-            font-size: 18px;
-            margin-right: 5px;
-        }
-
-        /* Adjust main content to account for sticky header */
-        body {
-            padding-top: 60px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Design Previews</title>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="sticky-header">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/" title="Home">
-                        <i class="fas fa-home home-icon"></i>
-                    </a>
-                </li>
-                <li>
-                    <span id="current-page">Current Page</span>
-                </li>
-            </ol>
-        </nav>
+
+  <!-- Sticky Header with Breadcrumb -->
+  <header class="header">
+    <nav class="breadcrumb">
+      <span class="home-icon"><i class="fas fa-home"></i></span>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Button List -->
+    <div class="button-list">
+      <a href="le_tigre.html">Le Tigre</a>
+      <a href="blue_steele.html">Blue Steele</a>
+      <a href="magnum.html">Magnum</a>
+      <a href="https://swizzl.ai/" target="_blank">Current Site</a>
+      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=573%3A75&node-id=573-76&node-type=frame&viewport=671%2C1190%2C0.31&t=I15T2cUbpaTuJY18-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=573%3A76" target="_blank">Ecommerce Figma</a>
+      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=94%3A6035&node-id=509-5113&node-type=frame&viewport=160%2C-1696%2C0.19&t=jU0QQQeaHboAmlkE-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=509%3A5113" target="_blank">Andrew's Redesign</a>
     </div>
-    <div class="container">
-        <!-- Header Section -->
-        <header>
-            <h1>Swizzl Site Redesign</h1>
-        </header>
-        
-        <!-- Call to Action Button -->
-        <a href="/Latigra" class="button">View Latigra Design</a>
-    </div>
+
+  </div>
+
 </body>
 </html>
