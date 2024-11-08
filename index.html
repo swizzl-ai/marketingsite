@@ -25,7 +25,8 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: #f5f5f5;
+      position: relative;
+      overflow-x: hidden;
     }
 
     /* Sticky header */
@@ -36,36 +37,27 @@
       padding: 15px 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       z-index: 1000;
-    }
-
-    /* Breadcrumb navigation */
-    .breadcrumb {
       display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .breadcrumb a {
+    /* New styles for the centered title */
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    .back-link {
       text-decoration: none;
       color: #007bff;
-      margin-right: 5px;
-    }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
-
-    .breadcrumb span {
-      margin-right: 5px;
-      color: #555555;
-    }
-
-    .home-icon {
       font-size: 20px;
-      margin-right: 10px;
-      color: #007bff;
     }
 
-    .home-icon:hover {
+    .back-link:hover {
       color: #0056b3;
     }
 
@@ -105,17 +97,18 @@
   </style>
 </head>
 <body>
-
-  <!-- Sticky Header with Breadcrumb -->
+  <!-- Update header HTML -->
   <header class="header">
-    <nav class="breadcrumb">
-      <span class="home-icon"><i class="fas fa-home"></i></span>
-    </nav>
+    <a href="https://swizzl.club" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <div class="header-title">Website Redesigns</div>
+    <!-- Empty div to maintain flex spacing -->
+    <div style="width: 20px;"></div>
   </header>
 
   <!-- Main Content -->
   <div class="container">
-
     <!-- Button List -->
     <div class="button-list">
       <a href="le_tigre.html">Le Tigre</a>
@@ -125,8 +118,6 @@
       <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=573%3A75&node-id=573-76&node-type=frame&viewport=671%2C1190%2C0.31&t=I15T2cUbpaTuJY18-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=573%3A76" target="_blank">Ecommerce Figma</a>
       <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=94%3A6035&node-id=509-5113&node-type=frame&viewport=160%2C-1696%2C0.19&t=jU0QQQeaHboAmlkE-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=509%3A5113" target="_blank">Andrew's Redesign</a>
     </div>
-
   </div>
-
 </body>
 </html>

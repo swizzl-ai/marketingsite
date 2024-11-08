@@ -36,6 +36,19 @@
       padding: 15px 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Add title styles */
+    .title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     /* Breadcrumb navigation */
@@ -80,16 +93,38 @@
       height: 100%;
       border: none;
     }
+
+    /* Add new styles for the external link icon */
+    .external-link {
+      color: #007bff;
+      font-size: 20px;
+    }
+
+    .external-link:hover {
+      color: #0056b3;
+    }
+
+    /* Update icon styles */
+    .back {
+      font-size: 20px;
+      margin-right: 10px;
+      color: #007bff;
+    }
+
+    .back:hover {
+      color: #0056b3;
+    }
   </style>
 </head>
 <body>
 
   <!-- Sticky Header with Breadcrumb -->
   <header class="header">
-    <nav class="breadcrumb">
-      <a href="index.html" class="home-icon"><i class="fas fa-home"></i></a>
-      <span>Blue Steele</span>
-    </nav>
+    <a href="index.html" class="back"><i class="fas fa-arrow-left"></i></a>
+    <h1 class="title">Blue Steele</h1>
+    <a href="https://swizzl-ai.github.io/marketingsite/bluesteele/" class="external-link" target="_blank">
+      <i class="fas fa-external-link-alt"></i>
+    </a>
   </header>
 
   <!-- Fullscreen Iframe Content -->
