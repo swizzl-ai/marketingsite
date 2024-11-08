@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blue Steele</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Actor:wght@400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&display=swap');
+
+    /* Root Variables */
+    :root {
+      --default-font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Reset and Basic Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--default-font-family);
+      background-color: #f5f5f5;
+      color: #333;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Container */
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Blue Steele Styles */
+    .blue-steele-header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #f8f8f8;
+    }
+
+    .blue-steele-hero-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .blue-steele-header h1 {
+      font-size: 2.5rem;
+      color: #222;
+    }
+
+    .blue-steele-header p {
+      max-width: 600px;
+      margin: 1rem auto;
+      color: #555;
+    }
+
+    .blue-steele-button {
+      display: inline-block;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #4361ee, #7209b7);
+      border: none;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
+    }
+
+    .blue-steele-button:hover {
+      opacity: 0.9;
+    }
+
+    .blue-steele-main {
+      padding: 0 1rem;
+    }
+
+    .blue-steele-section {
+      margin-bottom: 2rem;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(114, 9, 183, 0.05));
+    }
+
+    .blue-steele-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .blue-steele-blockquote {
+      max-width: 800px;
+      margin: 0;
+      padding: 1.5rem;
+      font-style: italic;
+      color: #666;
+      border-left: 4px solid;
+      border-image: linear-gradient(to bottom, #4361ee, #7209b7) 1;
+      text-align: left;
+    }
+
+    .blue-steele-blockquote p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .blue-steele-blockquote p:last-child {
+      margin-bottom: 0;
+    }
+
+    .blue-steele-steps {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .blue-steele-step {
+      max-width: 300px;
+      margin: 1rem;
+      padding: 2rem;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .blue-steele-step img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 0.5rem;
+    }
+
+    .blue-steele-step h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blue-steele-ul {
+      list-style: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blue-steele-ul li {
+      margin: 1rem 0;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    .blue-steele-testimonial {
+      max-width: 600px;
+      margin: 1rem auto;
+      background: #e9ecef;
+      padding: 1.5rem;
+      border-radius: 6px;
+    }
+
+    .blue-steele-footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #fff;
+      margin-top: 2rem;
+    }
+
+    .blue-steele-hero {
+      padding: 4rem 2rem;
+      background-color: #f8f8f8;
+    }
+
+    .blue-steele-hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .blue-steele-hero-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .blue-steele-hero-text h1 {
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 1.5rem;
+    }
+
+    .blue-steele-hero-text p {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .blue-steele-hero-image {
+      flex: 1;
+    }
+
+    .blue-steele-hero-image img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 768px) {
+      .blue-steele-hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      
+      .blue-steele-hero-text {
+        text-align: center;
+      }
+    }
+
+    /* Wave background container */
+    .wave-background {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Individual waves */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: cover;
+      opacity: 0.1;
+    }
+
+    /* Wave 1 settings */
+    .wave-1 {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%234361ee' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      height: 20vh;
+      transform: translateY(5%);
+    }
+
+    /* Wave 2 settings */
+    .wave-2 {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%237209b7' d='M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,128C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      height: 25vh;
+      transform: translateY(10%);
+    }
+
+    /* Add these styles in the <style> section */
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sticky-header.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-header img {
+      height: 40px;
+      width: auto;
+    }
+
+    .blue-steele-hero-text img {
+      height: 60px;
+      width: auto;
+      margin-bottom: 2rem;
+    }
+
+    .blue-steele-quote-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .blue-steele-quote-image {
+      flex: 1;
+      width: 300px;
+    }
+
+    .blue-steele-quote-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .blue-steele-quote-container {
+        flex-direction: column;
+      }
+      
+      .blue-steele-quote-image {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    .blue-steele-quote-content {
+      flex: 1;
+    }
+
+    .blue-steele-quote-content h2 {
+      text-align: center;  /* Center the heading */
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .blue-steele-quote-content h2 {
+        text-align: center;  /* Center heading on mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- This should be the very first element after <body> -->
+  <header class="sticky-header">
+    <img src="logo.png" alt="Swizzl Logo">
+  </header>
+
+  <!-- Wave Background -->
+  <div class="wave-background">
+    <div class="wave wave-1"></div>
+    <div class="wave wave-2"></div>
+  </div>
+
+  <!-- Blue Steele Content -->
+  <div class="container">
+
+    <!-- Hero Section -->
+    <section class="blue-steele-hero">
+      <div class="blue-steele-hero-content">
+        <div class="blue-steele-hero-text">
+          <img src="logo.png" alt="Swizzl Logo">
+          <h1>Fix the Broken Handoff Between Marketing and Sales</h1>
+          <p>We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.</p>
+          <a href="#" class="blue-steele-button">Book a Demo</a>
+        </div>
+        <div class="blue-steele-hero-image">
+          <img src="handoff.png" alt="Marketing to Sales Handoff Illustration">
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="blue-steele-main">
+      <!-- Does This Sound Like You? -->
+      <section class="blue-steele-section">
+        <div class="blue-steele-quote-container">
+          <div class="blue-steele-quote-image">
+            <img src="frustrated.png" alt="Frustrated Sales Manager">
+          </div>
+          <div class="blue-steele-quote-content">
+            <h2>Does This Sound Like You?</h2>
+            <blockquote class="blue-steele-blockquote">
+              <p>"Marketing's sending us leads, sure, but they're tossing them over the fence with <strong>no context</strong>. We get these names, but there's zero clarity on who's actually worth our time! We have to spend a ton of time just figuring out if someone's even serious—it's like we're guessing half the time.</p>
+              <p>The real kicker? We have no idea why these people are here in the first place. Why are they looking at our product? What's driving them? That's the gold we need to actually close, and that's the most valuable insight that only my top salespeople uncover consistently."</p>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- How Swizzl Connects Sales and Marketing -->
+      <section class="blue-steele-section">
+        <h2>How Swizzl Connects Sales and Marketing</h2>
+        <div class="blue-steele-steps">
+          <div class="blue-steele-step">
+            <img src="qualify.png" alt="Qualify Icon">
+            <h3>1. Qualify</h3>
+            <p>We weed out those who won't buy.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="accelerate.png" alt="Accelerate Icon">
+            <h3>2. Accelerate</h3>
+            <p>We accelerate interested but hesitant prospects.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="wintrust.png" alt="Win Trust Icon">
+            <h3>3. Win Trust</h3>
+            <p>We provide you with the "why" before the first call.</p>
+          </div>
+        </div>
+        <a href="#" class="blue-steele-button">Book a Demo</a>
+      </section>
+
+      <!-- How We Do It -->
+      <section class="blue-steele-section">
+        <h2>How We Do It</h2>
+        <div class="blue-steele-steps">
+          <div class="blue-steele-step">
+            <img src="qualify.png" alt="Expertise Icon">
+            <h3>Relevant Expertise</h3>
+            <p>Deep expertise in marketing, performance sales, and product design.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="qualify.png" alt="Models Icon">
+            <h3>Customer Motivation Models</h3>
+            <p>Proprietary models that describe buying decisions.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="qualify.png" alt="AI Icon">
+            <h3>Bleeding-Edge AI</h3>
+            <p>Supercharged and scalable AI-driven insights.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="blue-steele-section">
+        <h2>What Our Clients Say</h2>
+        <div class="blue-steele-testimonial">
+          <p><strong>Dane, Sales Director</strong></p>
+          <p>"Swizzl transformed our sales process..."</p>
+        </div>
+        <div class="blue-steele-testimonial">
+          <p><strong>Kyle, Marketing Manager</strong></p>
+          <p>"The clarity and context provided by Swizzl..."</p>
+        </div>
+      </section>
+
+      <!-- Take the Next Step -->
+      <section class="blue-steele-section">
+        <h2>Take the Next Step</h2>
+        <p>Don't let valuable leads slip through the cracks...</p>
+        <a href="#" class="blue-steele-button">Book a Demo</a>
+      </section>
+
+      <!-- About Swizzl -->
+      <section class="blue-steele-section">
+        <h2>About Swizzl</h2>
+        <p>At Swizzl, we're dedicated to bridging the gap between marketing and sales...</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="blue-steele-footer">
+      <p>&copy; 2024 Swizzl. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Make sure this script is placed right before the closing </body> tag -->
+  <script>
+    // Add this console.log to help debug
+    console.log('Scroll script loaded');
+    
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.sticky-header');
+      // Add this console.log to help debug
+      console.log('Scrolling', window.scrollY);
+      
+      if (window.scrollY > 300) {
+        header.classList.add('visible');
+      } else {
+        header.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
