@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swizzl AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f9fafb;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            padding-top: 60px;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            color: #1f2937;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #800020;
+            margin-top: 10px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 40px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #800020;
+        }
+        h2 {
+            color: #800020;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #800020;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #600018;
+        }
+
+        /* Team Member Section */
+        .team-member {
+            margin-bottom: 20px;
+        }
+        .team-member h3 {
+            font-size: 1.5rem;
+            color: #800020;
+        }
+        .team-member p {
+            color: #6b7280;
+        }
+
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #800020;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: "›";
+            margin: 0 10px;
+            color: white;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #f0f0f0;
+        }
+
+        .home-icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        /* Important: Make sure this isn't being overridden */
+        body {
+            margin: 0;
+            padding-top: 60px !important;
+            position: relative;
+        }
+
+        /* Debug style */
+        .sticky-header {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="sticky-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/">
+                        <i class="fas fa-home home-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <span id="current-page">Swizzl AI</span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>Swizzl AI</h1>
+            <p style="color: #800020;">Empowering Businesses Through Innovative Solutions</p>
+        </header>
+        
+        <!-- Platform Highlights Section -->
+        <div class="section">
+            <h2 style="color: #800020;">About Us</h2>
+            <p>Swizzl AI integrates seamlessly with your existing website and sales funnel, helping you increase conversion rates and prepare clients for a faster, data-driven decision-making process. Tailored insights allow you to connect more effectively with each customer’s needs.</p>
+        </div>
+
+        <!-- Leadership Team Section -->
+        <div class="section">
+            <h2 style="color: #800020;">Our Services</h2>
+            <div class="team-member">
+                <h3 style="color: #800020;">John Doe</h3>
+                <p>Co-Founder and CEO, a seasoned C-level executive with three successful startups and an expert in Jobs to Be Done.</p>
+            </div>
+            <div class="team-member">
+                <h3 style="color: #800020;">Jane Smith</h3>
+                <p>Co-Founder, CEO of ReWired Group, a pioneer in Jobs to Be Done and serial founder with seven ventures.</p>
+            </div>
+            <div class="team-member">
+                <h3 style="color: #800020;">David Randall (DR)</h3>
+                <p>Founding Product Manager with extensive experience in Fortune 500 and startup environments as PM, designer, and researcher.</p>
+            </div>
+            <div class="team-member">
+                <h3 style="color: #800020;">Petrus J.v. Rensburg</h3>
+                <p>Founding Engineer, full-stack developer, with multiple CTO roles and founder experience.</p>
+            </div>
+        </div>
+
+        <!-- Call to Action Button -->
+        <a href="#contact" class="button" style="background-color: #800020;">Get in Touch</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Script running');
+            const currentPage = document.getElementById('current-page');
+            if (currentPage) {
+                console.log('Found current-page element');
+                currentPage.textContent = 'Swizzl AI';
+            } else {
+                console.log('Could not find current-page element');
+            }
+        });
+    </script>
+</body>
+</html>
