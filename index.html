@@ -255,6 +255,10 @@
       .blue-steele-hero-text {
         text-align: center;
       }
+
+      .blue-steele-hero-text h1 {
+        font-size: 2rem;
+      }
     }
 
     /* Wave background container */
@@ -539,6 +543,36 @@
     @media (max-width: 768px) {
       .testimonials-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    /* Update hero section spacing and logo size for mobile */
+    @media (max-width: 768px) {
+      .blue-steele-hero {
+        padding: 2rem 1rem; /* Reduced from 4rem 2rem */
+      }
+
+      .blue-steele-hero-text img {
+        height: 45px; /* Reduced from 60px */
+        margin-bottom: 1.5rem; /* Reduced from 2rem */
+      }
+    }
+
+    /* Add mobile-specific styles */
+    @media (max-width: 768px) {
+      .blue-steele-section {
+        padding: 1rem 0.5rem; /* Significantly reduced padding */
+      }
+      
+      .blue-steele-blockquote {
+        padding: 0.5rem 0;
+        border-left: none;
+      }
+      
+      .blue-steele-blockquote p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
       }
     }
   </style>
