@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Design Previews</title>
-  <!-- Google Font -->
+  <title>Blue Steele</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Actor:wght@400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&display=swap');
 
-    /* Root variables */
+    /* Root Variables */
     :root {
-      --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --default-font-family: 'Montserrat', sans-serif;
     }
 
-    /* Reset and basic styles */
+    /* Reset and Basic Styles */
     * {
       margin: 0;
       padding: 0;
@@ -24,100 +24,763 @@
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--default-font-family);
+      background-color: #f5f5f5;
+      color: #333;
       position: relative;
-      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding-bottom: 200px;
     }
 
-    /* Sticky header */
-    .header {
-      position: sticky;
-      top: 0;
-      background-color: #ffffff;
-      padding: 15px 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* New styles for the centered title */
-    .header-title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-weight: 500;
-      font-size: 18px;
-    }
-
-    .back-link {
-      text-decoration: none;
-      color: #007bff;
-      font-size: 20px;
-    }
-
-    .back-link:hover {
-      color: #0056b3;
-    }
-
-    /* Main content */
+    /* Container */
     .container {
       padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
+
+    /* Blue Steele Styles */
+    .blue-steele-header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #f8f8f8;
+    }
+
+    .blue-steele-hero-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .blue-steele-header h1 {
+      font-size: 2.5rem;
+      color: #222;
+    }
+
+    .blue-steele-header p {
+      max-width: 600px;
+      margin: 1rem auto;
+      color: #555;
+    }
+
+    .blue-steele-button {
+      display: inline-block;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #4361ee, #7209b7);
+      border: none;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+    }
+
+    .blue-steele-button:hover {
+      opacity: 0.9;
+    }
+
+    .blue-steele-main {
+      padding: 0 1rem;
+    }
+
+    .blue-steele-section {
+      margin-bottom: 2rem;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    /* Update the quote section background to semi-transparent black */
+    .blue-steele-section:nth-of-type(1) {
+      background: rgba(78, 47, 154  , 0.1); /* 50% opacity black */
+    }
+
+    .blue-steele-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .blue-steele-blockquote {
+      max-width: 800px;
+      margin: 0;
+      padding: 1.5rem;
+      font-style: italic;
+      color: #666;
+      border-left: 4px solid;
+      border-image: linear-gradient(to bottom, #4361ee, #7209b7) 1;
+      text-align: left;
+    }
+
+    .blue-steele-blockquote p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .blue-steele-blockquote p:last-child {
+      margin-bottom: 0;
+    }
+
+    .blue-steele-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .blue-steele-step {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .blue-steele-step:hover {
+      transform: translateY(-5px);
+    }
+
+    .blue-steele-step img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+
+    .blue-steele-step h3 {
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .blue-steele-step p {
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .blue-steele-steps {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .blue-steele-ul {
+      list-style: none;
+      padding: 0;
       max-width: 800px;
       margin: 0 auto;
     }
 
-    /* Button List */
-    .button-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .blue-steele-ul li {
+      margin: 1rem 0;
+      font-size: 1rem;
+      text-align: left;
     }
 
-    .button-list a {
-      display: block;
-      padding: 15px 25px;
-      background: linear-gradient(45deg, #6a11cb, #2575fc);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 500;
+    .blue-steele-testimonial {
+      max-width: 600px;
+      margin: 1rem auto;
+      background: #e9ecef;
+      padding: 1.5rem;
+      border-radius: 6px;
+    }
+
+    .blue-steele-footer {
       text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-      max-width: 300px;
+      padding: 4rem 2rem;
+      background: #1a0033;
+      color: #fff;
       width: 100%;
+      min-height: 200px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
-    .button-list a:hover {
+    .blue-steele-hero {
+      padding: 4rem 2rem;
+      background-color: #f8f8f8;
+    }
+
+    .blue-steele-hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .blue-steele-hero-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .blue-steele-hero-text h1 {
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 1.5rem;
+    }
+
+    .blue-steele-hero-text p {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .blue-steele-hero-image {
+      flex: 1;
+    }
+
+    .blue-steele-hero-image img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 768px) {
+      .blue-steele-hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      
+      .blue-steele-hero-text {
+        text-align: center;
+      }
+    }
+
+    /* Wave background container */
+    .wave-background {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Individual waves */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: cover;
+      opacity: 0.1;
+    }
+
+    /* Wave 1 settings */
+    .wave-1 {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%234361ee' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      height: 20vh;
+      transform: translateY(5%);
+    }
+
+    /* Wave 2 settings */
+    .wave-2 {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%237209b7' d='M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,128C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      height: 25vh;
+      transform: translateY(10%);
+    }
+
+    /* Add these styles in the <style> section */
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sticky-header.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-header img {
+      height: 40px;
+      width: auto;
+    }
+
+    .blue-steele-hero-text img {
+      height: 60px;
+      width: auto;
+      margin-bottom: 2rem;
+    }
+
+    .blue-steele-quote-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .blue-steele-quote-image {
+      flex: 1;
+      width: 300px;
+    }
+
+    .blue-steele-quote-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .blue-steele-quote-container {
+        flex-direction: column;
+      }
+      
+      .blue-steele-quote-image {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    .blue-steele-quote-content {
+      flex: 1;
+    }
+
+    .blue-steele-quote-content h2 {
+      text-align: center;  /* Center the heading */
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .blue-steele-quote-content h2 {
+        text-align: center;  /* Center heading on mobile */
+      }
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+
+    .team-card h3 {
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-title {
+      color: #4361ee;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .team-details {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .team-details li {
+      margin: 0.5rem 0;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+    }
+
+    /* Add this to your CSS styles section */
+    .social-links {
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: #0077b5; /* LinkedIn blue */
+      font-size: 1.5rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .social-links a:hover {
+      opacity: 0.8;
+    }
+
+    .book-section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .book-section h2 {
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    .book-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .book-container img {
+      height: 300px;
+      width: auto;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-container img:hover {
+      transform: translateY(-5px);
+    }
+
+    @media (max-width: 768px) {
+      .book-container img {
+        height: 250px;
+      }
+    }
+
+    /* Add this to your CSS */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    #book-demo {
+      scroll-margin-top: 100px; /* Adjusts for the sticky header */
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .testimonial-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 3px solid #4361ee;
+    }
+
+    .testimonial-name {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-title {
+      color: #4361ee;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Update header HTML -->
-  <header class="header">
-    <a href="https://swizzl.club" class="back-link">
-      <i class="fas fa-arrow-left"></i>
-    </a>
-    <div class="header-title">Website Redesigns</div>
-    <!-- Empty div to maintain flex spacing -->
-    <div style="width: 20px;"></div>
+
+  <!-- This should be the very first element after <body> -->
+  <header class="sticky-header">
+    <img src="mainimg/logo.png" alt="Swizzl Logo">
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <!-- Button List -->
-    <div class="button-list">
-      <a href="le_tigre.html">Le Tigre</a>
-      <a href="blue_steele.html">Blue Steele</a>
-      <a href="magnum.html">Magnum</a>
-      <a href="currentsite.html">Current Site</a>
-      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=573%3A75&node-id=573-76&node-type=frame&viewport=671%2C1190%2C0.31&t=I15T2cUbpaTuJY18-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=573%3A76" target="_blank">Ecommerce Figma</a>
-      <a href="https://www.figma.com/proto/OPWnPh8h91sKHwypKZWOtq/Swizzl-Website%2FPitch?page-id=94%3A6035&node-id=509-5113&node-type=frame&viewport=160%2C-1696%2C0.19&t=jU0QQQeaHboAmlkE-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=509%3A5113" target="_blank">Andrew's Redesign</a>
-    </div>
+  <!-- Wave Background -->
+  <div class="wave-background">
+    <div class="wave wave-1"></div>
+    <div class="wave wave-2"></div>
   </div>
+
+  <!-- Blue Steele Content -->
+  <div class="container">
+
+    <!-- Hero Section -->
+    <section class="blue-steele-hero">
+      <div class="blue-steele-hero-content">
+        <div class="blue-steele-hero-text">
+          <img src="mainimg/logo.png" alt="Swizzl Logo">
+          <h1>Fix the Broken Handoff Between Marketing and Sales</h1>
+          <p>We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.</p>
+          <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+        </div>
+        <div class="blue-steele-hero-image">
+          <img src="mainimg/handoff.png" alt="Marketing to Sales Handoff Illustration">
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="blue-steele-main">
+      <!-- Does This Sound Like You? -->
+      <section class="blue-steele-section">
+        <div class="blue-steele-quote-container">
+          <div class="blue-steele-quote-image">
+            <img src="mainimg/frustrated.png" alt="Frustrated Sales Manager">
+          </div>
+          <div class="blue-steele-quote-content">
+            <h2>Does This Sound Like You?</h2>
+            <blockquote class="blue-steele-blockquote">
+              <p>"Marketing's sending us leads, sure, but they're tossing them over the fence with <strong>no context</strong>. We get these names, but there's zero clarity on who's actually worth our time! We have to spend a ton of time just figuring out if someone's even serious—it's like we're guessing half the time.</p>
+              <p>The real kicker? We have no idea why these people are here in the first place. Why are they looking at our product? What's driving them? That's the gold we need to actually close, and that's the most valuable insight that only my top salespeople uncover consistently."</p>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- How Swizzl Connects Sales and Marketing -->
+      <section class="blue-steele-section">
+        <h2>How Swizzl Connects Sales and Marketing</h2>
+        <div class="blue-steele-steps">
+          <div class="blue-steele-step">
+            <img src="mainimg/qualify.png" alt="Qualify Icon">
+            <h3>1. Qualify</h3>
+            <p>We weed out those who won't buy.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="mainimg/accelerate.png" alt="Accelerate Icon">
+            <h3>2. Accelerate</h3>
+            <p>We accelerate interested but hesitant prospects.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="mainimg/wintrust.png" alt="Win Trust Icon">
+            <h3>3. Win Trust</h3>
+            <p>We provide you with the "why" before the first call.</p>
+          </div>
+        </div>
+        <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+      </section>
+
+      <!-- How We Do It -->
+      <section class="blue-steele-section">
+        <h2>Why It Works</h2>
+        <div class="blue-steele-steps">
+          <div class="blue-steele-step">
+            <img src="mainimg/qualify.png" alt="Expertise Icon">
+            <h3>Relevant Expertise</h3>
+            <p>Deep expertise in marketing, performance sales, and product design.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="mainimg/qualify.png" alt="Models Icon">
+            <h3>Customer Motivation Models</h3>
+            <p>Proprietary models that describe buying decisions.</p>
+          </div>
+          <div class="blue-steele-step">
+            <img src="mainimg/qualify.png" alt="AI Icon">
+            <h3>Bleeding-Edge AI</h3>
+            <p>Supercharged and scalable AI-driven insights.</p>
+          </div>
+        </div>
+        <p>Don't let valuable leads slip through the cracks...</p>
+        <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="blue-steele-section">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <img src="mainimg/dane.jpg" alt="Dane - Sales Director">
+            <div class="testimonial-content">
+              <p class="testimonial-name">Dane</p>
+              <p class="testimonial-title">Sales Director</p>
+              <p class="testimonial-text">"Swizzl has completely transformed our sales process. We've cut both our number of calls and time per call in half. Starting each conversation with the context Swizzl provides is like beginning on second base - I can't imagine going back to cold calls without our Swizzl sales sheets."</p>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <img src="mainimg/kyle.jpg" alt="Kyle - Sales Manager">
+            <div class="testimonial-content">
+              <p class="testimonial-name">Kyle</p>
+              <p class="testimonial-title">Sales Manager</p>
+              <p class="testimonial-text">"What impresses me most about Swizzl is how it elevates our entire team's performance. It combines proven sales tactics in such an elegant way that even our newer reps are performing like veterans. It's like having our best practices automated and standardized across the board."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Our Team -->
+      <section class="blue-steele-section">
+        <h2>Our Team</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <img src="mainimg/andrew.png" alt="Andrew Glaser">
+            <h3>Andrew Glaser</h3>
+            <p class="team-title">Co-Founder, CEO</p>
+            <ul class="team-details">
+              <li>Jobs to Be Done Expert</li>
+              <li>C-level exec, CPO, CMO</li>
+              <li>3x founder</li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/glaserandrew/" target="_blank" rel="noopener noreferrer" aria-label="Andrew Glaser's LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-card">
+            <img src="mainimg/bob.png" alt="Bob Moesta">
+            <h3>Bob Moesta</h3>
+            <p class="team-title">Co-Founder</p>
+            <ul class="team-details">
+              <li>CEO ReWired Group</li>
+              <li>Original creator of JTBD</li>
+              <li>7x founder</li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/bobmoesta/" target="_blank" rel="noopener noreferrer" aria-label="Bob Moesta's LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-card">
+            <img src="mainimg/dr.png" alt="David Randall">
+            <h3>David Randall (DR)</h3>
+            <p class="team-title">Founding PM</p>
+            <ul class="team-details">
+              <li>PM/Designer/Researcher</li>
+              <li>VP/Director roles</li>
+              <li>Startup & F500 exp</li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/davidkrandall/" target="_blank" rel="noopener noreferrer" aria-label="David Randall's LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="team-card">
+            <img src="mainimg/petrus.png" alt="Petrus J.v. Rensburg">
+            <h3>Petrus J.v. Rensburg</h3>
+            <p class="team-title">Founding Engineer</p>
+            <ul class="team-details">
+              <li>Full Stack Engineer</li>
+              <li>3x Founder & 2x CTO</li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/petrus-janse-van-rensburg-0517a7223/" target="_blank" rel="noopener noreferrer" aria-label="Petrus J.v. Rensburg's LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add the Books Section here, before the footer -->
+      <section class="blue-steele-section">
+        <h2>Read About Our Work</h2>
+        <div class="book-container">
+          <a href="https://www.goodreads.com/book/show/28820024-competing-against-luck" target="_blank" rel="noopener noreferrer">
+            <img src="mainimg/competingagainstluck.jpg" alt="Competing Against Luck book cover">
+          </a>
+          <a href="https://www.goodreads.com/book/show/55345571-demand-side-sales-101" target="_blank" rel="noopener noreferrer">
+            <img src="mainimg/demandsidesales101.jpg" alt="Demand-Side Sales 101 book cover">
+          </a>
+          <a href="https://www.goodreads.com/book/show/62011047-learning-to-build" target="_blank" rel="noopener noreferrer">
+            <img src="mainimg/learningtobuild.jpg" alt="Learning to Build book cover">
+          </a>
+        </div>
+      </section>
+
+      <!-- Add this section before the footer -->
+      <section id="book-demo" class="blue-steele-section">
+        <iframe 
+          class="airtable-embed" 
+          src="https://airtable.com/embed/app2CvT0zLz3NKATS/pagOwJANtJC6ppY46/form" 
+          frameborder="0" 
+          onmousewheel="" 
+          width="100%" 
+          height="533" 
+          style="background: transparent; border: 1px solid #ccc;">
+        </iframe>
+      </section>
+    </main>
+  </div> <!-- end of container -->
+
+  <footer class="blue-steele-footer">
+    <p>&copy; 2024 Swizzl. All rights reserved.</p>
+  </footer>
+
+
+  <script>
+    // Add this console.log to help debug
+    console.log('Scroll script loaded');
+    
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.sticky-header');
+      // Add this console.log to help debug
+      console.log('Scrolling', window.scrollY);
+      
+      if (window.scrollY > 300) {
+        header.classList.add('visible');
+      } else {
+        header.classList.remove('visible');
+      }
+    });
+  </script>
 </body>
 </html>
