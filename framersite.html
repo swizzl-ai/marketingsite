@@ -42,6 +42,8 @@
     .breadcrumb {
       display: flex;
       align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
     .breadcrumb a {
@@ -59,14 +61,19 @@
       color: #555555;
     }
 
-    .home-icon {
+    .back-icon {
+      position: absolute;
+      left: 0;
       font-size: 20px;
-      margin-right: 10px;
       color: #007bff;
     }
 
-    .home-icon:hover {
+    .back-icon:hover {
       color: #0056b3;
+    }
+
+    .page-title {
+      font-weight: 500;
     }
 
     /* Fullscreen iframe */
@@ -87,14 +94,14 @@
   <!-- Sticky Header with Breadcrumb -->
   <header class="header">
     <nav class="breadcrumb">
-      <a href="index.html" class="home-icon"><i class="fas fa-home"></i></a>
-      <span>Current Site</span>
+      <a href="design_options.html" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+      <span class="page-title">Framer Site</span>
     </nav>
   </header>
 
   <!-- Fullscreen Iframe Content -->
   <div class="iframe-container">
-    <iframe src="https://swizzl.ai"></iframe>
+    <iframe src="/swizzl_old/index.html"></iframe>
   </div>
 
 </body>
