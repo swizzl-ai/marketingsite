@@ -21,6 +21,17 @@
   <meta name="twitter:description" content="We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.">
   <meta name="twitter:image" content="https://swizzl.ai/mainimg/opengraph.png">
 
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0HSCNVRH95"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0HSCNVRH95');
+</script>
+
   <style>
     /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
@@ -820,9 +831,9 @@
     // Add this console.log to help debug
     console.log('Scroll script loaded');
     
+    // Sticky header functionality
     window.addEventListener('scroll', () => {
       const header = document.querySelector('.sticky-header');
-      // Add this console.log to help debug
       console.log('Scrolling', window.scrollY);
       
       if (window.scrollY > 300) {
@@ -830,6 +841,17 @@
       } else {
         header.classList.remove('visible');
       }
+    });
+
+    // Track "Book a Demo" button clicks
+    document.querySelectorAll('.blue-steele-button').forEach(button => {
+      button.addEventListener('click', () => {
+        gtag('event', 'click', {
+          'event_category': 'Button',
+          'event_label': 'Book a Demo'
+        });
+        console.log('Demo button clicked - GA event sent'); // Debug log
+      });
     });
   </script>
 </body>
