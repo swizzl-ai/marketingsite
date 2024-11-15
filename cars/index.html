@@ -6,21 +6,22 @@
     <meta name="zoom-domain-verification" content="ZOOM_verify_qJ3epvipIKq2BKLwYhBSx6">
     <title>Redirect Test</title>
     <script>
-        // Check if the user has already been redirected
-        if (!sessionStorage.getItem('abTestRedirect')) {
+        window.onload = function() {
+            // Check if the user has already been redirected
+            var previousRedirect = sessionStorage.getItem('abTestRedirect');
+            
+            if (previousRedirect) {
+                // If there's a previous redirect, go there
+                window.location.href = previousRedirect;
+                return;
+            }
+
             // Define the pages and their respective probabilities
             var pages = [
                 { url: "a.html", probability: 50 }, // 50%
                 { url: "b.html", probability: 25 }, // 25%
                 { url: "c.html", probability: 25 }  // 25%
             ];
-
-            // Ensure probabilities add up to 100
-            var totalProbability = pages.reduce((sum, page) => sum + page.probability, 0);
-            if (totalProbability !== 100) {
-                console.error("Probabilities must add up to 100.");
-                return;
-            }
 
             // Generate a random number between 0 and 100
             var random = Math.random() * 100;
@@ -32,13 +33,12 @@
                 if (random <= cumulativeProbability) {
                     // Store the selected page in sessionStorage
                     sessionStorage.setItem('abTestRedirect', pages[i].url);
-
                     // Redirect the user
                     window.location.href = pages[i].url;
                     break;
                 }
             }
-        }
+        };
     </script>
 </head>
 <body>
