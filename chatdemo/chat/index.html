@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat - Chatbot Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+        
+        :root {
+            --default-font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--default-font-family);
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: 100vh;
+        }
+
+        .left-column {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #chat-window {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        #input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px 20px;
+            border-radius: 4px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .back-arrow {
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            height: 24px;
+        }
+
+        .back-arrow:hover {
+            color: #666;
+        }
+
+        .widget-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .widget-title {
+            font-weight: 500;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        .widget-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .widget-option {
+            padding: 15px 20px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .widget-option:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-grid">
+        <div class="left-column">
+            <div class="header-container">
+                <a href="../index.html" class="back-arrow">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <img src="../img/logo.png" alt="Logo" class="logo">
+            </div>
+            <p>Answer the questions that can get you into your next car faster</p>
+        </div>
+        
+        <div class="right-column">
+            <div id="chat-window"></div>
+            <div id="input-area">
+                <input type="text" id="user-input" placeholder="Type a message..." />
+                <button onclick="handleSend()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function handleInitialQuestion() {
+            const initialQuestion = getUrlParameter('question');
+            if (initialQuestion) {
+                const decodedQuestion = decodeURIComponent(initialQuestion);
+                appendMessage('You', decodedQuestion, 'user-message', 'user');
+                
+                handleBotResponse(decodedQuestion);
+            }
+        }
+
+        window.onload = handleInitialQuestion;
+
+        function handleSend() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                appendMessage('You', message, 'user-message', 'user');
+                input.value = '';
+                handleBotResponse(message);
+            }
+        }
+
+        function handleBotResponse(message) {
+            if (message.toLowerCase().includes('help') && message.toLowerCase().includes('decid')) {
+                setTimeout(() => {
+                    appendWidget();
+                }, 1000);
+            } else if (message.toLowerCase().includes('available') || message.toLowerCase().includes('looking for')) {
+                setTimeout(() => {
+                    appendCarsWidget();
+                }, 1000);
+            } else if (message.toLowerCase().includes('car in mind')) {
+                setTimeout(() => {
+                    appendSpecificCarWidget();
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    appendMessage('Bot', 'This is a sample response.', 'bot-message', 'bot');
+                }, 1000);
+            }
+        }
+
+        async function appendCarsWidget() {
+            const chatWindow = document.getElementById('chat-window');
+            const widgetDiv = document.createElement('div');
+            widgetDiv.className = 'widget-container';
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = '../widgets/cars.html';
+            iframe.style.width = '100%';
+            iframe.style.height = '399px';
+            iframe.style.border = 'none';
+            iframe.scrolling = 'no';  // Disable scrolling
+            
+            const followUpText = document.createElement('div');
+            followUpText.className = 'widget-title';
+            followUpText.style.marginTop = '15px';
+            followUpText.textContent = 'Which of these do you like?';
+            
+            widgetDiv.appendChild(iframe);
+            widgetDiv.appendChild(followUpText);
+            chatWindow.appendChild(widgetDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function appendWidget() {
+            const chatWindow = document.getElementById('chat-window');
+            const widgetDiv = document.createElement('div');
+            widgetDiv.className = 'widget-container';
+            
+            // Create the widget structure
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'widget-title';
+            titleDiv.innerHTML = 'As you consider this car, what are you most focused on?<br>Select all that apply';
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'widget-options';
+            
+            const options = [
+                'I\'m focused on reliability or hitting a budget for something that just gets me from point a to b',
+                'Understanding what compromises I\'ll have to make to meet my new functional needs.',
+                'Figuring out a car that really matches who I am and my image.',
+                'Finding a car that reflects a specific group or lifestyle that I want to align myself with.'
+            ];
+            
+            options.forEach(optionText => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'widget-option';
+                optionDiv.textContent = optionText;
+                optionDiv.addEventListener('click', () => handleOptionClick(optionText));
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            widgetDiv.appendChild(titleDiv);
+            widgetDiv.appendChild(optionsDiv);
+            chatWindow.appendChild(widgetDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function handleOptionClick(response) {
+            appendMessage('You', response, 'user-message', 'user');
+            setTimeout(() => {
+                appendMessage('Bot', 'Thank you for sharing that. Let me help you find the right car based on your priorities.', 'bot-message', 'bot');
+            }, 1000);
+        }
+
+        function appendMessage(sender, text, className, senderClass) {
+            const chatWindow = document.getElementById('chat-window');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.textContent = text;
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // Handle Enter key
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+
+        async function appendSpecificCarWidget() {
+            const chatWindow = document.getElementById('chat-window');
+            const widgetDiv = document.createElement('div');
+            widgetDiv.className = 'widget-container';
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = '../widgets/specificcar.html';
+            iframe.style.width = '100%';
+            iframe.style.height = '450px';
+            iframe.style.border = 'none';
+            iframe.scrolling = 'no';  // Disable scrolling
+            
+            widgetDiv.appendChild(iframe);
+            chatWindow.appendChild(widgetDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<div class="car-selector-container">
+    <h2 class="selector-header">Which car is it?</h2>
+    <div class="input-group">
+        <select class="car-make-select" placeholder="Select Car Make">
+            <option value="">Select Car Make</option>
+            <option value="acura">Acura</option>
+            <option value="audi">Audi</option>
+            <option value="bmw">BMW</option>
+            <option value="chevrolet">Chevrolet</option>
+            <option value="dodge">Dodge</option>
+            <option value="ford">Ford</option>
+            <option value="honda">Honda</option>
+            <option value="hyundai">Hyundai</option>
+            <option value="infiniti">Infiniti</option>  
+            <option value="jaguar">Jaguar</option>
+            <option value="kia">Kia</option>
+            <option value="lexus">Lexus</option>
+            <option value="mazda">Mazda</option>
+            <option value="mercedes">Mercedes-Benz</option>
+            <option value="nissan">Nissan</option>
+            <option value="porsche">Porsche</option>
+            <option value="subaru">Subaru</option>
+            <option value="tesla">Tesla</option>
+            <option value="toyota">Toyota</option>
+            <option value="volkswagen">Volkswagen</option>
+        </select>
+    </div>
+    
+    <div class="input-group">
+        <select class="car-model-select" placeholder="Select Car Model" disabled>
+            <option value="">Select Car Model</option>
+        </select>
+    </div>
+
+    <div class="follow-up-container" style="display: none;">
+        <h3 class="follow-up-question">How set are you on a <span class="selected-make"></span> <span class="selected-model"></span>?</h3>
+        <div class="follow-up-content">
+            <div class="car-image">
+                <img src="img/car1.jpg" alt="Car Image">
+            </div>
+            <div class="button-group">
+                <button class="choice-button" data-choice="firm">I only want this vehicle</button>
+                <button class="choice-button" data-choice="flexible">I'm open to similar options</button>
+                <button class="choice-button" data-choice="unsure">I'm not sure if this is what I want</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+.car-selector-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 0;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    flex-basis: 100%;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Increase size of Select2 elements */
+.select2-container .select2-selection--single {
+    height: 50px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 50px !important;
+    font-size: 20px !important;
+    padding-left: 15px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 48px !important;
+}
+
+/* Style dropdown items */
+.select2-results__option {
+    font-size: 20px !important;
+    padding: 10px 15px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Style the search box in dropdown */
+.select2-search__field {
+    font-size: 20px !important;
+    padding: 10px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Original select elements (as fallback) */
+select {
+    font-size: 20px;
+    height: 50px;
+}
+
+.selector-header {
+    width: 100%;
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    color: #333;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.follow-up-container {
+    flex-basis: 100%;
+    text-align: left;
+}
+
+.follow-up-question {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.choice-button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.choice-button:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.follow-up-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.car-image {
+    flex: 0 0 300px;
+}
+
+.car-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.button-group {
+    flex: 1;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script>
+$(document).ready(function() {
+    // Initialize Select2 for searchable dropdowns
+    $('.car-make-select').select2();
+    $('.car-model-select').select2();
+
+    // Car models database
+    const carModels = {
+        'acura': ['ILX', 'TLX', 'RDX', 'MDX', 'NSX', 'Integra'],
+        'audi': ['A3', 'A4', 'A6', 'Q3', 'Q5', 'Q7', 'e-tron', 'RS5', 'RS7'],
+        'bmw': ['3 Series', '5 Series', '7 Series', 'X3', 'X5', 'M3', 'M5', 'i4', 'iX'],
+        'chevrolet': ['Malibu', 'Camaro', 'Corvette', 'Equinox', 'Tahoe', 'Silverado', 'Suburban', 'Blazer'],
+        'dodge': ['Challenger', 'Charger', 'Durango', 'Ram 1500', 'Journey', 'Grand Caravan'],
+        'ford': ['F-150', 'Mustang', 'Explorer', 'Escape', 'Edge', 'Bronco', 'Ranger', 'Mach-E'],
+        'honda': ['Civic', 'Accord', 'CR-V', 'Pilot', 'HR-V', 'Odyssey', 'Ridgeline', 'Passport'],
+        'hyundai': ['Elantra', 'Sonata', 'Tucson', 'Santa Fe', 'Palisade', 'Kona', 'IONIQ', 'Venue'],
+        'infiniti': ['Q50', 'Q60', 'QX50', 'QX60', 'QX80', 'QX55'],
+        'jaguar': ['XE', 'XF', 'F-PACE', 'E-PACE', 'I-PACE', 'F-TYPE'],
+        'kia': ['Forte', 'K5', 'Sportage', 'Telluride', 'Soul', 'Seltos', 'Carnival', 'EV6'],
+        'lexus': ['IS', 'ES', 'LS', 'RX', 'NX', 'GX', 'LX', 'LC', 'RC'],
+        'mazda': ['Mazda3', 'Mazda6', 'CX-30', 'CX-5', 'CX-9', 'MX-5 Miata', 'CX-50'],
+        'mercedes': ['C-Class', 'E-Class', 'S-Class', 'GLC', 'GLE', 'GLS', 'EQS', 'AMG GT'],
+        'nissan': ['Altima', 'Maxima', 'Sentra', 'Rogue', 'Murano', 'Pathfinder', 'Leaf', 'Z'],
+        'porsche': ['911', 'Cayenne', 'Macan', 'Panamera', 'Taycan', '718 Cayman', '718 Boxster'],
+        'subaru': ['Impreza', 'Legacy', 'Outback', 'Forester', 'Crosstrek', 'Ascent', 'WRX', 'BRZ'],
+        'tesla': ['Model 3', 'Model Y', 'Model S', 'Model X', 'Cybertruck'],
+        'toyota': ['Camry', 'Corolla', 'RAV4', 'Highlander', 'Prius', '4Runner', 'Tundra', 'Supra', 'bZ4X'],
+        'volkswagen': ['Jetta', 'Passat', 'Tiguan', 'Atlas', 'ID.4', 'Golf GTI', 'Taos', 'Arteon']
+    };
+
+    // Update the checkShowButton function
+    function checkShowButton() {
+        const makeSelected = $('.car-make-select').val();
+        const modelSelected = $('.car-model-select').val();
+        
+        if (makeSelected && modelSelected) {
+            // Capitalize the make name
+            const capitalizedMake = makeSelected.charAt(0).toUpperCase() + makeSelected.slice(1);
+            $('.selected-make').text(capitalizedMake);
+            $('.selected-model').text(modelSelected);
+            $('.follow-up-container').show();
+        } else {
+            $('.follow-up-container').hide();
+        }
+    }
+
+    // Make sure we're calling checkShowButton on both make and model changes
+    $('.car-make-select').on('change', function() {
+        const selectedMake = $(this).val();
+        const modelSelect = $('.car-model-select');
+        
+        modelSelect.empty().append('<option value="">Select Car Model</option>');
+        
+        if (selectedMake) {
+            modelSelect.prop('disabled', false);
+            if (carModels[selectedMake]) {
+                carModels[selectedMake].forEach(model => {
+                    modelSelect.append(`<option value="${model}">${model}</option>`);
+                });
+            }
+        } else {
+            modelSelect.prop('disabled', true);
+        }
+        
+        checkShowButton();
+    });
+
+    $('.car-model-select').on('change', function() {
+        checkShowButton();
+    });
+});
+</script>

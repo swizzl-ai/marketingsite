@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Cards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 230, 240, 0.5), rgba(230, 230, 255, 0.5));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            gap: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: fit-content;
+            overflow: hidden;
+            flex: 0 0 auto;
+            position: relative;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+        .card-content {
+            padding: 16px;
+        }
+        .card-content h2 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            margin: 0 0 16px;
+        }
+        .card-content p {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 400;
+            margin: 4px 0;
+        }
+        .price {
+            font-weight: 700;
+            color: #007bff;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .info-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .info-line p {
+            margin: 0;
+        }
+        .status-pill {
+            position: static;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-used {
+            background-color: #f08080;
+            color: white;
+        }
+        .status-new {
+            background-color: #7cb083;
+            color: white;
+        }
+        .status-demo {
+            background-color: #6b9dc9;
+            color: white;
+        }
+        .location {
+            font-size: 0.9em;
+            color: #666;
+            margin: 0;
+        }
+        .location a {
+            color: #666;
+            text-decoration: none;
+        }
+        .location a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="img/car1.jpg" alt="Kia Soul">
+        <div class="card-content">
+            <h2>2024 Kia Soul LX</h2>
+            <p><span class="price">$18,022</span></p>
+            <div class="info-line">
+                <p>0 mi.</p>
+                <span class="status-pill status-new">New</span>
+            </div>
+            <p class="location">
+                <i class="fas fa-location-dot"></i>
+                <a href="https://maps.app.goo.gl/e3sTVrsQo2gkJBBW7" target="_blank">Ricart Used Car Factory</a>
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="img/car2.jpg" alt="Honda Civic">
+        <div class="card-content">
+            <h2>2023 Honda Civic EX</h2>
+            <p><span class="price">$22,500</span></p>
+            <div class="info-line">
+                <p>12,000 mi.</p>
+                <span class="status-pill status-used">Used</span>
+            </div>
+            <p class="location">
+                <i class="fas fa-location-dot"></i>
+                <a href="https://maps.app.goo.gl/e3sTVrsQo2gkJBBW7" target="_blank">Main Street Auto</a>
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <img src="img/car3.jpg" alt="Toyota Corolla">
+        <div class="card-content">
+            <h2>2022 Toyota Corolla SE</h2>
+            <p><span class="price">$19,800</span></p>
+            <div class="info-line">
+                <p>8,500 mi.</p>
+                <span class="status-pill status-demo">Demo</span>
+            </div>
+            <p class="location">
+                <i class="fas fa-location-dot"></i>
+                <a href="https://maps.app.goo.gl/e3sTVrsQo2gkJBBW7" target="_blank">Premium Auto Mall</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
