@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting People In - Swizzl Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .panels {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .panel {
+            flex: 1;
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Text Message Styling */
+        .text-interface {
+            padding: 1rem;
+            background: #000000;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-header {
+            padding: 2rem 1rem 1rem;
+            background: #1a1a1a;
+            border-radius: 12px 12px 0 0;
+            margin: -1rem -1rem 0 -1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+
+        .text-header::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -5px;
+            width: 40px;
+            height: 5px;
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .text-body {
+            flex-grow: 1;
+            background: #000000;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .message-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 1rem 0;
+        }
+
+        .message {
+            background: #0c84fe;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 1.2rem;
+            margin: 0.2rem 0;
+            max-width: 80%;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            position: relative;
+            align-self: flex-end;
+        }
+
+        .message a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+
+        .contact-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            background: #333;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Email Interface Styling */
+        .email-interface {
+            padding: 1rem;
+        }
+
+        .email-header {
+            padding: 1rem;
+            background: #334155;
+            border-radius: 12px 12px 0 0;
+            margin: -1rem -1rem 1rem -1rem;
+        }
+
+        .email-subject {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+
+        .email-content {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .panels {
+                flex-direction: column;
+            }
+
+            .panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Overview</a>
+        
+        <div class="panels">
+            <!-- Text Message Panel -->
+            <div class="panel">
+                <div class="text-interface">
+                    <div class="text-header">
+                        <div class="contact-header">
+                            <div class="contact-avatar">🚗</div>
+                            <div class="contact-name">Car Dealer</div>
+                        </div>
+                    </div>
+                    <div class="text-body">
+                        <div class="message-container">
+                            <div class="timestamp">Today 10:30 AM</div>
+                            <div class="message-group">
+                                <div class="message">
+                                    We know that a vehicle is the second largest purchase only behind a home. It's normal to be filled with excitement and some anxiety. This short survey will start to uncover what's driving you and the tradeoffs that will make you the happiest. This will take about 5 minutes.
+                                </div>
+                                <div class="message">
+                                    <a href="https://cars.swizzl.ai">https://cars.swizzl.ai</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Panel -->
+            <div class="panel">
+                <div class="email-interface">
+                    <div class="email-header">
+                        <div><strong>From:</strong> Car Dealer</div>
+                        <div class="email-subject">David, let's choose the right car... not just the next one</div>
+                    </div>
+                    <div class="email-content">
+                        <div style="font-family: Arial, sans-serif; color: #333333; margin: 0; padding: 0; background-color: #f7f7f7; text-align: center; box-sizing: border-box;">
+                            <div style="width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; text-align: center; box-sizing: border-box;">
+                                <div style="width: 100%; max-width: 600px; max-height: 300px; overflow: hidden;">
+                                    <img src="https://raw.githubusercontent.com/swizzl-ai/m1-product-type-widget/b22633544512d719104895e1dd76adc418828a0d/carsemailhero.png?token=GHSAT0AAAAAACZJ25DJ2W3UMJTYQ6QTKVRMZZL2J4Q" alt="Hero Image" style="width: 100%; object-fit: cover;">
+                                </div>
+                                <div style="font-size: 18px; line-height: 1.6; margin: 20px 0; text-align: left; box-sizing: border-box;">
+                                    David,<br><br>
+                                    We know that a vehicle is the second largest purchase only behind a home. It's normal to be filled with excitement and some anxiety. At Martin Honda we believe in being consultants and not just sales people. Working together we can find the perfect vehicle for you, and not just the next one.<br><br>
+                                    This short survey will start to uncover what's driving you and the tradeoffs that will make you the happiest.<br><br>
+                                    This will take about 5 minutes.
+                                </div>
+                                <a href="https://cars.swizzl.ai/?airtableid=1001Da47" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: #ffffff !important; text-decoration: none; border-radius: 5px; font-size: 18px; margin-top: 20px;">Start Survey</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

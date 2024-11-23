@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swizzl User Flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-1: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-2: linear-gradient(135deg, #3b82f6, #2dd4bf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header.site-header {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content img {
+            height: 40px;
+            width: auto;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stages {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stage {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .stage.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stage-number {
+            font-size: 5rem;
+            font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: 80px;
+            flex-shrink: 0;
+            text-align: center;
+            margin-top: -0.5rem;
+        }
+
+        .stage-content {
+            flex-grow: 1;
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .stage-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .stage-description {
+            color: #94a3b8;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .stage-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .stage-link:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 850px) {
+            .stage {
+                width: 100%;
+                padding: 0 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stage {
+                flex-direction: column;
+                align-items: center;
+                margin: 3rem 0;
+                padding: 0 1rem;
+            }
+
+            .stage-number {
+                font-size: 4rem;
+                width: auto;
+                margin-bottom: 1rem;
+                margin-top: 0;
+            }
+
+            .stage-content {
+                padding-left: 0;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .stage-description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <img src="../mainimg/headerlogo.png" alt="Swizzl Logo">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Swizzl User Flow</h1>
+        </div>
+
+        <div class="stages">
+            <div class="stage">
+                <div class="stage-number">1</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Getting People In</h2>
+                    <p class="stage-description">We send a link to the quiz via email or text.</p>
+                    <a href="getting-people-in.html" class="stage-link">View Messaging</a>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-number">2</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Defining Job & Fit</h2>
+                    <p class="stage-description">Customer Takes the Quiz</p>
+                    <a href="https://cars.swizzl.ai" class="stage-link">View Quiz</a>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-number">3</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Job & Fit Summary</h2>
+                    <p class="stage-description">Customers review and save their context summary and decide if they want to sign in to proceed to inventory.</p>
+                    <a href="job-fit-summary.html" class="stage-link">Context Sales Sheet</a>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-number">4</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Selecting Inventory</h2>
+                    <p class="stage-description">Customers select inventory suggestions based on their context.</p>
+                    <a href="https://ricart.swizzl.ai" class="stage-link">Inventory Demo</a>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-number">5</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Inventory Summary</h2>
+                    <p class="stage-description">Customers get updated context summaries with the inventory they have selected. Directed to dealership</p>
+                    <a href="inventory-summary.html" class="stage-link">Inventory Sales Sheet</a>
+                </div>
+            </div>
+
+            <div class="stage">
+                <div class="stage-number">6</div>
+                <div class="stage-content">
+                    <h2 class="stage-title">Connecting to Dealer</h2>
+                    <p class="stage-description">Dealer notified the person has completed the survey and can follow up.</p>
+                    <a href="dealer-connection.html" class="stage-link">View Messaging</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-in animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all stage elements
+        document.querySelectorAll('.stage').forEach((stage) => {
+            observer.observe(stage);
+        });
+    </script>
+</body>
+</html>
