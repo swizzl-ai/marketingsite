@@ -29,27 +29,18 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1rem 2rem;
         }
 
-        header.site-header {
-            background: rgba(15, 23, 42, 0.95);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(5px);
+        header {
+            text-align: center;
+            padding: 80px 0 1rem 0;
+            margin-bottom: 1rem;
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .header-content img {
-            height: 40px;
-            width: auto;
+        .logo {
+            width: 300px;
+            height: auto;
         }
 
         .hero {
@@ -175,16 +166,10 @@
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-content">
-            <img src="../mainimg/headerlogo.png" alt="Swizzl Logo">
-        </div>
-    </header>
-
     <div class="container">
-        <div class="hero">
-            <h1>Swizzl User Flow</h1>
-        </div>
+        <header>
+            <img src="../mainimg/logo.png" alt="Swizzl" class="logo">
+        </header>
 
         <div class="stages">
             <div class="stage">
