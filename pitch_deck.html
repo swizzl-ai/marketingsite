@@ -300,6 +300,32 @@
             font-size: 1.5rem;
             text-decoration: none;
         }
+
+        /* Print styles */
+        @media print {
+            body {
+                overflow: visible;
+                display: block;
+                background: none;
+            }
+            .wave, .navigation {
+                display: none !important;
+            }
+            .slide-container {
+                width: 100%;
+                height: auto;
+            }
+            .slide {
+                position: relative !important;
+                page-break-after: always;
+                display: block !important;
+                opacity: 1 !important;
+                transform: none !important;
+                margin: 0;
+                padding: 20px;
+                height: 100vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -502,6 +528,7 @@
     <div class="navigation">
         <button class="nav-button" onclick="previousSlide()">Previous</button>
         <button class="nav-button" onclick="nextSlide()">Next</button>
+        <button class="nav-button" onclick="printSlides()"><i class="fas fa-print"></i> Print</button>
     </div>
 
     <script>
@@ -530,6 +557,11 @@
                 currentSlide--;
                 showSlide(currentSlide);
             }
+        }
+
+        // Print function
+        function printSlides() {
+            window.print();
         }
 
         // Handle keyboard navigation
