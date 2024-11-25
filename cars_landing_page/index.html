@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="zoom-domain-verification" content="ZOOM_verify_qJ3epvipIKq2BKLwYhBSx6">
+    <title>Redirect Test</title>
+    <script>
+        window.onload = function() {
+            // Check if the user has already been redirected
+            var previousRedirect = sessionStorage.getItem('abTestRedirect');
+            
+            if (previousRedirect) {
+                // If there's a previous redirect, go there
+                window.location.href = previousRedirect;
+                return;
+            }
+
+            // Define the pages and their respective probabilities
+            var pages = [
+                { url: "a.html", probability: 50 }, // 50%
+                { url: "b.html", probability: 25 }, // 25%
+                { url: "c.html", probability: 25 }  // 25%
+            ];
+
+            // Generate a random number between 0 and 100
+            var random = Math.random() * 100;
+
+            // Determine which page to redirect to
+            var cumulativeProbability = 0;
+            for (var i = 0; i < pages.length; i++) {
+                cumulativeProbability += pages[i].probability;
+                if (random <= cumulativeProbability) {
+                    // Store the selected page in sessionStorage
+                    sessionStorage.setItem('abTestRedirect', pages[i].url);
+                    // Redirect the user
+                    window.location.href = pages[i].url;
+                    break;
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <!-- Content for users who may not be redirected (e.g., bots) -->
+    <p>If you're seeing this page, redirection may not have occurred.</p>
+</body>
+</html>

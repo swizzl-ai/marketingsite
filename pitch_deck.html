@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swizzl AI - Pitch Deck</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Add Open Graph Tags -->
+    <meta property="og:title" content="Swizzl AI - Pitch Deck">
+    <meta property="og:description" content="We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.">
+    <meta property="og:image" content="https://swizzl.ai/mainimg/opengraph.png">
+    <meta property="og:url" content="https://swizzl.ai">
+    <meta property="og:type" content="website">
+
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Actor:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400&display=swap');
+
+        :root {
+            --default-font-family: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--default-font-family);
+            background-color: #f5f5f5;
+            color: #333;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Wave Animation */
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('mainimg/wave.png');
+            background-size: 1000px 100px;
+            animation: animate 20s linear infinite;
+            z-index: -1;
+        }
+
+        .wave.wave1 {
+            opacity: 1;
+            animation-delay: 0s;
+            bottom: 0;
+        }
+
+        .wave.wave2 {
+            opacity: 0.5;
+            animation-delay: -5s;
+            bottom: 10px;
+        }
+
+        .wave.wave3 {
+            opacity: 0.2;
+            animation-delay: -2s;
+            bottom: 15px;
+        }
+
+        .wave.wave4 {
+            opacity: 0.7;
+            animation-delay: -5s;
+            bottom: 20px;
+        }
+
+        @keyframes animate {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 1000px;
+            }
+        }
+
+        .slide-container {
+            width: 90vw;
+            height: 90vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--default-font-family);
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        /* Additional Styles for Matching index.html */
+        .blue-steele-hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .blue-steele-hero-text {
+            flex: 1;
+        }
+
+        .blue-steele-hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .blue-steele-hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blue-steele-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .blue-steele-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .blue-steele-step {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .blue-steele-step img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-title {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-details {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .team-details li {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #4361ee;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wave Animation Elements -->
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+    <div class="wave wave4"></div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Hero -->
+        <div class="slide active" id="slide1">
+            <div class="slide-content">
+                <div class="blue-steele-hero-content">
+                    <div class="blue-steele-hero-text">
+                        <img src="mainimg/logo.png" alt="Swizzl Logo" style="width: 200px; margin-bottom: 40px;">
+                        <h1>Stop Selling, Start Consulting</h1>
+                        <p>We help your customers express their needs in detail before your first call. With Swizzl, salespeople no longer go into sales calls blind.</p>
+                        <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+                    </div>
+                    <div class="blue-steele-hero-image">
+                        <img src="mainimg/consultant.png" alt="Sales Consultant Illustration">
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">1/6</div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide" id="slide2">
+            <div class="slide-content">
+                <div class="blue-steele-quote-container">
+                    <div class="blue-steele-quote-image">
+                        <img src="mainimg/frustrated.png" alt="Frustrated Sales Manager">
+                    </div>
+                    <div class="blue-steele-quote-content">
+                        <h2>Do Any of These Sound Like You?</h2>
+                        <blockquote class="blue-steele-blockquote">
+                            <p>"We get leads but it's hard to get them to engage and it takes too long for a new lead to get properly qualified by the team."</p>
+                            <p>"I wish my sales team acted more like consultants than order takers. There is too a big difference between my top guy 'Joe' and others but it's hard to replicate his methods."</p>
+                            <p>"The team works hard but we keep missing easy things, dropping money on the floor. ie. consistently creating personalized follow-up."</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">2/6</div>
+        </div>
+
+        <!-- Slide 3: How Swizzl Connects -->
+        <div class="slide" id="slide3">
+            <div class="slide-content">
+                <h2>How Swizzl Connects Sales and Marketing</h2>
+                <div class="blue-steele-steps">
+                    <div class="blue-steele-step">
+                        <img src="mainimg/qualify.png" alt="Qualify Icon">
+                        <h3>1. Qualify</h3>
+                        <p>We weed out those who won't buy.</p>
+                    </div>
+                    <div class="blue-steele-step">
+                        <img src="mainimg/accelerate.png" alt="Accelerate Icon">
+                        <h3>2. Accelerate</h3>
+                        <p>We accelerate interested but hesitant prospects.</p>
+                    </div>
+                    <div class="blue-steele-step">
+                        <img src="mainimg/wintrust.png" alt="Win Trust Icon">
+                        <h3>3. Win Trust</h3>
+                        <p>We provide you with the "why" before the first call.</p>
+                    </div>
+                </div>
+                <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+            </div>
+            <div class="slide-number">3/6</div>
+        </div>
+
+        <!-- Slide 4: Why It Works -->
+        <div class="slide" id="slide4">
+            <div class="slide-content">
+                <h2>Why It Works</h2>
+                <div class="blue-steele-steps">
+                    <div class="blue-steele-step">
+                        <img src="mainimg/expertise.png" alt="Expertise Icon">
+                        <h3>Relevant Expertise</h3>
+                        <p>Deep expertise in marketing, performance sales, and product design.</p>
+                    </div>
+                    <div class="blue-steele-step">
+                        <img src="mainimg/motivations.png" alt="Models Icon">
+                        <h3>Customer Motivation Models</h3>
+                        <p>Proprietary models that describe buying decisions.</p>
+                    </div>
+                    <div class="blue-steele-step">
+                        <img src="mainimg/ai.png" alt="AI Icon">
+                        <h3>Bleeding-Edge AI</h3>
+                        <p>Supercharged and scalable AI-driven insights.</p>
+                    </div>
+                </div>
+                <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
+            </div>
+            <div class="slide-number">4/6</div>
+        </div>
+
+        <!-- Slide 5: Testimonials -->
+        <div class="slide" id="slide5">
+            <div class="slide-content">
+                <h2>What Our Clients Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <img src="mainimg/dane.jpg" alt="Dane - Sales Director">
+                        <div class="testimonial-content">
+                            <p class="testimonial-name">Dane</p>
+                            <p class="testimonial-title">Sales Director</p>
+                            <p class="testimonial-text">"Swizzl has completely transformed our sales process. We've cut both our number of calls and time per call in half. Starting each conversation with the context Swizzl provides is like beginning on second base - I can't imagine going back to cold calls without our Swizzl sales sheets."</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="mainimg/kyle.jpg" alt="Kyle - Sales Manager">
+                        <div class="testimonial-content">
+                            <p class="testimonial-name">Kyle</p>
+                            <p class="testimonial-title">Sales Manager</p>
+                            <p class="testimonial-text">"What impresses me most about Swizzl is how it elevates our entire team's performance. It combines proven sales tactics in such an elegant way that even our newer reps are performing like veterans. It's like having our best practices automated and standardized across the board."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5/6</div>
+        </div>
+
+        <!-- Slide 6: Team -->
+        <div class="slide" id="slide6">
+            <div class="slide-content">
+                <h2>Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="mainimg/andrew.png" alt="Andrew Glaser">
+                        <h3>Andrew Glaser</h3>
+                        <p class="team-title">Co-Founder, CEO</p>
+                        <ul class="team-details">
+                            <li>Jobs to Be Done Expert</li>
+                            <li>C-level exec, CPO, CMO</li>
+                            <li>3x founder</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/glaserandrew/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="mainimg/bob.png" alt="Bob Moesta">
+                        <h3>Bob Moesta</h3>
+                        <p class="team-title">Co-Founder</p>
+                        <ul class="team-details">
+                            <li>CEO ReWired Group</li>
+                            <li>Original creator of JTBD</li>
+                            <li>7x founder</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/bobmoesta/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="mainimg/dr.png" alt="David Randall">
+                        <h3>David Randall (DR)</h3>
+                        <p class="team-title">Founding PM</p>
+                        <ul class="team-details">
+                            <li>PM/Designer/Researcher</li>
+                            <li>VP/Director roles</li>
+                            <li>Startup & F500 exp</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/davidkrandall/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="mainimg/petrus.png" alt="Petrus J.v. Rensburg">
+                        <h3>Petrus J.v. Rensburg</h3>
+                        <p class="team-title">Founding Engineer</p>
+                        <ul class="team-details">
+                            <li>Full Stack Engineer</li>
+                            <li>3x Founder & 2x CTO</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/petrus-janse-van-rensburg-0517a7223/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6/6</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" onclick="previousSlide()">Previous</button>
+        <button class="nav-button" onclick="nextSlide()">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(slideNumber) {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show the current slide
+            document.getElementById(`slide${slideNumber}`).classList.add('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+    </script>
+</body>
+</html>

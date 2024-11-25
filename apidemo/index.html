@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Prompt Prototype</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #cccccc;
+    }
+    .response {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+    }
+    .settings {
+        margin-bottom: 20px;
+    }
+    .settings select, .settings input {
+        padding: 8px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    #apiKey {
+        width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>API Prompt Prototype</h1>
+    
+    <div class="settings">
+        <select id="apiProvider">
+            <option value="anthropic">Anthropic</option>
+            <option value="openai">OpenAI</option>
+        </select>
+        <input type="password" id="apiKey" placeholder="Enter API Key" />
+    </div>
+    
+    <textarea id="promptInput" placeholder="Type your prompt here..."></textarea>
+    <button id="sendButton" onclick="sendPrompt()">Send Prompt</button>
+    <div id="response" class="response" hidden>
+        <h3>Response:</h3>
+        <pre id="responseText"></pre>
+    </div>
+  </div>
+
+  <script>
+    const ENDPOINTS = {
+        anthropic: 'https://api.anthropic.com/v1/messages',
+        openai: 'https://api.openai.com/v1/chat/completions'
+    };
+
+    async function sendPrompt() {
+        const prompt = document.getElementById('promptInput').value.trim();
+        const apiKey = document.getElementById('apiKey').value.trim();
+        const provider = document.getElementById('apiProvider').value;
+        const responseDiv = document.getElementById('response');
+        const responseText = document.getElementById('responseText');
+        const sendButton = document.getElementById('sendButton');
+
+        if (!prompt) {
+            alert('Please enter a prompt.');
+            return;
+        }
+
+        if (!apiKey) {
+            alert('Please enter an API key.');
+            return;
+        }
+
+        sendButton.disabled = true;
+        responseDiv.hidden = true;
+
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+            };
+            
+            // Add anthropic-version header if using Anthropic
+            if (provider === 'anthropic') {
+                headers['anthropic-version'] = '2024-01-01';
+            }
+
+            const body = provider === 'anthropic' 
+                ? {
+                    model: "claude-3-sonnet-20240229",
+                    max_tokens: 1024,
+                    messages: [{
+                        role: "user",
+                        content: prompt
+                    }]
+                }
+                : {
+                    model: "gpt-4-turbo-preview",
+                    max_tokens: 1024,
+                    messages: [{
+                        role: "user",
+                        content: prompt
+                    }],
+                    temperature: 0.7
+                };
+
+            console.log('Request:', { endpoint: ENDPOINTS[provider], headers, body });
+
+            const response = await fetch(ENDPOINTS[provider], {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.text();
+                console.error('API Error:', errorData);
+                throw new Error(`Error: ${response.status} - ${errorData}`);
+            }
+
+            const data = await response.json();
+            console.log('Response:', data);
+            
+            // Handle different response formats
+            const result = provider === 'anthropic' 
+                ? data.content[0].text
+                : data.choices[0].message.content;
+                
+            responseText.textContent = result;
+            responseDiv.hidden = false;
+        } catch (error) {
+            console.error('Error details:', error);
+            alert(`Failed to fetch response: ${error.message}`);
+        } finally {
+            sendButton.disabled = false;
+        }
+    }
+  </script>
+</body>
+</html>
