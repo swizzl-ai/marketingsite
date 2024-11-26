@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Options - Swizzl Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-top: 80px; /* Add space for the fixed header */
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #666;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 0;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .options-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .option-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .option-header {
+            padding: 1.5rem;
+            background: white;
+            cursor: pointer;
+            font-weight: 400;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .option-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-header:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .option-content {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .option-content.active {
+            display: block;
+        }
+
+        .sub-option {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-option input[type="checkbox"],
+        .sub-option input[type="radio"] {
+            margin-right: 1rem;
+        }
+
+        .selected-options {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: normal;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .selected-options.has-selections {
+            display: block;
+        }
+
+        .continue-btn {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .continue-btn:hover {
+            background: #0056b3;
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .option-header.active .arrow {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="quiz.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="index.html">
+            <img src="logo.png" alt="Swizzl Logo" class="logo">
+        </a>
+    </header>
+    <div class="container">
+        <div class="options-header">
+            Great! We'll use what we've learned to make some recommendations for you. Is there anything else you'd like us to specifically factor in?
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Body Style <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="bodyStyle-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="checkbox" id="suv" name="bodyStyle" value="SUV">
+                    <label for="suv">SUV</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="sedan" name="bodyStyle" value="Sedan">
+                    <label for="sedan">Sedan</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="pickup" name="bodyStyle" value="Pickup">
+                    <label for="pickup">Pickup Truck</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="coupe" name="bodyStyle" value="Coupe">
+                    <label for="coupe">Coupe</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="hatchback" name="bodyStyle" value="Hatchback">
+                    <label for="hatchback">Hatchback</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="wagon" name="bodyStyle" value="Wagon">
+                    <label for="wagon">Wagon</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="convertible" name="bodyStyle" value="Convertible">
+                    <label for="convertible">Convertible</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="van" name="bodyStyle" value="Van">
+                    <label for="van">Van</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Seating Capacity <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="seating-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="radio" id="seats4" name="seating" value="4+">
+                    <label for="seats4">4+ Seats</label>
+                </div>
+                <div class="sub-option">
+                    <input type="radio" id="seats6" name="seating" value="6+">
+                    <label for="seats6">6+ Seats</label>
+                </div>
+                <div class="sub-option">
+                    <input type="radio" id="seats8" name="seating" value="8+">
+                    <label for="seats8">8+ Seats</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Engine Type <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="engineType-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="checkbox" id="gasoline" name="engineType" value="Gasoline">
+                    <label for="gasoline">Gasoline</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="hybrid" name="engineType" value="Hybrid">
+                    <label for="hybrid">Gasoline Hybrid</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="plugin" name="engineType" value="Plugin">
+                    <label for="plugin">Plug-in Hybrid</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="electric" name="engineType" value="Electric">
+                    <label for="electric">Fully Electric</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Interior Features <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="interior-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="checkbox" id="spacious" name="interior" value="Spacious">
+                    <label for="spacious">Spacious</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="leather" name="interior" value="Leather">
+                    <label for="leather">Leather seats</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="carplay" name="interior" value="CarPlay">
+                    <label for="carplay">Apple CarPlay/Android Auto</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="tech" name="interior" value="Tech">
+                    <label for="tech">Modern tech</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Driving Features <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="driving-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="checkbox" id="lane" name="driving" value="Lane">
+                    <label for="lane">Lane centering</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="selfdriving" name="driving" value="SelfDriving">
+                    <label for="selfdriving">Self driving</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="clearance" name="driving" value="Clearance">
+                    <label for="clearance">High ground clearance</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="awd" name="driving" value="AWD">
+                    <label for="awd">All-wheel drive</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="4wd" name="driving" value="4WD">
+                    <label for="4wd">4-wheel drive</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="option-section">
+            <div class="option-header">
+                <div class="option-header-content">
+                    Safety Features <i class="arrow fas fa-chevron-down"></i>
+                </div>
+                <div class="selected-options" id="safety-selected"></div>
+            </div>
+            <div class="option-content">
+                <div class="sub-option">
+                    <input type="checkbox" id="safety" name="safety" value="Safety">
+                    <label for="safety">High safety rating</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="child" name="safety" value="Child">
+                    <label for="child">Child safety seats</label>
+                </div>
+            </div>
+        </div>
+
+        <a href="job-fit-summary.html" class="continue-btn">Continue</a>
+    </div>
+
+    <script>
+        function updateSelectedOptions(name) {
+            const selectedEl = document.getElementById(`${name}-selected`);
+            const inputs = document.querySelectorAll(`input[name="${name}"]`);
+            const selectedValues = Array.from(inputs)
+                .filter(input => input.checked)
+                .map(input => input.nextElementSibling.textContent.trim());
+            
+            selectedEl.textContent = selectedValues.join(', ');
+            selectedEl.classList.toggle('has-selections', selectedValues.length > 0);
+        }
+
+        // Add change event listeners to all inputs
+        document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+            input.addEventListener('change', () => {
+                updateSelectedOptions(input.name);
+            });
+        });
+
+        document.querySelectorAll('.option-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const isActive = header.classList.contains('active');
+                
+                // Close all sections
+                document.querySelectorAll('.option-header').forEach(h => {
+                    h.classList.remove('active');
+                    h.nextElementSibling.style.display = 'none';
+                });
+
+                // Toggle clicked section
+                if (!isActive) {
+                    header.classList.add('active');
+                    content.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Ricart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #666;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .main-card.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cards-container {
+            position: relative;
+            min-height: 800px; /* Increased to accommodate footer */
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #edf2f7;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .main-card.active .card-footer {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.9s;
+        }
+
+        .next-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .next-button:hover {
+            background: #0056b3;
+        }
+
+        .next-button i {
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #f8f9fa;
+            color: #1a1a1a;
+            border: 1px solid #dee2e6;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        .header-container {
+            padding: 24px;
+            background: #f8f9fa;
+            margin-bottom: 0;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid #edf2f7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            font-style: italic;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
+        }
+
+        .main-card.active .section-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .button-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 160px;
+        }
+
+        .btn {
+            font-family: 'Montserrat', Arial, sans-serif;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .car-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s;
+            position: relative;
+            max-width: 320px;
+            margin: 0 auto;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .car-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .car-item h3 {
+            margin-bottom: 6px;
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .car-details {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .car-details p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .car-details p::before {
+            content: '"';
+        }
+
+        .car-details p::after {
+            content: '"';
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .price-mileage .price {
+            font-weight: 600;
+        }
+
+        .price-mileage .mileage {
+            font-weight: 400;
+        }
+
+        .separator {
+            color: #cbd5e0;
+            font-weight: 400;
+        }
+
+        .car-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+
+        .status-label {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .status-new {
+            color: #38a169;
+        }
+
+        .status-used {
+            color: #805ad5;
+        }
+
+        .corner-buttons {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .corner-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .corner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            color: #333;
+        }
+
+        .main-card.active .header-container {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .main-card.active .car-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .main-card.active .car-item:nth-child(1) {
+            transition-delay: 0.3s;
+        }
+
+        .main-card.active .car-item:nth-child(2) {
+            transition-delay: 0.5s;
+        }
+
+        .main-card.active .car-item:nth-child(3) {
+            transition-delay: 0.7s;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="job-fit-summary.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="index.html">
+            <img src="img/logo.png" alt="Ricart Logo" class="logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Our Picks For You</h1>
+        <div class="cards-container">
+            <div class="main-card active">
+                <div class="header-container">
+                    <div>
+                        <div class="section-title">Sophisticated City Rides: Hatchbacks That Echo Modern Urban Living</div>
+                        <div class="section-subtitle">Because you said hatchbacks and city maneuverability are important to you, and you're looking for a car that reflects your sophisticated, urban, and modern personality.</div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            More Like This
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                            Not For Me
+                        </button>
+                    </div>
+                </div>
+                <div class="car-grid">
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car1.jpg" alt="Mazda3 Hatchback">
+                        <h3>Mazda3 Hatchback (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$25,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">29 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Reliable with low maintenance costs and a sleek design perfect for urban settings.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car2.jpg" alt="Honda Civic Hatchback Sport">
+                        <h3>Honda Civic Hatchback Sport (2022)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$23,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">12,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">31 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Strong resale value and a sporty edge with city-friendly features.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car3.jpg" alt="Volkswagen Golf GTI">
+                        <h3>Volkswagen Golf GTI (2021)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$28,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">15,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">28 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Sleek, modern design with a performance-oriented feel.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Section
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-title">Versatile and Edgy: Urban SUVs for the Modern Adventurer</div>
+                        <div class="section-subtitle">Because you wanted an SUV that's versatile enough for various activities but still edgy and easy to drive in the city.</div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            More Like This
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                            Not For Me
+                        </button>
+                    </div>
+                </div>
+                <div class="car-grid">
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car4.jpg" alt="Toyota RAV4 Hybrid XSE">
+                        <h3>Toyota RAV4 Hybrid XSE (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$35,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">41 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>High reliability with hybrid efficiency and a bold, edgy appearance.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car5.jpg" alt="Subaru Crosstrek Sport">
+                        <h3>Subaru Crosstrek Sport (2022)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$30,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">10,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">28 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Rugged yet stylish, with excellent versatility for outdoor activities.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car6.jpg" alt="Hyundai Kona N-Line">
+                        <h3>Hyundai Kona N-Line (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$31,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">30 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Sporty and compact, with a modern look and feel for urban driving.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Section
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-title">Effortlessly Modern: Compact Cars That Keep Up with Your Tech-Savvy Life</div>
+                        <div class="section-subtitle">Because you value tech-savvy features and modern design, and you're looking for a car that complements your minimalist and sophisticated lifestyle.</div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            More Like This
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                            Not For Me
+                        </button>
+                    </div>
+                </div>
+                <div class="car-grid">
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car7.jpg" alt="Tesla Model Y">
+                        <h3>Tesla Model Y (2022)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$48,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">15,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">326-mile range</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Advanced tech features with a sleek, minimalist design.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car8.jpg" alt="Kia Niro EV">
+                        <h3>Kia Niro EV (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$40,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">253-mile range</span>
+                        </div>
+                        <div class="car-details">
+                            <p>City-friendly size with a smooth and quiet electric drivetrain.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car9.jpg" alt="Mini Cooper SE Electric">
+                        <h3>Mini Cooper SE Electric (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$35,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">110-mile range</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Iconic urban styling with zero emissions.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Section
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-title">Luxury Meets Practicality: Upscale Crossovers for Sophisticated Daily Driving</div>
+                        <div class="section-subtitle">Because you like luxury but also prioritize practicality and reliability for daily driving without unnecessary overpaying.</div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            More Like This
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                            Not For Me
+                        </button>
+                    </div>
+                </div>
+                <div class="car-grid">
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car4.jpg" alt="Audi Q3">
+                        <h3>Audi Q3 (2021)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$38,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">18,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">23 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Combines luxury and functionality with a comfortable interior.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car7.jpg" alt="Volvo XC40 Recharge">
+                        <h3>Volvo XC40 Recharge (2022)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$48,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">10,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">223-mile range</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Sleek Scandinavian design with advanced safety features.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car2.jpg" alt="Lexus UX 250h">
+                        <h3>Lexus UX 250h (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$39,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">41 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Hybrid reliability with a sophisticated and compact style.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Section
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-title">Timeless Style: Hatchbacks That Balance Form and Function</div>
+                        <div class="section-subtitle">Because you want a car that balances timeless style and functionality, with reliability and value retention being top priorities.</div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-heart"></i>
+                            More Like This
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                            Not For Me
+                        </button>
+                    </div>
+                </div>
+                <div class="car-grid">
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car5.jpg" alt="Toyota Corolla Hatchback XSE">
+                        <h3>Toyota Corolla Hatchback XSE (2022)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$24,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">8,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">32 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Practical yet sharp design, perfect for urban environments.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-used">Used</span>
+                        <img src="img/car8.jpg" alt="BMW 1 Series">
+                        <h3>BMW 1 Series (2021)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$29,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">20,000 mi.</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">30 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Luxury European styling with a compact footprint.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="car-item">
+                        <span class="status-label status-new">New</span>
+                        <img src="img/car3.jpg" alt="Peugeot 308 GT">
+                        <h3>Peugeot 308 GT (2023)</h3>
+                        <div class="price-mileage">
+                            <span class="price">$27,000</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">N/A</span>
+                            <span class="separator">-</span>
+                            <span class="mileage">34 MPG city</span>
+                        </div>
+                        <div class="car-details">
+                            <p>Stylish and compact, with a focus on driving enjoyment.</p>
+                        </div>
+                        <div class="corner-buttons">
+                            <button class="corner-btn">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="corner-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Section
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const cards = document.querySelectorAll('.main-card');
+                const nextButtons = document.querySelectorAll('.next-button');
+                let currentCardIndex = 0;
+                let isAnimating = false;
+
+                // Show only the first card initially
+                cards[currentCardIndex].classList.add('active');
+
+                nextButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (isAnimating) return;
+                        isAnimating = true;
+
+                        // Hide current card
+                        cards[currentCardIndex].classList.remove('active');
+                        
+                        // Move to next card (or back to first if we're at the end)
+                        currentCardIndex = (currentCardIndex + 1) % cards.length;
+                        
+                        // Show new current card after a delay
+                        setTimeout(() => {
+                            cards[currentCardIndex].classList.add('active');
+                            // Wait for the longest animation before allowing next click
+                            setTimeout(() => {
+                                isAnimating = false;
+                            }, 1000);
+                        }, 300);
+                    });
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

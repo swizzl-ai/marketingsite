@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Preference Quiz - Swizzl Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .back-button:hover {
+            color: #666;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 0;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .helper-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .option-item.selected {
+            background-color: #f0f7ff;
+            border-color: #3b82f6;
+        }
+
+        .option-item input[type="checkbox"] {
+            margin-top: 4px;
+        }
+
+        .continue-btn {
+            display: none;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .continue-btn:hover {
+            background-color: #2563eb;
+        }
+
+        .continue-btn.visible {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="index.html">
+            <img src="logo.png" alt="Swizzl Logo" class="logo">
+        </a>
+    </header>
+    <div class="container">
+        <div class="question-card active" id="question1">
+            <div class="question-text">As you consider a new car, what are you most focused on?</div>
+            <div class="helper-text">Select all that apply</div>
+            <div class="options-container">
+                <label class="option-item">
+                    <input type="checkbox" name="q1" value="reliability">
+                    <span>I'm focused on reliability or hitting a budget for something that just gets me from point a to b</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q1" value="compromises">
+                    <span>Understanding what compromises I'll have to make to meet my new functional needs</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q1" value="image">
+                    <span>Figuring out a car that really matches who I am and my image</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q1" value="lifestyle">
+                    <span>Finding a car that reflects a specific group or lifestyle that I want to align myself with</span>
+                </label>
+            </div>
+            <button class="continue-btn" onclick="nextQuestion(1)">Continue</button>
+        </div>
+
+        <div class="question-card" id="question2">
+            <div class="question-text">Why do you need a new car?</div>
+            <div class="helper-text">Select all that apply</div>
+            <div class="options-container">
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="no_car">
+                    <span>I don't have a car</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="lease_up">
+                    <span>My lease is up</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="reliability">
+                    <span>I can't count on my car's reliability anymore</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="expensive">
+                    <span>My monthly payments are too expensive</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="not_me">
+                    <span>My car is just not me</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="deserve">
+                    <span>I've moved forward in my life but my car hasn't - I deserve it</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="functional_needs">
+                    <span>I have new functional needs that my current car doesn't sufficiently meet</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" name="q2" value="giving">
+                    <span>I'm giving my car to someone</span>
+                </label>
+            </div>
+            <button class="continue-btn" onclick="nextQuestion(2)">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setupQuestionHandlers();
+        });
+
+        function setupQuestionHandlers() {
+            const questions = document.querySelectorAll('.question-card');
+            
+            questions.forEach(question => {
+                const checkboxes = question.querySelectorAll('input[type="checkbox"]');
+                const continueBtn = question.querySelector('.continue-btn');
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        const parentOption = checkbox.closest('.option-item');
+                        parentOption.classList.toggle('selected', checkbox.checked);
+                        
+                        // Show continue button if at least one option is selected
+                        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+                        continueBtn.classList.toggle('visible', anyChecked);
+                    });
+                });
+            });
+        }
+
+        function nextQuestion(currentQuestion) {
+            const currentCard = document.getElementById(`question${currentQuestion}`);
+            const nextCard = document.getElementById(`question${currentQuestion + 1}`);
+            
+            currentCard.classList.remove('active');
+            
+            if (nextCard) {
+                nextCard.classList.add('active');
+            } else {
+                // If there's no next question, redirect to index.html
+                window.location.href = 'options.html';
+            }
+        }
+    </script>
+</body>
+</html>
