@@ -17,7 +17,16 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: white;
+            background: linear-gradient(
+                125deg,
+                #ffffff 0%,
+                #e8e8e8 35%,
+                #d8d8d8 50%,
+                #e8e8e8 65%,
+                #ffffff 100%
+            );
+            background-size: 400% 400%;
+            background-attachment: fixed;
             color: #1a1a1a;
             line-height: 1.6;
             padding-top: 80px;
@@ -65,21 +74,27 @@
             border-radius: 16px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            position: absolute;
+            display: none;
             width: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
 
         .main-card.active {
-            opacity: 1;
-            visibility: visible;
+            display: block;
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .cards-container {
             position: relative;
-            min-height: 800px; /* Increased to accommodate footer */
+            min-height: 800px;
         }
 
         .page-title {
@@ -91,80 +106,54 @@
         }
 
         .card-footer {
-            padding: 20px;
             display: flex;
-            justify-content: flex-end;
-            border-top: 1px solid #edf2f7;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8f8f8;
+            border-top: 1px solid #eee;
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
-        .main-card.active .card-footer {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.9s;
-        }
-
+        .prev-button,
         .next-button {
             background: #007bff;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            transition: background-color 0.2s;
         }
 
+        .prev-button {
+            visibility: hidden;
+            opacity: 0;
+            transition: background-color 0.2s, visibility 0.2s, opacity 0.2s;
+        }
+
+        .prev-button.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .prev-button:hover,
         .next-button:hover {
             background: #0056b3;
         }
 
+        .prev-button i {
+            margin-right: 0.25rem;
+        }
+
         .next-button i {
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background: #f8f9fa;
-            color: #1a1a1a;
-            border: 1px solid #dee2e6;
-            transition: all 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: #e9ecef;
-            transform: translateY(-1px);
-        }
-
-        .btn-outline-secondary {
-            background: transparent;
-            color: #6c757d;
-            border: 1px solid #dee2e6;
-            transition: all 0.2s;
-        }
-
-        .btn-outline-secondary:hover {
-            background: #f8f9fa;
-            transform: translateY(-1px);
-        }
-
-        .header-container {
-            padding: 24px;
-            background: #f8f9fa;
-            margin-bottom: 0;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 24px;
-            border-bottom: 1px solid #edf2f7;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            margin-left: 0.25rem;
         }
 
         .section-title {
@@ -232,8 +221,7 @@
             margin: 0 auto;
             width: 100%;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transition: opacity 0.5s ease-out;
         }
 
         .car-item img {
@@ -360,14 +348,34 @@
             color: #333;
         }
 
+        .header-container {
+            padding: 24px;
+            background: #f8f9fa;
+            margin-bottom: 0;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid #edf2f7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
         .main-card.active .header-container {
             opacity: 1;
             transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        .main-card.active .card-footer {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.9s;
         }
 
         .main-card.active .car-item {
             opacity: 1;
-            transform: translateY(0);
         }
 
         .main-card.active .car-item:nth-child(1) {
@@ -396,7 +404,7 @@
     <div class="container">
         <h1 class="page-title">Our Picks For You</h1>
         <div class="cards-container">
-            <div class="main-card active">
+            <div class="main-card">
                 <div class="header-container">
                     <div>
                         <div class="section-title">Sophisticated City Rides: Hatchbacks That Echo Modern Urban Living</div>
@@ -487,8 +495,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
                     <button class="next-button">
-                        Next Section
+                        Next Set
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -584,8 +596,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
                     <button class="next-button">
-                        Next Section
+                        Next Set
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -681,8 +697,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
                     <button class="next-button">
-                        Next Section
+                        Next Set
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -778,8 +798,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
                     <button class="next-button">
-                        Next Section
+                        Next Set
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -876,8 +900,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
                     <button class="next-button">
-                        Next Section
+                        Next Set
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -887,33 +915,57 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const cards = document.querySelectorAll('.main-card');
                 const nextButtons = document.querySelectorAll('.next-button');
+                const prevButtons = document.querySelectorAll('.prev-button');
                 let currentCardIndex = 0;
                 let isAnimating = false;
 
-                // Show only the first card initially
+                // Show first card immediately
                 cards[currentCardIndex].classList.add('active');
 
-                nextButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        if (isAnimating) return;
-                        isAnimating = true;
-
-                        // Hide current card
-                        cards[currentCardIndex].classList.remove('active');
-                        
-                        // Move to next card (or back to first if we're at the end)
-                        currentCardIndex = (currentCardIndex + 1) % cards.length;
-                        
-                        // Show new current card after a delay
-                        setTimeout(() => {
-                            cards[currentCardIndex].classList.add('active');
-                            // Wait for the longest animation before allowing next click
-                            setTimeout(() => {
-                                isAnimating = false;
-                            }, 1000);
-                        }, 300);
+                function updateNavigationButtons() {
+                    prevButtons.forEach(button => {
+                        if (currentCardIndex === 0) {
+                            button.classList.remove('visible');
+                        } else {
+                            button.classList.add('visible');
+                        }
                     });
+                }
+
+                function navigateCards(direction) {
+                    if (isAnimating) return;
+                    isAnimating = true;
+
+                    // Hide current card
+                    cards[currentCardIndex].classList.remove('active');
+                    
+                    // Calculate new index
+                    if (direction === 'next') {
+                        currentCardIndex = (currentCardIndex + 1) % cards.length;
+                    } else {
+                        currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+                    }
+                    
+                    // Show new card immediately
+                    cards[currentCardIndex].classList.add('active');
+                    updateNavigationButtons();
+                    
+                    // Reset animation flag after animation completes
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 300);
+                }
+
+                nextButtons.forEach(button => {
+                    button.addEventListener('click', () => navigateCards('next'));
                 });
+
+                prevButtons.forEach(button => {
+                    button.addEventListener('click', () => navigateCards('prev'));
+                });
+
+                // Initialize button states
+                updateNavigationButtons();
             });
         </script>
     </div>

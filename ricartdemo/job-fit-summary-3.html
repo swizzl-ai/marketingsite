@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job & Fit Summary - Swizzl Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(
+                125deg,
+                #ffffff 0%,
+                #e8e8e8 35%,
+                #d8d8d8 50%,
+                #e8e8e8 65%,
+                #ffffff 100%
+            );
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-top: 60px; /* Space for the fixed header */
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.75rem;
+            height: 60px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 1rem;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            color: #666;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .version-toggle {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .version-toggle button {
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #666;
+        }
+
+        .version-toggle button.active {
+            background: #4F46E5;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #f3f4f6;
+            padding: 2rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.75rem;
+            color: #374151;
+            margin: 0;
+        }
+
+        .card-content-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem 3rem;
+        }
+
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .section-container h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            background: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: none;
+        }
+
+        .card-content.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .update-content {
+            margin-top: 1.5rem;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .update-content.animate-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .update-content.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-text {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .content-text.animate-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .content-text.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-buttons {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: none;
+        }
+
+        .card-buttons.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        textarea, .email-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: white;
+            resize: vertical;
+            min-height: 70px;
+            height: 70px;
+            transition: border-color 0.2s ease;
+            position: relative;
+            transform-origin: bottom;
+        }
+
+        .update-content textarea {
+            margin: 0;
+            background: white;
+        }
+
+        textarea:focus, .email-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .email-input {
+            min-height: auto;
+            height: auto;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn:disabled, .btn[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .btn-primary {
+            background: #4F46E5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .btn-save-updates {
+            background: #1a1a1a;
+            color: white;
+            display: none;
+        }
+
+        .btn-save-updates:hover {
+            background: #333;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Loader styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+        }
+
+        .loader {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            -webkit-mask: radial-gradient(transparent 60%, black 61%);
+            mask: radial-gradient(transparent 60%, black 61%);
+        }
+
+        .loader::before {
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0%,
+                transparent 10%,
+                #5a9ed9 40%,
+                #87CEEB 50%,
+                rgba(135, 206, 235, 0.3) 60%,
+                transparent 90%
+            );
+            animation: spin2 2s linear infinite;
+        }
+
+        .loader::after {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            -webkit-mask: radial-gradient(transparent 50%, black 51%);
+            mask: radial-gradient(transparent 50%, black 51%);
+            background: conic-gradient(
+                from 180deg,
+                transparent 0%,
+                transparent 10%,
+                #5a9ed9 40%,
+                #87CEEB 50%,
+                rgba(135, 206, 235, 0.3) 60%,
+                transparent 90%
+            );
+            animation: spin2 2s linear infinite reverse;
+        }
+
+        @keyframes spin2 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 40px;
+            text-align: center;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .loader-text.visible {
+            opacity: 1;
+        }
+
+        .loader-text::after {
+            content: '...';
+            display: inline-block;
+            animation: ellipsis-pulse 1.5s infinite;
+            width: 24px;
+            text-align: left;
+        }
+
+        @keyframes ellipsis-pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .card-content {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 5rem 1rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="options.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo" class="logo">
+            </a>
+        </div>
+        <div class="version-toggle">
+            <button onclick="window.location.href='job-fit-summary.html'">A</button>
+            <button onclick="window.location.href='job-fit-summary-2.html'">B</button>
+            <button class="active" onclick="window.location.href='job-fit-summary-3.html'">C</button>
+        </div>
+    </header>
+
+    <div id="loaderContainer" class="loader-container">
+        <div style="position: relative; width: 300px; height: 300px;">
+            <div class="loader"></div>
+            <div class="loader-text-container">
+                <div class="loader-text" id="loaderText1">Compiling your story</div>
+                <div class="loader-text" id="loaderText2">Highlighting excitement</div>
+                <div class="loader-text" id="loaderText3">Finding the perfect match</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" id="card1" style="display: none;">
+            <div class="card-header">
+                <h2>What We Heard...</h2>
+            </div>
+            <div class="card-content-wrapper">
+                <div class="section-container">
+                    <h3>Your Situation</h3>
+                    <div class="card-content">
+                        <div class="content-text">
+                            I'm currently in a situation where I can't rely on my car's reliability anymore, which is driving me to seek a change. I need a vehicle that is easy to maneuver in the city and aligns with my minimalist, eco-friendly, adventurous, fun-loving, and reliable personality. My main focus is finding a car that truly matches who I am and my image, while also understanding the compromises I might need to make to meet my new functional needs. I want to feel good driving it, knowing it's a solid car for me without having to worry about its reliability.
+                        </div>
+                        <div class="update-content">
+                            <textarea id="situation-update" placeholder="What did we miss about your situation..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-container">
+                    <h3>Where You Want to Go</h3>
+                    <div class="card-content">
+                        <div class="content-text">
+                            I'm excited about finding an electric hatchback that aligns with my minimalist, eco-friendly, adventurous, and fun-loving personality. I want a car that's versatile for various activities and perfect for daily city driving. It's important that the vehicle makes me feel good and reflects who I am. However, I'm anxious about ensuring the car is reliable and fits within my budget. I have an exceptional credit score, which gives me good options for buying or leasing, but I'm still concerned about affordability and getting a good price.
+                        </div>
+                        <div class="update-content">
+                            <textarea id="goals-update" placeholder="What did we miss about your goals..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-container">
+                    <h3>What You're Worried About</h3>
+                    <div class="card-content">
+                        <div class="content-text">
+                            <ul class="bullet-list">
+                                <li>I am anxious about ensuring the car is reliable and fits within my budget.</li>
+                                <li>I am concerned about affordability and getting a good price.</li>
+                                <li>I am worried about figuring out if the car will be reliable.</li>
+                                <li>I am concerned about how to match my personality to a vehicle while making necessary compromises.</li>
+                            </ul>
+                        </div>
+                        <div class="update-content">
+                            <textarea id="concerns-update" placeholder="What did we miss about your concerns..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-buttons">
+                    <button class="btn btn-save-updates" id="saveUpdatesBtn">
+                        <i class="fas fa-rotate"></i>
+                        Update My Story
+                    </button>
+                    <button class="btn btn-primary" id="confirmButton" onclick="window.location.href='inventory.html'">
+                        <i class="fas fa-check"></i>
+                        That's Right
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="card2" style="display: none;">
+            <div class="card-header">
+                <h2>We've got experience helping people like you!</h2>
+            </div>
+            <div class="card-content-wrapper">
+                <div class="card-content">
+                    <p style="margin-bottom: 2rem;">Ready to find the perfect car to meet your needs?</p>
+                    <input type="email" class="email-input" placeholder="Enter your email" id="emailInput">
+                    <div class="action-buttons">
+                        <a href="inventory.html" class="btn btn-primary" id="showVehiclesBtn" disabled>
+                            Show Me Vehicles That Match My Context
+                        </a>
+                        <button class="btn btn-secondary" id="sendProgressBtn" disabled>
+                            Just Send Me My Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Loading animation logic
+            const loaderContainer = document.getElementById('loaderContainer');
+            const loaderTexts = [
+                document.getElementById('loaderText1'),
+                document.getElementById('loaderText2'),
+                document.getElementById('loaderText3')
+            ];
+
+            let currentTextIndex = 0;
+            
+            function animateLoaderText() {
+                loaderTexts.forEach(text => text.classList.remove('visible'));
+                loaderTexts[currentTextIndex].classList.add('visible');
+                currentTextIndex = (currentTextIndex + 1) % loaderTexts.length;
+            }
+
+            // Start the text animation
+            animateLoaderText();
+            const textInterval = setInterval(animateLoaderText, 3000);
+
+            // Set loading duration to 3 seconds plus 1 second transition
+            setTimeout(() => {
+                loaderContainer.classList.add('hidden');
+                clearInterval(textInterval);
+                
+                // Wait for fade out animation before removing
+                setTimeout(() => {
+                    loaderContainer.style.display = 'none';
+                    showCard(1);
+                }, 1000);
+            }, 3000);
+
+            // Add event listeners for next buttons
+            document.querySelectorAll('.next-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const currentCard = parseInt(button.closest('.card').id.replace('card', ''));
+                    showNextCard(currentCard);
+                });
+            });
+
+            // Add event listener for save updates button
+            const saveUpdatesBtn = document.getElementById('saveUpdatesBtn');
+            const textareas = document.querySelectorAll('textarea');
+
+            function checkTextareas() {
+                const hasText = Array.from(textareas).some(ta => ta.value.trim() !== '');
+                if (hasText) {
+                    saveUpdatesBtn.style.display = 'block';
+                    document.getElementById('confirmButton').disabled = true;
+                } else {
+                    saveUpdatesBtn.style.display = 'none';
+                    document.getElementById('confirmButton').disabled = false;
+                }
+            }
+
+            function clearTextareas() {
+                textareas.forEach(textarea => {
+                    textarea.value = '';
+                });
+                checkTextareas();
+            }
+
+            // Add event listeners for textareas
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', checkTextareas);
+            });
+
+            // Add event listener for save updates button
+            saveUpdatesBtn.addEventListener('click', function() {
+                const updateContents = document.querySelectorAll('.update-content, .content-text');
+                
+                // First animate out
+                updateContents.forEach(content => {
+                    content.classList.add('animate-out');
+                });
+
+                // Then animate back in after a delay
+                setTimeout(() => {
+                    updateContents.forEach(content => {
+                        content.classList.remove('animate-out');
+                        content.classList.add('animate-in');
+                    });
+                    
+                    // Remove the animate-in class after animation completes
+                    setTimeout(() => {
+                        updateContents.forEach(content => {
+                            content.classList.remove('animate-in');
+                        });
+                    }, 500);
+                }, 500);
+            });
+
+            // Add event listener for save updates button
+            saveUpdatesBtn.addEventListener('click', clearTextareas);
+        });
+
+        function showCard(cardNumber) {
+            // Hide all cards first
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.display = 'none';
+                card.querySelectorAll('.card-content, .update-content, .content-text, .card-buttons').forEach(el => {
+                    el.classList.remove('animate');
+                });
+            });
+
+            // Show the new card
+            const card = document.getElementById(`card${cardNumber}`);
+            if (card) {
+                card.style.display = 'block';
+                card.classList.add('visible');
+
+                // Get all sections that need to be animated
+                const sections = card.querySelectorAll('.section-container');
+                
+                // Animate each section with delay
+                sections.forEach((section, index) => {
+                    setTimeout(() => {
+                        const content = section.querySelector('.card-content');
+                        if (content) content.classList.add('animate');
+                    }, 1000 + (index * 500));
+
+                    setTimeout(() => {
+                        const updateContent = section.querySelector('.update-content');
+                        if (updateContent) updateContent.classList.add('animate');
+                    }, 1500 + (index * 500));
+
+                    setTimeout(() => {
+                        const contentText = section.querySelector('.content-text');
+                        if (contentText) contentText.classList.add('animate');
+                        
+                        // If this is the last section, animate the buttons at the same time
+                        if (index === sections.length - 1) {
+                            const buttons = card.querySelector('.card-buttons');
+                            if (buttons) buttons.classList.add('animate');
+                        }
+                    }, 1500 + (index * 500));
+                });
+            }
+        }
+
+        function showNextCard(currentCard) {
+            const currentElement = document.getElementById(`card${currentCard}`);
+            currentElement.classList.remove('visible');
+            
+            setTimeout(() => {
+                showCard(currentCard + 1);
+            }, 300);
+        }
+
+        function validateEmail(email) {
+            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        }
+
+        const emailInput = document.getElementById('emailInput');
+        const showVehiclesBtn = document.getElementById('showVehiclesBtn');
+        const sendProgressBtn = document.getElementById('sendProgressBtn');
+
+        emailInput.addEventListener('input', function() {
+            const isValid = validateEmail(this.value);
+            if (isValid) {
+                showVehiclesBtn.removeAttribute('disabled');
+                showVehiclesBtn.href = 'inventory.html';
+                sendProgressBtn.removeAttribute('disabled');
+            } else {
+                showVehiclesBtn.setAttribute('disabled', '');
+                showVehiclesBtn.removeAttribute('href');
+                sendProgressBtn.setAttribute('disabled', '');
+            }
+        });
+    </script>
+</body>
+</html>

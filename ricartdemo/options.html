@@ -17,7 +17,16 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: white;
+            background: linear-gradient(
+                125deg,
+                #ffffff 0%,
+                #e8e8e8 35%,
+                #d8d8d8 50%,
+                #e8e8e8 65%,
+                #ffffff 100%
+            );
+            background-size: 400% 400%;
+            background-attachment: fixed;
             color: #1a1a1a;
             line-height: 1.6;
             padding-top: 80px; /* Add space for the fixed header */
@@ -342,6 +351,10 @@
                 <div class="sub-option">
                     <input type="checkbox" id="child" name="safety" value="Child">
                     <label for="child">Child safety seats</label>
+                </div>
+                <div class="sub-option">
+                    <input type="checkbox" id="backup-camera" name="safety" value="BackupCamera">
+                    <label for="backup-camera">Backup camera</label>
                 </div>
             </div>
         </div>

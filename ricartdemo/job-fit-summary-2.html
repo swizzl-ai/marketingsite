@@ -29,7 +29,7 @@
             background-attachment: fixed;
             color: #1a1a1a;
             line-height: 1.6;
-            padding-top: 80px; /* Add space for the fixed header */
+            padding-top: 60px; /* Space for the fixed header */
         }
 
         .header {
@@ -75,8 +75,6 @@
             right: 20px;
             display: flex;
             gap: 5px;
-            top: 50%;
-            transform: translateY(-50%);
         }
 
         .version-toggle button {
@@ -98,7 +96,8 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 6rem 2rem 2rem;
+            padding: 2rem;
+            position: relative;
         }
 
         .container h1 {
@@ -111,38 +110,44 @@
             color: #333;
         }
 
-        .cards-container {
-            position: relative;
-            min-height: 400px;
-            margin: 2rem auto;
-            max-width: 800px;
-        }
-
         .card {
             background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            border-radius: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
-            position: absolute;
-            left: 0;
-            right: 0;
-            width: 100%;
-            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            visibility: hidden;
         }
 
-        .card.active {
+        .card.visible {
             opacity: 1;
-            pointer-events: all;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .card-header {
+            background-color: #f3f4f6;
+            padding: 2rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-header h2 {
+            font-size: 1.75rem;
+            color: #374151;
+            margin: 0;
+        }
+
+        .card-content-wrapper {
+            padding: 2rem;
         }
 
         .card-content {
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            line-height: 1.7;
+            color: #4a4a4a;
+            line-height: 1.6;
         }
 
         .card-title {
@@ -178,20 +183,21 @@
         }
 
         .btn {
+            font-family: 'Montserrat', sans-serif;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
+            text-align: center;
             width: 100%;
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
+            gap: 0.75rem;
         }
 
         .btn:disabled, .btn[disabled] {
@@ -219,30 +225,42 @@
         }
 
         .update-content {
-            display: none;
-            margin: 1rem 0;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
         }
 
         .update-content textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
+            height: 45px;
+            min-height: unset;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.2;
             resize: vertical;
-            min-height: 120px;
+        }
+
+        .update-content textarea::placeholder {
+            color: #718096;
+        }
+
+        .update-content textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
         }
 
         .email-input {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.75rem 1rem;
             border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            font-size: 1rem;
+            border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s ease;
         }
 
         .email-input:focus {
@@ -254,45 +272,89 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            width: 100%;
         }
 
-        .next-steps {
+        .action-buttons .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .car-images-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            margin-bottom: -2.5rem;
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        .car-images-row::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .car-image-container {
+            flex: 0 0 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .car-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .car-image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, 
+                rgba(255,255,255,0.1) 0%, 
+                rgba(255,255,255,0.2) 20%,
+                rgba(255,255,255,0.3) 40%,
+                rgba(255,255,255,0.5) 60%,
+                rgba(255,255,255,0.8) 80%,
+                rgba(255,255,255,1) 100%);
+            pointer-events: none;
+        }
+
+        .car-image:hover {
+            transform: scale(1.05);
+        }
+
+        .car-images-section {
+            position: relative;
+            margin-bottom: 3rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            align-items: center;
         }
 
-        .btn-disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .overlay-text {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            display: inline-block;
+            text-align: center;
         }
 
-        /* Version toggle styles */
-        /* Version toggle styles */
-        .version-toggle {
-            position: absolute;
-            right: 20px;
-            display: flex;
-            gap: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .version-toggle button {
-            border: none;
-            padding: 8px 16px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            background: transparent;
-            color: #666;
-        }
-
-        .version-toggle button.active {
-            background: #4F46E5;
-            color: white;
+        .overlay-text p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+            white-space: nowrap;
         }
 
         /* Loader styles */
@@ -446,66 +508,44 @@
             </a>
         </div>
         <div class="version-toggle">
-            <button class="active" onclick="window.location.href='job-fit-summary.html'">A</button>
-            <button onclick="window.location.href='job-fit-summary-2.html'">B</button>
+            <button onclick="window.location.href='job-fit-summary.html'">A</button>
+            <button class="active" onclick="window.location.href='job-fit-summary-2.html'">B</button>
             <button onclick="window.location.href='job-fit-summary-3.html'">C</button>
         </div>
     </header>
+
     <div class="loader-container" id="loaderContainer">
         <div style="position: relative; width: 300px; height: 300px;">
             <div class="loader"></div>
             <div class="loader-text-container">
-                <div class="loader-text" id="loaderText1">Compiling your story</div>
-                <div class="loader-text" id="loaderText2">Highlighting excitement</div>
-                <div class="loader-text" id="loaderText3">Finding the perfect match</div>
+                <div class="loader-text visible" id="loaderText1">Compiling your story</div>
             </div>
         </div>
     </div>
+
     <div class="container">
-        <h1>What We've Heard So Far...</h1>
-        <div class="cards-container">
-            <div class="card" id="card1">
-                <h2 class="card-title">Your Situation</h2>
+        <div class="card" id="card1">
+            <div class="card-header">
+                <h2>What We've Heard About You</h2>
+            </div>
+            <div class="card-content-wrapper">
+                <h3>Your Situation</h3>
                 <div class="card-content">
                     I'm currently in a situation where I can't rely on my car's reliability anymore, which is driving me to seek a change. I need a vehicle that is easy to maneuver in the city and aligns with my minimalist, eco-friendly, adventurous, fun-loving, and reliable personality. My main focus is finding a car that truly matches who I am and my image, while also understanding the compromises I might need to make to meet my new functional needs. I want to feel good driving it, knowing it's a solid car for me without having to worry about its reliability.
                 </div>
                 <div class="update-content">
-                    <textarea placeholder="Update your situation..."></textarea>
+                    <textarea id="situation-update" placeholder="What did we miss about your situation..."></textarea>
                 </div>
-                <div class="card-buttons">
-                    <button class="btn btn-secondary" onclick="toggleUpdate(1)">
-                        <i class="fas fa-pencil"></i>
-                        Update
-                    </button>
-                    <button class="btn btn-primary" onclick="showNextCard(1)">
-                        <i class="fas fa-check"></i>
-                        That's Right
-                    </button>
-                </div>
-            </div>
 
-            <div class="card" id="card2">
-                <h2 class="card-title">Where You Want to Go</h2>
+                <h3 style="margin-top: 2rem;">Where You Want to Go</h3>
                 <div class="card-content">
                     I'm excited about finding an electric hatchback that aligns with my minimalist, eco-friendly, adventurous, and fun-loving personality. I want a car that's versatile for various activities and perfect for daily city driving. It's important that the vehicle makes me feel good and reflects who I am. However, I'm anxious about ensuring the car is reliable and fits within my budget. I have an exceptional credit score, which gives me good options for buying or leasing, but I'm still concerned about affordability and getting a good price.
                 </div>
                 <div class="update-content">
-                    <textarea placeholder="Update your goals..."></textarea>
+                    <textarea id="goals-update" placeholder="What did we miss about your goals..."></textarea>
                 </div>
-                <div class="card-buttons">
-                    <button class="btn btn-secondary" onclick="toggleUpdate(2)">
-                        <i class="fas fa-pencil"></i>
-                        Update
-                    </button>
-                    <button class="btn btn-primary" onclick="showNextCard(2)">
-                        <i class="fas fa-check"></i>
-                        That's Right
-                    </button>
-                </div>
-            </div>
 
-            <div class="card" id="card3">
-                <h2 class="card-title">What You're Worried About</h2>
+                <h3 style="margin-top: 2rem;">What You're Worried About</h3>
                 <div class="card-content">
                     <ul class="bullet-list">
                         <li>I am anxious about ensuring the car is reliable and fits within my budget.</li>
@@ -515,28 +555,72 @@
                     </ul>
                 </div>
                 <div class="update-content">
-                    <textarea placeholder="Update your concerns..."></textarea>
+                    <textarea id="concerns-update" placeholder="What did we miss about your concerns..."></textarea>
                 </div>
+
                 <div class="card-buttons">
-                    <button class="btn btn-secondary" onclick="toggleUpdate(3)">
-                        <i class="fas fa-pencil"></i>
-                        Update
-                    </button>
-                    <button class="btn btn-primary" onclick="showNextCard(3)">
+                    <button class="btn btn-primary" id="confirmButton" onclick="showNextCard(1)">
                         <i class="fas fa-check"></i>
-                        That's Right
+                        <span>That's Right</span>
                     </button>
                 </div>
             </div>
+        </div>
 
-            <div class="card" id="card4">
-                <h2 class="card-title">We've got experience helping people like you</h2>
+        <div class="card" id="card2">
+            <div class="card-header">
+                <h2>We've got experience helping people like you!</h2>
+            </div>
+            <div class="card-content-wrapper">
                 <div class="card-content">
-                    <p>Let us know where we can send our top recommendation from among our inventory of over 3500.</p>
-                    <input type="email" id="emailInput" class="email-input" placeholder="Enter your email address">
-                    <div class="next-steps">
-                        <button id="showVehiclesBtn" class="btn btn-primary btn-disabled" disabled>Show Me Vehicles</button>
-                        <button id="sendStoryBtn" class="btn btn-secondary btn-disabled" disabled>Just Send Me My Story</button>
+                    <div class="car-images-section">
+                        <div class="car-images-row">
+                            <div class="car-image-container">
+                                <img src="img/car1.jpg" alt="Car 1" class="car-image">
+                            </div>
+                            <div class="car-image-container">
+                                <img src="img/car2.jpg" alt="Car 2" class="car-image">
+                            </div>
+                            <div class="car-image-container">
+                                <img src="img/car3.jpg" alt="Car 3" class="car-image">
+                            </div>
+                            <div class="car-image-container">
+                                <img src="img/car4.jpg" alt="Car 4" class="car-image">
+                            </div>
+                            <div class="car-image-container">
+                                <img src="img/car5.jpg" alt="Car 5" class="car-image">
+                            </div>
+                            <div class="car-image-container">
+                                <img src="img/car6.jpg" alt="Car 6" class="car-image">
+                            </div>
+                        </div>
+                        <div class="overlay-text">
+                            <p>Ready to find the perfect car to meet your needs?</p>
+                        </div>
+                    </div>
+                    <input type="email" class="email-input" placeholder="Email required for the next step" id="emailInput">
+                    <div class="action-buttons">
+                        <a href="inventory.html" class="btn btn-primary" id="showVehiclesBtn" disabled>
+                            Show Me Vehicles That Match My Context
+                        </a>
+                        <button class="btn btn-secondary" id="sendProgressBtn" disabled>
+                            Just Send Me My Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="card4">
+            <h2 class="card-title">Next Steps</h2>
+            <div class="card-content">
+                <p>Based on what we've learned about your situation, we think these next steps will be most helpful:</p>
+                <div class="next-steps">
+                    <div class="step">
+                        <button onclick="window.location.href='inventory.html'" class="btn-primary">View Available Vehicles</button>
+                    </div>
+                    <div class="step">
+                        <button id="sendProgressBtn" class="btn-secondary">Email My Progress</button>
                     </div>
                 </div>
             </div>
@@ -545,33 +629,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
+            requestAnimationFrame(() => {
                 showCard(1);
-            }, 500);
+            });
+
+            // Add event listeners for textareas
+            const textareas = document.querySelectorAll('textarea');
+            const confirmButton = document.getElementById('confirmButton');
+
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', function() {
+                    const hasText = Array.from(textareas).some(ta => ta.value.trim() !== '');
+                    if (hasText) {
+                        confirmButton.innerHTML = '<i class="fas fa-save"></i> <span>Save Updates</span>';
+                    } else {
+                        confirmButton.innerHTML = '<i class="fas fa-check"></i> <span>That\'s Right</span>';
+                    }
+                });
+            });
         });
 
         function showCard(cardNumber) {
-            // Remove active class from all cards
+            // Hide all cards first
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-                card.classList.remove('active');
+                card.style.display = 'none';
+                card.classList.remove('visible');
             });
 
-            // Show the new card
+            // Show and animate the new card
             const card = document.getElementById(`card${cardNumber}`);
             if (card) {
-                card.classList.add('active');
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, 50);
             }
         }
 
         function showNextCard(currentCard) {
+            // Fade out current card
             const currentElement = document.getElementById(`card${currentCard}`);
-            currentElement.classList.remove('active');
+            currentElement.style.opacity = '0';
+            currentElement.style.transform = 'translateY(-20px)';
             
-            const nextCard = document.getElementById(`card${currentCard + 1}`);
-            if (nextCard) {
-                nextCard.classList.add('active');
-            }
+            // Show next card after transition
+            setTimeout(() => {
+                showCard(currentCard + 1);
+            }, 500);
         }
 
         function toggleUpdate(cardNumber) {
@@ -586,33 +691,15 @@
 
         const emailInput = document.getElementById('emailInput');
         const showVehiclesBtn = document.getElementById('showVehiclesBtn');
-        const sendStoryBtn = document.getElementById('sendStoryBtn');
+        const sendProgressBtn = document.getElementById('sendProgressBtn');
 
         // Loading animation logic
         const loaderContainer = document.getElementById('loaderContainer');
-        const loaderTexts = [
-            document.getElementById('loaderText1'),
-            document.getElementById('loaderText2'),
-            document.getElementById('loaderText3')
-        ];
-
-        let currentTextIndex = 0;
-        
-        function animateLoaderText() {
-            loaderTexts.forEach(text => text.classList.remove('visible'));
-            loaderTexts[currentTextIndex].classList.add('visible');
-            currentTextIndex = (currentTextIndex + 1) % loaderTexts.length;
-        }
-
-        // Start the text animation
-        animateLoaderText();
-        const textInterval = setInterval(animateLoaderText, 3000);
 
         // Set loading duration to 3 seconds plus 1 second transition
         setTimeout(() => {
             const loaderContainer = document.getElementById('loaderContainer');
             loaderContainer.classList.add('hidden');
-            clearInterval(textInterval);
             
             // Wait for fade out animation before removing
             setTimeout(() => {
@@ -622,29 +709,15 @@
         }, 3000);
 
         emailInput.addEventListener('input', function() {
-            const isValidEmail = validateEmail(this.value);
-            showVehiclesBtn.disabled = !isValidEmail;
-            sendStoryBtn.disabled = !isValidEmail;
-            
-            if (isValidEmail) {
-                showVehiclesBtn.classList.remove('btn-disabled');
-                sendStoryBtn.classList.remove('btn-disabled');
+            const isValid = validateEmail(this.value);
+            if (isValid) {
+                showVehiclesBtn.removeAttribute('disabled');
+                showVehiclesBtn.href = 'inventory.html';
+                sendProgressBtn.removeAttribute('disabled');
             } else {
-                showVehiclesBtn.classList.add('btn-disabled');
-                sendStoryBtn.classList.add('btn-disabled');
-            }
-        });
-
-        showVehiclesBtn.addEventListener('click', function() {
-            if (validateEmail(emailInput.value)) {
-                window.location.href = 'inventory.html';
-            }
-        });
-
-        sendStoryBtn.addEventListener('click', function() {
-            if (validateEmail(emailInput.value)) {
-                // Add email sending logic here
-                alert('Your story has been sent to ' + emailInput.value);
+                showVehiclesBtn.setAttribute('disabled', '');
+                showVehiclesBtn.removeAttribute('href');
+                sendProgressBtn.setAttribute('disabled', '');
             }
         });
     </script>
