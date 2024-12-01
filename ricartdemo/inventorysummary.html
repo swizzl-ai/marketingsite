@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="pdfkit-orientation" content="portrait">
+    <meta name="pdfkit-header" content="none">
+    <meta name="pdfkit-footer" content="none">
+    <meta name="pdfkit-margins" content="0.4in">
+    <title>Inventory Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(
+                125deg,
+                #ffffff 0%,
+                #e8e8e8 35%,
+                #d8d8d8 50%,
+                #e8e8e8 65%,
+                #ffffff 100%
+            );
+            background-size: 400% 400%;
+            background-attachment: fixed;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        .back-button {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            width: 40px;
+        }
+        .logo-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .logo {
+            height: 40px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+        .customer-header {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        .preferences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .vehicle-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        .vehicle-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 66.67%; /* Restore original aspect ratio */
+            overflow: hidden;
+        }
+
+        .vehicle-image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* This will ensure the full image is visible */
+            background-color: #f8f9fa;
+        }
+
+        .vehicle-info {
+            padding: 1.5rem;
+        }
+
+        .vehicle-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .vehicle-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 2rem 0;
+        }
+        .badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        .badge-new {
+            background-color: #28a745;
+            color: white;
+        }
+        .badge-used {
+            background-color: #6c757d;
+            color: white;
+        }
+        .concerns-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .concerns-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        .concerns-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+        .update-button {
+            background-color: transparent;
+            border: 1px solid #dee2e6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #6c757d;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .customer-info-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .customer-info-left {
+            padding-right: 1rem;
+        }
+        .customer-info-right {
+            padding-left: 1rem;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .car-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s;
+            position: relative;
+            max-width: 320px;
+            margin: 0 auto;
+            width: 100%;
+            opacity: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        .car-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .car-item h3 {
+            margin-bottom: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .car-details {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .car-details p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .car-details p::before {
+            content: '"';
+        }
+
+        .car-details p::after {
+            content: '"';
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .price-mileage .price {
+            font-weight: 600;
+        }
+
+        .price-mileage .mileage {
+            font-weight: 400;
+        }
+
+        .separator {
+            color: #cbd5e0;
+            font-weight: 400;
+        }
+
+        .status-label {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .status-new {
+            color: #38a169;
+        }
+
+        .status-used {
+            color: #805ad5;
+        }
+
+        /* Print styles */
+        @media print {
+            html {
+                -webkit-print-color-adjust: exact;
+            }
+            body {
+                background: none;
+                margin: 0;
+                padding: 0;
+                font-size: 11px;
+            }
+            .header {
+                display: none;
+            }
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 10px;
+                margin: 0;
+            }
+            .customer-header {
+                position: relative;
+                padding-top: 50px;
+                margin-bottom: 15px;
+            }
+            .customer-header::before {
+                content: '';
+                background-image: url('logo.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 35px;
+            }
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            }
+            h2.h4.mt-4.mb-3 {
+                page-break-before: always;
+                margin-top: 0 !important;
+                margin-bottom: 0.5rem !important;
+            }
+            h3 {
+                font-size: 0.9rem;
+                margin-bottom: 0.2rem;
+            }
+            .car-item {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                padding: 6px;
+            }
+            .price-mileage {
+                font-size: 0.75em;
+                color: #666;
+                margin: 0.2rem 0;
+            }
+            .price-mileage .separator {
+                margin: 0 2px;
+                color: #999;
+            }
+            .car-details p {
+                font-size: 0.8em;
+                line-height: 1.2;
+                margin: 0.2rem 0;
+                color: #444;
+            }
+            .vehicle-image-container {
+                padding-top: 56%;
+            }
+            .vehicle-image-container img {
+                max-height: 100%;
+                object-fit: contain;
+                background-color: #fff;
+            }
+            .status-label {
+                padding: 2px 6px;
+                font-size: 0.75em;
+            }
+            @page {
+                size: portrait;
+                margin: 0.4in;
+            }
+            @page :first {
+                margin-top: 0.4in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <button onclick="window.print()" class="btn btn-outline-primary" style="margin-left: auto; padding-left: 12px; padding-right: 12px; margin-right: 12px;">
+            <i class="fas fa-print"></i> Print
+        </button>
+        <a href="endofflow.html" class="btn btn-outline-primary" style="padding-left: 12px; padding-right: 12px; margin-right: 20px;">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </header>
+    <div class="container py-4">
+        <div class="card customer-header">
+            <div class="customer-info-container">
+                <div class="customer-info-left">
+                    <h2 class="h4 text-purple">Kelly Richardson</h2>
+                    <div class="contact-info">
+                        <div><i class="bi bi-envelope"></i> kellyrichardson@comcast.net</div>
+                        <div><i class="bi bi-telephone"></i> 203-731-4431</div>
+                    </div>
+                    <div class="preferences-grid">
+                        <div>
+                            <h6>Vehicle Preference</h6>
+                            <div>BUY NEW</div>
+                            <div>SUV</div>
+                            <div>Wagon</div>
+                        </div>
+                        <div>
+                            <h6>Must Have Features</h6>
+                            <div>AWD</div>
+                            <div>Child Seat Compatible</div>
+                            <div>Spacious Interior</div>
+                            <div>Modern Tech</div>
+                            <div>High Safety Rating</div>
+                        </div>
+                        <div>
+                            <h6>Trade-In</h6>
+                            <div>Nissan Ultima 2012</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="customer-info-right">
+                    <h5>Parent struggling to balance finding a car that fits their personality with one that is functional for their family.</h5>
+                    <br>
+                    <div class="mb-4">
+                        <h6>Where I am</h6>
+                        <p>I have a car but I can't count on it's reliability anymore and the car is just not me. I've moved ahead in my life but my car hasn't. It's time for an upgrade and I deserve it. I also have new family needs that my current care doesn't meet.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6>Where I hope to go</h6>
+                        <p>I need help figuring out what compromises I will need to make to meet my family needs while finding something that fits who I am and my image. The kind of car that is good for my family is not they type of car that always fits my personality, which is classy, sleek and successful. This is an every day driver, so I do need to enjoy driving it daily. I don't care about fitting in with a group or conveying my social status.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6>What concerns me about the new car:</h6>
+                        <ul class="concerns-list">
+                            <li>Will it be reliable?</li>
+                            <li>Will maintenance be expensive</li>
+                            <li>Will it fit into a budget?</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6>What concerns me about the buying experience:</h6>
+                        <ul class="concerns-list">
+                            <li>Will I be ripped off or "sold?"</li>
+                            <li>Will I get a fair price for my trade-in?</li>
+                            <li>Is my credit good enough to get what I want?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="h4 mt-4 mb-3">Cars In Consideration Set</h2>
+        <p class="mb-4">This set of cars all have enough room for kids and have high safety ratings and modern tech. The Volkswagen better fits my personality because is sleeker but the others are a little better for kids because of the high roof which makes it easier to get the kids in and out.</p>
+        
+        <div class="car-grid">
+            <div class="car-item">
+                <span class="status-label status-new">New</span>
+                <img src="img/car1.jpg" alt="Mazda3 Hatchback">
+                <h3>Mazda3 Hatchback (2023)</h3>
+                <div class="price-mileage">
+                    <span class="price">$25,000</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">N/A</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">29 MPG city</span>
+                </div>
+                <div class="car-details">
+                    <p>Reliable with low maintenance costs and a sleek design perfect for urban settings.</p>
+                </div>
+            </div>
+
+            <div class="car-item">
+                <span class="status-label status-used">Used</span>
+                <img src="img/car2.jpg" alt="Honda Civic Hatchback Sport">
+                <h3>Honda Civic Hatchback Sport (2022)</h3>
+                <div class="price-mileage">
+                    <span class="price">$23,000</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">12,000 mi.</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">31 MPG city</span>
+                </div>
+                <div class="car-details">
+                    <p>Strong resale value and a sporty edge with city-friendly features.</p>
+                </div>
+            </div>
+
+            <div class="car-item">
+                <span class="status-label status-used">Used</span>
+                <img src="img/car3.jpg" alt="Volkswagen Golf GTI">
+                <h3>Volkswagen Golf GTI (2021)</h3>
+                <div class="price-mileage">
+                    <span class="price">$28,000</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">15,000 mi.</span>
+                    <span class="separator">-</span>
+                    <span class="mileage">28 MPG city</span>
+                </div>
+                <div class="car-details">
+                    <p>Sleek, modern design with a performance-oriented feel.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

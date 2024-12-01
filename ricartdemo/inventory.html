@@ -58,6 +58,24 @@
             color: #666;
         }
 
+        .summary-button {
+            position: absolute;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .summary-button:hover {
+            background-color: #f5f5f5;
+        }
+
         .logo {
             height: 40px;
             width: auto;
@@ -396,8 +414,9 @@
         <a href="job-fit-summary.html" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <a href="index.html">
-            <img src="img/logo.png" alt="Ricart Logo" class="logo">
+        <h2>Inventory</h2>
+        <a href="inventorysummary.html" class="summary-button">
+            My Summary <i class="fas fa-arrow-right"></i>
         </a>
     </header>
 
