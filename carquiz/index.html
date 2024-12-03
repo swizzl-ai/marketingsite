@@ -107,7 +107,12 @@
             <button id="submit-button" onclick="checkPassword()">Access Demo</button>
         </div>
     </div>
-    <iframe src="https://cars.swizzl.ai" allow="fullscreen"></iframe>
+    <iframe 
+        src="https://cars.swizzl.ai" 
+        allow="fullscreen; clipboard-write; clipboard-read; camera; microphone; geolocation"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"
+        loading="lazy"
+    ></iframe>
     <script>
         function checkPassword() {
             const password = document.getElementById('password-input').value;
