@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Ricart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(
+                125deg,
+                #ffffff 0%,
+                #e8e8e8 35%,
+                #d8d8d8 50%,
+                #e8e8e8 65%,
+                #ffffff 100%
+            );
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: none;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .main-card.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cards-container {
+            position: relative;
+            min-height: 800px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .prev-button,
+        .next-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .next-button {
+            margin-left: auto;
+        }
+
+        .prev-button:hover,
+        .next-button:hover {
+            background-color: #0056b3;
+        }
+
+        .prev-button i {
+            margin-right: 0.25rem;
+        }
+
+        .next-button i {
+            margin-left: 0.25rem;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            font-style: italic;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
+        }
+
+        .section-count {
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .car-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s;
+            position: relative;
+            max-width: 320px;
+            margin: 0 auto;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .car-item h3 {
+            margin-bottom: 6px;
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .car-details {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            padding: 1rem;
+        }
+
+        .car-details p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .car-details p::before {
+            content: '"';
+        }
+
+        .car-details p::after {
+            content: '"';
+        }
+
+        .price-mileage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+            font-size: 16px;
+            margin: 6px 0;
+        }
+
+        .price-mileage .price {
+            font-weight: 600;
+        }
+
+        .price-mileage .mileage {
+            font-weight: 400;
+        }
+
+        .separator {
+            color: #cbd5e0;
+            font-weight: 400;
+        }
+
+        .car-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+
+        .header-container {
+            padding: 24px;
+            background: #f8f9fa;
+            margin-bottom: 0;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid #edf2f7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .main-card.active .header-container {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        .main-card.active .card-footer {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.9s;
+        }
+
+        .main-card.active .car-item {
+            opacity: 1;
+        }
+
+        .main-card.active .car-item:nth-child(1) {
+            transition-delay: 0.3s;
+        }
+
+        .main-card.active .car-item:nth-child(2) {
+            transition-delay: 0.5s;
+        }
+
+        .main-card.active .car-item:nth-child(3) {
+            transition-delay: 0.7s;
+        }
+
+        .specs {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .car-features {
+            margin-top: 1rem;
+        }
+
+        .feature-section {
+            margin-bottom: 1rem;
+        }
+
+        .feature-section h4 {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .feature-section p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Ben & Charlotte Picks</h1>
+    </header>
+
+    <div class="container">
+        <div class="cards-container">
+            <div class="main-card active">
+                <div class="header-container">
+                    <div>
+                        <div class="section-count">1 of 5</div>
+                        <div class="section-title">Dependable Everyday Driver</div>
+                        <div class="section-subtitle">Because reliability is the user's top concern, needing a car that fits their functional requirements while offering peace of mind about performance and maintenance.</div>
+                    </div>
+                </div>
+                <div class="cars-container">
+                    <div class="car-grid">
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Toyota RAV4 Hybrid</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$30,000-$40,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-20,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Exceptional reliability, excellent fuel efficiency, and a solid reputation for holding resale value.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>A perfect balance of reliability and practicality with hybrid fuel savings.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Less luxurious interior compared to higher-end competitors.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Honda CR-V Hybrid</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$32,000-$42,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-25,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Smooth ride, spacious interior, and advanced safety features.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Offers excellent safety ratings and low regular maintenance costs.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Slower acceleration compared to other hybrid SUVs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Subaru Forester</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$28,000-$38,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-30,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Outstanding safety features and standard all-wheel drive.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Ideal for varied weather conditions with 4-wheel drive standard.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Less sporty design and driving dynamics.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="next-button">
+                        Next Set
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-count">2 of 5</div>
+                        <div class="section-title">Eco-Friendly Efficiency</div>
+                        <div class="section-subtitle">Because the user wants a car that is fuel-efficient and reflects their interest in sustainability.</div>
+                    </div>
+                </div>
+                <div class="cars-container">
+                    <div class="car-grid">
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Tesla Model 3</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$40,000-$55,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-15,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Industry-leading electric performance and innovative technology.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Superior range and cutting-edge features for EV enthusiasts.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Higher maintenance costs for out-of-warranty issues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Hyundai Ioniq 5</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2022-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$35,000-$50,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-10,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Stylish design and excellent charging speed.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Great balance of price, performance, and sustainability.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Limited towing capacity compared to larger EVs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Nissan Leaf</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$28,000-$40,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-20,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Affordability and reliability in the EV market.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Lower initial cost for transitioning to electric.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Shorter range compared to other EVs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
+                    <button class="next-button">
+                        Next Set
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-count">3 of 5</div>
+                        <div class="section-title">Urban Maneuverability</div>
+                        <div class="section-subtitle">Because the user values easy handling and practicality for navigating city environments.</div>
+                    </div>
+                </div>
+                <div class="cars-container">
+                    <div class="car-grid">
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>MINI Cooper SE Electric</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$30,000-$40,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-10,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Compact size and playful driving dynamics.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Excellent for tight city parking and fun drives.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Limited range for long-distance trips.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Chevrolet Bolt EV</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$28,000-$38,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-20,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Affordable EV with good range.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Great value for a city-focused electric car.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Narrower interior space.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Mazda CX-30</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$27,000-$35,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-25,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Stylish design and excellent handling.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Combines city practicality with a premium feel.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Smaller cargo space.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
+                    <button class="next-button">
+                        Next Set
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-count">4 of 5</div>
+                        <div class="section-title">Lifestyle Alignment</div>
+                        <div class="section-subtitle">Because the user wants a car that fits their personality and aligns with their desired lifestyle.</div>
+                    </div>
+                </div>
+                <div class="cars-container">
+                    <div class="car-grid">
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Ford Mustang Mach-E</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$45,000-$65,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-15,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Sleek design and sporty electric performance.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Stands out as a statement vehicle with EV innovation.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Higher price compared to other EVs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Subaru Outback Wilderness</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$40,000-$55,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-20,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Rugged capability for outdoor adventures.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Ideal for off-roading and camping trips.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Lower fuel efficiency.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Kia EV6</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2022-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$40,000-$55,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-10,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Striking design and high-tech features.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Embodies a modern lifestyle.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Limited availability.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
+                    <button class="next-button">
+                        Next Set
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-card">
+                <div class="header-container">
+                    <div>
+                        <div class="section-count">5 of 5</div>
+                        <div class="section-title">Safety First</div>
+                        <div class="section-subtitle">Because the user prioritizes high safety ratings and advanced safety features.</div>
+                    </div>
+                </div>
+                <div class="cars-container">
+                    <div class="car-grid">
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Volvo XC40 Recharge</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$50,000-$65,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-15,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Exceptional safety and Scandinavian design.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Top-tier safety technology.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Higher cost of entry.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Toyota Highlander Hybrid</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$45,000-$60,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-20,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Excellent reliability and family-friendly safety features.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Perfect for families needing extra space.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Bulkier size for city driving.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="car-item">
+                            <div class="car-details">
+                                <h3>Audi Q5</h3>
+                                <div class="specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>2021-2023</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>$50,000-$70,000</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-road"></i>
+                                        <span>0-15,000 miles</span>
+                                    </div>
+                                </div>
+                                <div class="car-features">
+                                    <div class="feature-section">
+                                        <h4>What it's known for:</h4>
+                                        <p>Luxurious design and advanced driver assistance systems.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it better:</h4>
+                                        <p>Combines safety with luxury.</p>
+                                    </div>
+                                    <div class="feature-section">
+                                        <h4>What makes it worse:</h4>
+                                        <p>Premium cost.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="prev-button">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous Set
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const cards = document.querySelectorAll('.main-card');
+                const prevButtons = document.querySelectorAll('.prev-button');
+                const nextButtons = document.querySelectorAll('.next-button');
+                let currentCardIndex = 0;
+
+                function updateNavigationButtons() {
+                    cards.forEach((card, index) => {
+                        if (index === currentCardIndex) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                }
+
+                function navigateCards(direction) {
+                    const currentCard = cards[currentCardIndex];
+                    currentCard.classList.remove('active');
+                    
+                    if (direction === 'next') {
+                        currentCardIndex = (currentCardIndex + 1) % cards.length;
+                    } else {
+                        currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+                    }
+                    
+                    const nextCard = cards[currentCardIndex];
+                    nextCard.classList.add('active');
+
+                    // Scroll to top of the new section
+                    nextCard.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                prevButtons.forEach(button => {
+                    button.addEventListener('click', () => navigateCards('prev'));
+                });
+
+                nextButtons.forEach(button => {
+                    button.addEventListener('click', () => navigateCards('next'));
+                });
+
+                // Initialize the first card as active
+                updateNavigationButtons();
+            });
+        </script>
+    </div>
+</body>
+</html>
