@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Renderer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            padding: 20px;
+        }
+        #sticky-header {
+            position: sticky;
+            top: 0;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        #sticky-header button {
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #sticky-header button:hover {
+            background: #777;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: calc(100vh - 60px);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="input-section" class="container">
+        <h1>HTML Renderer</h1>
+        <textarea id="html-input" placeholder="Paste your HTML here..."></textarea>
+        <button id="submit-button">Submit</button>
+    </div>
+    <div id="output-section" class="container" style="display: none;">
+        <div id="sticky-header">
+            <span>HTML Preview</span>
+            <button id="back-button">Back</button>
+        </div>
+        <iframe id="html-output"></iframe>
+    </div>
+
+    <script>
+        const inputSection = document.getElementById('input-section');
+        const outputSection = document.getElementById('output-section');
+        const submitButton = document.getElementById('submit-button');
+        const backButton = document.getElementById('back-button');
+        const htmlInput = document.getElementById('html-input');
+        const htmlOutput = document.getElementById('html-output');
+
+        // Handle submit button click
+        submitButton.addEventListener('click', () => {
+            let htmlContent = htmlInput.value;
+            
+            // Remove content before <!DOCTYPE html> and after </html>
+            const doctypeMatch = htmlContent.match(/<!DOCTYPE html>[\s\S]*<\/html>/i);
+            if (doctypeMatch) {
+                htmlContent = doctypeMatch[0];
+            }
+            
+            htmlOutput.srcdoc = htmlContent;
+            inputSection.style.display = 'none';
+            outputSection.style.display = 'block';
+        });
+
+        // Handle back button click
+        backButton.addEventListener('click', () => {
+            outputSection.style.display = 'none';
+            inputSection.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
