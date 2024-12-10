@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Image Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 90%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Car Image Fetcher</h1>
+    <input id="carModel" type="text" placeholder="Enter car model (e.g., Toyota Prius)">
+    <button id="fetchImage">Get Image</button>
+    <div id="result">
+        <img id="carImage" alt="Car will appear here" style="display: none;">
+    </div>
+
+    <script>
+        document.getElementById('fetchImage').addEventListener('click', async () => {
+            const carModel = document.getElementById('carModel').value.trim();
+            const apiUrl = `https://cars.swizzl.ai/cars/images/${encodeURIComponent(carModel)}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                // Assuming we want the first image link
+                const imageUrl = data[0]?.link;
+
+                if (imageUrl) {
+                    const carImage = document.getElementById('carImage');
+                    carImage.src = imageUrl;
+                    carImage.style.display = 'block';
+                } else {
+                    alert('No image found for the specified car model.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Failed to fetch the image. Please try again later.');
+            }
+        });
+    </script>
+</body>
+</html>

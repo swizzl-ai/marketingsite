@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .matchup {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .matchup:last-child {
+            border-bottom: none;
+        }
+        .matchup-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .cars-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .car-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .car-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .list-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        ul {
+            margin: 5px 0 0 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .key-specs {
+            margin-top: 10px;
+        }
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        .submit-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header-section">
+            <h2>Thanks for submitting your Swizzl Survey!</h2>
+            <p>We have some recommendations for you to review. Please reveiew the options below and let us know which option in each match up you would prefer. open the form to submit your responses and let me know which car in each match up you prefer.</p>
+            <button class="submit-button">Submit Responses</button>
+        </div>
+        <div class="matchup">
+            <div class="matchup-title">Matchup 1</div>
+            <div class="cars-container">
+                <div class="car-card">
+                    <div class="car-title">Car 1.1 - Toyota RAV4 Hybrid</div>
+                    <div class="list-title">Fits Your Needs:</div>
+                    <ul>
+                        <li>Excellent reliability record</li>
+                        <li>Strong fuel efficiency (41 mpg city/38 highway)</li>
+                        <li>Standard AWD system</li>
+                        <li>Comprehensive safety features</li>
+                        <li>Easy child seat installation</li>
+                        <li>Low maintenance costs</li>
+                    </ul>
+                    <div class="list-title">Potential Misalignments:</div>
+                    <ul>
+                        <li>Moderate ground clearance (8.1 inches)</li>
+                        <li>Basic interior materials</li>
+                        <li>Can feel underpowered on highways</li>
+                    </ul>
+                    <div class="key-specs">
+                        <strong>Key Specs:</strong><br>
+                        Price: $30,000-$37,000<br>
+                        AWD standard<br>
+                        219 hp combined output<br>
+                        37.6 cubic feet cargo space<br>
+                        Toyota Safety Sense 2.0
+                    </div>
+                </div>
+                <div class="car-card">
+                    <div class="car-title">Car 1.2 - Ford F-150 Lightning</div>
+                    <div class="list-title">Fits Your Needs:</div>
+                    <ul>
+                        <li>Spacious interior and cargo capacity</li>
+                        <li>High ground clearance</li>
+                        <li>Advanced safety features</li>
+                        <li>Zero fuel costs</li>
+                        <li>Excellent towing capability</li>
+                    </ul>
+                    <div class="list-title">Potential Misalignments:</div>
+                    <ul>
+                        <li>Higher initial cost</li>
+                        <li>Limited charging infrastructure</li>
+                        <li>Potential range anxiety</li>
+                        <li>Higher insurance costs</li>
+                    </ul>
+                    <div class="key-specs">
+                        <strong>Key Specs:</strong><br>
+                        Price: $55,000-$97,000<br>
+                        Dual-motor AWD<br>
+                        320-580 mile range<br>
+                        14.1 cubic feet frunk space<br>
+                        2,000 lb payload capacity
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat the above structure for Matchup 2 to Matchup 6 -->
+    </div>
+</body>
+</html>
