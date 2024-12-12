@@ -689,6 +689,79 @@
         .page-toggle i {
             font-size: 1.2rem;
         }
+
+        .key-specs {
+            display: table;
+            width: 100%;
+            margin: 1rem 0;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-spacing: 0;
+            font-size: 0.9rem;
+        }
+
+        .key-specs .spec-row {
+            display: table-row;
+        }
+
+        .key-specs .spec-label {
+            display: table-cell;
+            font-weight: 500;
+            color: #666;
+            padding: 4px 1rem 4px 0;
+            width: 40%;
+            vertical-align: top;
+        }
+
+        .key-specs .spec-value {
+            display: table-cell;
+            color: #333;
+            padding: 4px 0;
+            vertical-align: top;
+        }
+
+        .fits-needs-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .fits-needs-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .fits-needs-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .potential-gaps-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .potential-gaps-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .potential-gaps-list li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #dc3545;
+            font-weight: bold;
+        }
     </style>
     <script>
         async function fetchCarImage(carTitle) {
@@ -889,32 +962,38 @@
                         <h3>Tesla Model Y</h3>
                         
                         <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $43,990-$53,990</li>
-                                <li><strong>Range:</strong> 330 miles</li>
-                                <li><strong>0-60:</strong> 3.5-6.0s</li>
-                                <li><strong>Cargo:</strong> 76.2 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 6.6 inches</li>
-                                <li><strong>ISOFIX points:</strong> 3</li>
-                            </ul>
+                            ${Object.entries({
+                                "Price": "$43,990-$53,990",
+                                "Range": "330 miles",
+                                "0-60": "3.5-6.0s",
+                                "Cargo": "76.2 cubic feet",
+                                "Ground clearance": "6.6 inches"
+                            })
+                                .filter(([key]) => key.toLowerCase() !== 'isofix points')
+                                .map(([key, value]) => `
+                                <div class="spec-row">
+                                    <div class="spec-label">${key}:</div>
+                                    <div class="spec-value">${value}</div>
+                                </div>
+                            `).join('')}
                         </div>
 
                         <div class="fits-needs">
                             <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Leading tech features</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
+                            <ul class="fits-needs-list">
+                                <li>Strong resale value</li>
+                                <li>Leading tech features</li>
+                                <li>Spacious interior</li>
+                                <li>Low maintenance costs</li>
                             </ul>
                         </div>
 
                         <div class="potential-gaps">
                             <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Build quality concerns</li>
-                                <li><i class="fas fa-times"></i> No Apple CarPlay/Android Auto</li>
-                                <li><i class="fas fa-times"></i> Higher initial cost</li>
+                            <ul class="potential-gaps-list">
+                                <li>Build quality concerns</li>
+                                <li>No Apple CarPlay/Android Auto</li>
+                                <li>Higher initial cost</li>
                             </ul>
                         </div>
                     </div>
@@ -924,32 +1003,38 @@
                         <h3>Mazda3 Hatchback (2023)</h3>
                         
                         <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $21,640-$28,440</li>
-                                <li><strong>Range:</strong> N/A</li>
-                                <li><strong>0-60:</strong> 5.7-8.2s</li>
-                                <li><strong>Cargo:</strong> 20.2 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 5.1 inches</li>
-                                <li><strong>ISOFIX points:</strong> 2</li>
-                            </ul>
+                            ${Object.entries({
+                                "Price": "$21,640-$28,440",
+                                "Range": "N/A",
+                                "0-60": "5.7-8.2s",
+                                "Cargo": "20.2 cubic feet",
+                                "Ground clearance": "5.1 inches"
+                            })
+                                .filter(([key]) => key.toLowerCase() !== 'isofix points')
+                                .map(([key, value]) => `
+                                <div class="spec-row">
+                                    <div class="spec-label">${key}:</div>
+                                    <div class="spec-value">${value}</div>
+                                </div>
+                            `).join('')}
                         </div>
 
                         <div class="fits-needs">
                             <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Good handling characteristics</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
+                            <ul class="fits-needs-list">
+                                <li>Strong resale value</li>
+                                <li>Good handling characteristics</li>
+                                <li>Spacious interior</li>
+                                <li>Low maintenance costs</li>
                             </ul>
                         </div>
 
                         <div class="potential-gaps">
                             <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Limited cargo space</li>
-                                <li><i class="fas fa-times"></i> No hybrid option</li>
-                                <li><i class="fas fa-times"></i> Less advanced tech features</li>
+                            <ul class="potential-gaps-list">
+                                <li>Limited cargo space</li>
+                                <li>No hybrid option</li>
+                                <li>Less advanced tech features</li>
                             </ul>
                         </div>
                     </div>
@@ -959,32 +1044,38 @@
                         <h3>Honda Civic Hatchback Sport (2022)</h3>
                         
                         <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $23,850-$28,400</li>
-                                <li><strong>Range:</strong> N/A</li>
-                                <li><strong>0-60:</strong> 7.2-8.2s</li>
-                                <li><strong>Cargo:</strong> 25.7 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 6.7 inches</li>
-                                <li><strong>ISOFIX points:</strong> 2</li>
-                            </ul>
+                            ${Object.entries({
+                                "Price": "$23,850-$28,400",
+                                "Range": "N/A",
+                                "0-60": "7.2-8.2s",
+                                "Cargo": "25.7 cubic feet",
+                                "Ground clearance": "6.7 inches"
+                            })
+                                .filter(([key]) => key.toLowerCase() !== 'isofix points')
+                                .map(([key, value]) => `
+                                <div class="spec-row">
+                                    <div class="spec-label">${key}:</div>
+                                    <div class="spec-value">${value}</div>
+                                </div>
+                            `).join('')}
                         </div>
 
                         <div class="fits-needs">
                             <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Good handling characteristics</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
+                            <ul class="fits-needs-list">
+                                <li>Strong resale value</li>
+                                <li>Good handling characteristics</li>
+                                <li>Spacious interior</li>
+                                <li>Low maintenance costs</li>
                             </ul>
                         </div>
 
                         <div class="potential-gaps">
                             <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Less advanced tech features</li>
-                                <li><i class="fas fa-times"></i> No hybrid option</li>
-                                <li><i class="fas fa-times"></i> Higher initial cost</li>
+                            <ul class="potential-gaps-list">
+                                <li>Less advanced tech features</li>
+                                <li>No hybrid option</li>
+                                <li>Higher initial cost</li>
                             </ul>
                         </div>
                     </div>
@@ -1114,20 +1205,22 @@
                         <img src="${car.image}" alt="${car.name}">
                         <h3>${car.name}</h3>
                         <div class="key-specs">
-                            ${Object.entries(car.keySpecs).map(([key, value]) => `
-                                <div class="spec-item">
-                                    <span class="spec-label">${key}:</span>
-                                    <span class="spec-value">${value}</span>
+                            ${Object.entries(car.keySpecs)
+                                .filter(([key]) => key.toLowerCase() !== 'isofix points')
+                                .map(([key, value]) => `
+                                <div class="spec-row">
+                                    <div class="spec-label">${key}:</div>
+                                    <div class="spec-value">${value}</div>
                                 </div>
                             `).join('')}
                         </div>
                         <div class="car-features">
                             <h4>Fits Your Needs</h4>
-                            <ul>
+                            <ul class="fits-needs-list">
                                 ${car.fitsYourNeeds.map(need => `<li>${need}</li>`).join('')}
                             </ul>
                             <h4>Potential Gaps</h4>
-                            <ul>
+                            <ul class="potential-gaps-list">
                                 ${car.potentialGaps.map(gap => `<li>${gap}</li>`).join('')}
                             </ul>
                         </div>
@@ -1243,8 +1336,7 @@
                         "Range": "330 miles",
                         "0-60": "3.5-6.0s",
                         "Cargo": "76.2 cubic feet",
-                        "Ground clearance": "6.6 inches",
-                        "ISOFIX points": "3"
+                        "Ground clearance": "6.6 inches"
                     },
                     "fitsYourNeeds": [
                         "Strong resale value",
@@ -1267,8 +1359,7 @@
                         "Range": "303 miles",
                         "0-60": "5.2s",
                         "Cargo": "59.3 cubic feet",
-                        "Ground clearance": "6.1 inches",
-                        "ISOFIX points": "3"
+                        "Ground clearance": "6.1 inches"
                     },
                     "fitsYourNeeds": [
                         "Unique design",
@@ -1291,8 +1382,7 @@
                         "Range": "312 miles",
                         "0-60": "3.5s",
                         "Cargo": "59.7 cubic feet",
-                        "Ground clearance": "5.7 inches",
-                        "ISOFIX points": "3"
+                        "Ground clearance": "5.7 inches"
                     },
                     "fitsYourNeeds": [
                         "Strong performance",
