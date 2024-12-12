@@ -192,22 +192,14 @@
             padding: 10px 20px;
             height: 70px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
         .header-content {
             width: 100%;
-            max-width: 1200px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            position: relative;
-            margin: 0 auto;
-            height: 100%;
-        }
-        .header-logo {
-            height: 40px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
         .page-toggle {
             display: flex;
@@ -216,35 +208,6 @@
             border-radius: 20px;
             padding: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-right: auto;
-            align-self: center;
-        }
-        .load-data-btn {
-            margin-left: auto;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #4b6cb7 0%, #6366f1 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 500;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
-            align-self: center;
-            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2), 0 2px 4px -1px rgba(99, 102, 241, 0.1);
-            font-size: 14px;
-            letter-spacing: 0.3px;
-        }
-
-        .load-data-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 8px -1px rgba(99, 102, 241, 0.3), 0 4px 6px -1px rgba(99, 102, 241, 0.2);
-            background: linear-gradient(135deg, #4b6cb7 0%, #5457ea 100%);
-        }
-
-        .load-data-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 4px -1px rgba(99, 102, 241, 0.2);
         }
         .page-toggle a {
             width: 40px;
@@ -252,21 +215,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 15px;
             color: #666;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
         .page-toggle a:hover {
             background-color: #e0e0e0;
         }
         .page-toggle a.active {
-            background-color: #fff;
-            color: #333;
+            background-color: white;
+            color: #4b6cb7;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .page-toggle i {
-            font-size: 1.2rem;
+            font-size: 18px;
+        }
+        .header-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 40px;
+            width: auto;
+        }
+        .load-data-btn {
+            margin-left: auto;
         }
     </style>
 </head>
@@ -312,6 +285,330 @@
     </div>
 
     <script>
+        const defaultMatchupsData = {
+            "matchups": [
+                {
+                    "title": "Matchup 1",
+                    "cars": [
+                        {
+                            "label": "Car 1.1",
+                            "title": "Subaru Outback",
+                            "fits_your_needs": [
+                                "Excellent AWD system",
+                                "High ground clearance",
+                                "Strong reliability record",
+                                "Good fuel efficiency",
+                                "Spacious interior"
+                            ],
+                            "potential_gaps": [
+                                "Less sophisticated styling",
+                                "Basic tech features",
+                                "Moderate towing capacity"
+                            ],
+                            "key_specs": [
+                                "Price: $28,000-$30,000 new",
+                                "Ground Clearance: 8.7 inches",
+                                "MPG: 26 city/33 highway",
+                                "Towing Capacity: 2,700-3,500 lbs",
+                                "Cargo Space: 32.5 cu.ft.",
+                                "AWD: Standard",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        },
+                        {
+                            "label": "Car 1.2",
+                            "title": "Acura RDX",
+                            "fits_your_needs": [
+                                "Luxury features",
+                                "Sophisticated styling",
+                                "Advanced tech features",
+                                "Sporty handling"
+                            ],
+                            "potential_gaps": [
+                                "Higher maintenance costs",
+                                "Premium fuel recommended",
+                                "Less ground clearance than some competitors"
+                            ],
+                            "key_specs": [
+                                "Price: $25,000-$30,000 used",
+                                "Ground Clearance: 8.2 inches",
+                                "MPG: 22 city/28 highway",
+                                "Towing Capacity: 1,500 lbs",
+                                "Cargo Space: 29.5 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Matchup 2",
+                    "cars": [
+                        {
+                            "label": "Car 2.1",
+                            "title": "Toyota RAV4 Hybrid",
+                            "fits_your_needs": [
+                                "Excellent fuel efficiency",
+                                "Strong reliability",
+                                "Modern safety tech",
+                                "Good resale value"
+                            ],
+                            "potential_gaps": [
+                                "Conservative styling",
+                                "Basic interior materials",
+                                "Average ground clearance"
+                            ],
+                            "key_specs": [
+                                "Price: $29,000-$30,000 new",
+                                "Ground Clearance: 8.1 inches",
+                                "MPG: 41 city/38 highway",
+                                "Towing Capacity: 1,750 lbs",
+                                "Cargo Space: 37.6 cu.ft.",
+                                "AWD: Standard",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        },
+                        {
+                            "label": "Car 2.2",
+                            "title": "Ford Bronco Sport",
+                            "fits_your_needs": [
+                                "Bold, adventurous styling",
+                                "Strong off-road capability",
+                                "Modern tech features",
+                                "Good ground clearance"
+                            ],
+                            "potential_gaps": [
+                                "Lower fuel efficiency",
+                                "Unproven reliability",
+                                "Limited cargo space"
+                            ],
+                            "key_specs": [
+                                "Price: $28,000-$30,000 new",
+                                "Ground Clearance: 8.8 inches",
+                                "MPG: 25 city/28 highway",
+                                "Towing Capacity: 2,200 lbs",
+                                "Cargo Space: 32.5 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Matchup 3",
+                    "cars": [
+                        {
+                            "label": "Car 3.1",
+                            "title": "Mazda CX-5",
+                            "fits_your_needs": [
+                                "Upscale feel",
+                                "Sophisticated design",
+                                "Strong safety features",
+                                "Good handling"
+                            ],
+                            "potential_gaps": [
+                                "Smaller cargo space",
+                                "Average fuel economy",
+                                "Limited towing capacity"
+                            ],
+                            "key_specs": [
+                                "Price: $26,000-$30,000 new",
+                                "Ground Clearance: 7.9 inches",
+                                "MPG: 24 city/30 highway",
+                                "Towing Capacity: 2,000 lbs",
+                                "Cargo Space: 30.9 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        },
+                        {
+                            "label": "Car 3.2",
+                            "title": "Jeep Cherokee",
+                            "fits_your_needs": [
+                                "Excellent off-road capability",
+                                "Strong towing capacity",
+                                "Rugged image",
+                                "Good ground clearance"
+                            ],
+                            "potential_gaps": [
+                                "Lower fuel efficiency",
+                                "Average reliability ratings",
+                                "Higher maintenance costs"
+                            ],
+                            "key_specs": [
+                                "Price: $27,000-$30,000 new",
+                                "Ground Clearance: 8.7 inches",
+                                "MPG: 20 city/29 highway",
+                                "Towing Capacity: 4,500 lbs",
+                                "Cargo Space: 25.8 cu.ft.",
+                                "4WD: Available",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Matchup 4",
+                    "cars": [
+                        {
+                            "label": "Car 4.1",
+                            "title": "Honda CR-V",
+                            "fits_your_needs": [
+                                "Excellent reliability",
+                                "Spacious interior",
+                                "Good fuel economy",
+                                "Strong resale value"
+                            ],
+                            "potential_gaps": [
+                                "Conservative styling",
+                                "Basic tech features",
+                                "Average ground clearance"
+                            ],
+                            "key_specs": [
+                                "Price: $27,000-$30,000 new",
+                                "Ground Clearance: 8.2 inches",
+                                "MPG: 28 city/34 highway",
+                                "Towing Capacity: 1,500 lbs",
+                                "Cargo Space: 39.2 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        },
+                        {
+                            "label": "Car 4.2",
+                            "title": "Volkswagen Tiguan",
+                            "fits_your_needs": [
+                                "European design",
+                                "Tech-forward features",
+                                "Sophisticated styling",
+                                "Optional third row"
+                            ],
+                            "potential_gaps": [
+                                "Average reliability",
+                                "Higher maintenance costs",
+                                "Lower fuel efficiency"
+                            ],
+                            "key_specs": [
+                                "Price: $26,000-$30,000 new",
+                                "Ground Clearance: 7.9 inches",
+                                "MPG: 23 city/30 highway",
+                                "Towing Capacity: 1,500 lbs",
+                                "Cargo Space: 37.6 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Matchup 5",
+                    "cars": [
+                        {
+                            "label": "Car 5.1",
+                            "title": "Hyundai Tucson",
+                            "fits_your_needs": [
+                                "Modern design",
+                                "Strong warranty",
+                                "Good tech features",
+                                "Value pricing"
+                            ],
+                            "potential_gaps": [
+                                "Average performance",
+                                "Less refined ride",
+                                "Lower resale value"
+                            ],
+                            "key_specs": [
+                                "Price: $25,000-$29,000 new",
+                                "Ground Clearance: 8.3 inches",
+                                "MPG: 25 city/32 highway",
+                                "Towing Capacity: 2,000 lbs",
+                                "Cargo Space: 38.7 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        },
+                        {
+                            "label": "Car 5.2",
+                            "title": "Nissan Rogue",
+                            "fits_your_needs": [
+                                "Comfortable ride",
+                                "Good fuel economy",
+                                "Modern tech features",
+                                "Spacious interior"
+                            ],
+                            "potential_gaps": [
+                                "Average performance",
+                                "Less engaging drive",
+                                "Mixed reliability history"
+                            ],
+                            "key_specs": [
+                                "Price: $26,000-$30,000 new",
+                                "Ground Clearance: 8.2 inches",
+                                "MPG: 27 city/35 highway",
+                                "Towing Capacity: 1,500 lbs",
+                                "Cargo Space: 36.5 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick+"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Matchup 6",
+                    "cars": [
+                        {
+                            "label": "Car 6.1",
+                            "title": "Kia Sportage",
+                            "fits_your_needs": [
+                                "Distinctive design",
+                                "Good feature set",
+                                "Strong warranty",
+                                "Value pricing"
+                            ],
+                            "potential_gaps": [
+                                "Average fuel economy",
+                                "Less refined ride",
+                                "Lower resale value"
+                            ],
+                            "key_specs": [
+                                "Price: $25,000-$29,000 new",
+                                "Ground Clearance: 8.3 inches",
+                                "MPG: 23 city/30 highway",
+                                "Towing Capacity: 2,000 lbs",
+                                "Cargo Space: 34.5 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        },
+                        {
+                            "label": "Car 6.2",
+                            "title": "Chevrolet Equinox",
+                            "fits_your_needs": [
+                                "American made",
+                                "Practical design",
+                                "Good value",
+                                "Comfortable ride"
+                            ],
+                            "potential_gaps": [
+                                "Basic interior materials",
+                                "Less cargo space",
+                                "Average performance"
+                            ],
+                            "key_specs": [
+                                "Price: $25,000-$28,000 new",
+                                "Ground Clearance: 7.9 inches",
+                                "MPG: 26 city/31 highway",
+                                "Towing Capacity: 1,500 lbs",
+                                "Cargo Space: 29.9 cu.ft.",
+                                "AWD: Available",
+                                "Safety: IIHS Top Safety Pick"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
         const modalOverlay = document.querySelector('.modal-overlay');
         const openModalBtn = document.querySelector('.open-modal-btn');
         const closeModalBtn = document.querySelector('.close-modal');
@@ -335,33 +632,8 @@
             }
         }
 
-        // Show modal when Load Data is clicked
-        openModalBtn.addEventListener('click', () => {
-            modalOverlay.style.display = 'flex';
-        });
-
-        // Hide modal when Close is clicked
-        closeModalBtn.addEventListener('click', () => {
-            modalOverlay.style.display = 'none';
-        });
-
-        generateBtn.addEventListener('click', async () => {
-            let dataStr = jsonInput.value.trim();
-            if(!dataStr) return alert("Please paste valid JSON.");
-
-            // Remove quotes at start and end if they exist
-            dataStr = dataStr.replace(/^["']|["']$/g, '');
-            
-            // Fix double quotes
-            dataStr = dataStr.replace(/""/g, '"');
-
-            let data;
-            try {
-                data = JSON.parse(dataStr);
-            } catch (e) {
-                return alert("Invalid JSON. Please check and try again.");
-            }
-
+        // Function to generate matchups HTML
+        async function generateMatchupsHTML(data) {
             // Clear existing matchups
             matchupsContainer.innerHTML = '';
 
@@ -413,9 +685,43 @@
 
                 matchupsContainer.insertAdjacentHTML('beforeend', matchupHTML);
             }
+        }
 
-            // Close modal
+        // Show modal when Load Data is clicked
+        openModalBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'flex';
+        });
+
+        // Hide modal when Close is clicked
+        closeModalBtn.addEventListener('click', () => {
             modalOverlay.style.display = 'none';
+        });
+
+        generateBtn.addEventListener('click', async () => {
+            let dataStr = jsonInput.value.trim();
+            if(!dataStr) return alert("Please paste valid JSON.");
+
+            // Remove quotes at start and end if they exist
+            dataStr = dataStr.replace(/^["']|["']$/g, '');
+            
+            // Fix double quotes
+            dataStr = dataStr.replace(/""/g, '"');
+
+            let data;
+            try {
+                data = JSON.parse(dataStr);
+                await generateMatchupsHTML(data);
+                // Close modal
+                modalOverlay.style.display = 'none';
+            } catch (e) {
+                return alert("Invalid JSON. Please check and try again.");
+            }
+        });
+
+        // Load default content when page loads
+        window.addEventListener('load', async () => {
+            await generateMatchupsHTML(defaultMatchupsData);
+            initAirtableForm();
         });
 
         // Function to initialize Airtable form
@@ -444,9 +750,6 @@
                 airtableContainer.appendChild(iframe);
             }
         }
-
-        // Call initAirtableForm when the page loads
-        window.addEventListener('load', initAirtableForm);
     </script>
 </body>
 </html>
