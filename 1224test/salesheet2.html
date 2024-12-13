@@ -40,21 +40,15 @@
         }
 
         .header {
-            display: flex;
-            align-items: center;
             padding: 1rem;
             background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e2e8f0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            display: flex;
             justify-content: space-between;
-        }
-        .back-button {
-            color: #333;
-            text-decoration: none;
-            font-size: 1.2rem;
-            width: 40px;
+            align-items: center;
         }
         .logo-container {
             position: absolute;
@@ -204,27 +198,31 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            margin-top: 16px;
             margin-bottom: 20px;
             width: 100%;
         }
 
         .car-item {
-            background: #fff;
-            padding: 12px 0;
-            width: 100%;
+            background: white;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 16px;
         }
 
         .car-item img {
             width: 100%;
             height: auto;
-            border-radius: 6px;
-            margin-bottom: 12px;
+            display: block;
+            margin: 0;
+            border-radius: 8px 8px 0 0;
         }
 
         .car-item h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2rem;
-            margin: 0 0 12px;
+            margin: 8px 0;
+            padding: 0 8px;
             color: #333;
             font-weight: 600;
         }
@@ -235,6 +233,31 @@
             margin: 12px 0 6px;
             color: #444;
             font-weight: 600;
+        }
+
+        .toggle-details {
+            background: #f5f5f5;
+            border: none;
+            border-radius: 0;
+            padding: 4px 12px;
+            font-size: 0.9em;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-details:hover {
+            background: #e9e9e9;
+        }
+
+        .car-item .card-content {
+            display: none;
+            padding: 8px;
+        }
+
+        .car-item.expanded .card-content {
+            display: block;
         }
 
         .key-specs ul,
@@ -348,7 +371,7 @@
             grid-template-columns: 66.67% 33.33%;
             gap: 24px;
             height: 100%;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -389,11 +412,10 @@
 
         .section-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            color: #2d3748;
-            margin: 2rem 0 1rem;
-            letter-spacing: 0.01em;
+            margin-bottom: 1.5rem;
+            color: #5D4B63;  /* Dark, muted purple */
         }
 
         .section-content {
@@ -470,7 +492,7 @@
             }
             .customer-header::before {
                 content: '';
-                background-image: url('logo.png');
+                background-image: none;
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -553,7 +575,7 @@
             grid-template-columns: 66.67% 33.33%;
             gap: 24px;
             height: 100%;
-            padding: 20px;
+            padding: 0 20px 20px 20px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -665,6 +687,146 @@
         .tradeoff-item li:last-child {
             margin-bottom: 0;
         }
+        .page-toggle {
+            display: flex;
+            gap: 10px;
+            background-color: #f4f4f4;
+            border-radius: 20px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-right: auto;
+            align-self: center;
+        }
+        .page-toggle a {
+            padding: 8px 15px;
+            border-radius: 15px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .page-toggle a:hover {
+            background-color: #e0e0e0;
+        }
+        .page-toggle a.active {
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .page-toggle i {
+            font-size: 1.2rem;
+        }
+
+        .key-specs {
+            display: table;
+            width: 100%;
+            margin: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .key-specs .spec-row {
+            display: table-row;
+        }
+
+        .key-specs .spec-label {
+            display: table-cell;
+            font-weight: 500;
+            color: #4a5568;
+            padding: 2px 12px 2px 0;
+            width: 40%;
+        }
+
+        .key-specs .spec-value {
+            display: table-cell;
+            color: #2d3748;
+            padding: 2px 0;
+        }
+
+        .fits-needs-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .fits-needs-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .fits-needs-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .potential-gaps-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .potential-gaps-list li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .potential-gaps-list li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .pros ul, .cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pros li, .cons li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .pros li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .cons li:before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #f44336;
+            font-weight: bold;
+        }
+        .car-grid > .car-item:first-child {
+            margin-top: 24px;
+        }
+
+        .car-item {
+            background: white;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 16px;
+        }
+        .super-rounded {
+            border-radius: 50px !important;
+        }
     </style>
     <script>
         async function fetchCarImage(carTitle) {
@@ -700,19 +862,22 @@
 </head>
 <body>
     <header class="header">
-        <a href="index.html" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo" class="logo">
+        <div class="page-toggle">
+            <a href="matchup.html" title="Tournament View">
+                <i class="fas fa-sitemap"></i>
+            </a>
+            <select class="form-select form-select-sm ms-2 super-rounded" style="width: auto; display: inline-block;" onchange="window.location.href=this.value">
+                <option value="salesheet.html">Recs on the Right</option>
+                <option value="salesheet2.html" selected>Recs Collapsed</option>
+                <option value="salesheet3.html">Recs on the Button</option>
+            </select>
         </div>
-        <button id="loadDataBtn" class="btn btn-primary" style="margin-right: 20px;">Load Data</button>
-        <button onclick="window.print()" class="btn btn-outline-primary" style="margin-left: auto; padding-left: 12px; padding-right: 12px; margin-right: 12px;">
-            <i class="fas fa-print"></i> Print
-        </button>
-        <a href="endofflow.html" class="btn btn-outline-primary" style="padding-left: 12px; padding-right: 12px; margin-right: 20px;">
-            <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="logo-container">
+            <img src="../mainimg/logo.png" alt="Logo" class="logo">
+        </div>
+        <div style="flex: 1; display: flex; justify-content: flex-end;">
+            <button id="loadDataBtn" class="btn btn-primary">Load Data</button>
+        </div>
     </header>
 
     <!-- Modal for data input -->
@@ -832,6 +997,27 @@
                         </ul>
                     </div>
                 </div>
+                
+                <!-- Questions to Answer Section -->
+                <div class="section-wrapper">
+                    <h2 class="section-title">Questions to Answer</h2>
+                    <div class="questions-container">
+                        <div class="tradeoff-item">
+                            <h3>Advanced technology features or traditional luxury elements?</h3>
+                            <p>The Tesla Model Y offers cutting-edge technology and a strong resale value, but it lacks Apple CarPlay/Android Auto, which you value. On the other hand, the Hyundai IONIQ 5 provides a unique design and fast charging but may not convey the luxury status you desire. Consider whether the latest tech innovations or a more traditional luxury feel align better with your personality and lifestyle.</p>
+                        </div>
+                        
+                        <div class="tradeoff-item">
+                            <h3>Brand prestige versus value for money?</h3>
+                            <p>The Hyundai IONIQ 5 offers a good value proposition and unique design, but it comes from a less prestigious brand, which might not align with your social status goals. The Ford Mustang Mach-E, with its American brand recognition, might better fit your image preferences but could come with a higher price and potential software issues. Weigh the importance of brand prestige against the value and features offered by each vehicle.</p>
+                        </div>
+                        
+                        <div class="tradeoff-item">
+                            <h3>Performance and sporty driving dynamics or practicality and family needs?</h3>
+                            <p>The Ford Mustang Mach-E provides strong performance and sporty handling, which might appeal to your desire for a car that reflects your personality. However, it has limited cargo space, which might not fully meet your family needs. The Tesla Model Y, with its spacious interior and child seat compatibility, offers more practicality but may not deliver the same sporty experience. Consider whether performance or practicality is more crucial for your daily driving experience.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="right-column">
@@ -841,105 +1027,84 @@
                     <div class="car-item">
                         <img src="https://placehold.co/600x400" alt="Tesla Model Y">
                         <h3>Tesla Model Y</h3>
-                        
-                        <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $43,990-$53,990</li>
-                                <li><strong>Range:</strong> 330 miles</li>
-                                <li><strong>0-60:</strong> 3.5-6.0s</li>
-                                <li><strong>Cargo:</strong> 76.2 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 6.6 inches</li>
-                                <li><strong>ISOFIX points:</strong> 3</li>
-                            </ul>
-                        </div>
-
-                        <div class="fits-needs">
-                            <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Leading tech features</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
-                            </ul>
-                        </div>
-
-                        <div class="potential-gaps">
-                            <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Build quality concerns</li>
-                                <li><i class="fas fa-times"></i> No Apple CarPlay/Android Auto</li>
-                                <li><i class="fas fa-times"></i> Higher initial cost</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="car-item">
-                        <img src="https://placehold.co/600x400" alt="Mazda3 Hatchback">
-                        <h3>Mazda3 Hatchback (2023)</h3>
-                        
-                        <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $21,640-$28,440</li>
-                                <li><strong>Range:</strong> N/A</li>
-                                <li><strong>0-60:</strong> 5.7-8.2s</li>
-                                <li><strong>Cargo:</strong> 20.2 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 5.1 inches</li>
-                                <li><strong>ISOFIX points:</strong> 2</li>
-                            </ul>
-                        </div>
-
-                        <div class="fits-needs">
-                            <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Good handling characteristics</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
-                            </ul>
-                        </div>
-
-                        <div class="potential-gaps">
-                            <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Limited cargo space</li>
-                                <li><i class="fas fa-times"></i> No hybrid option</li>
-                                <li><i class="fas fa-times"></i> Less advanced tech features</li>
-                            </ul>
+                        <button class="toggle-details">Full Details</button>
+                        <div class="card-content">
+                            <div class="key-specs">
+                                <div class="spec-row">
+                                    <span class="spec-label">Price Range</span>
+                                    <span class="spec-value">$43,990 - $53,990</span>
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-label">Range</span>
+                                    <span class="spec-value">330 miles</span>
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-label">0-60</span>
+                                    <span class="spec-value">4.8s</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pros-cons">
+                                <div class="pros">
+                                    <h4>Pros</h4>
+                                    <ul>
+                                        <li>Class-leading range</li>
+                                        <li>Spacious interior</li>
+                                        <li>Strong performance</li>
+                                        <li>Advanced tech features</li>
+                                    </ul>
+                                </div>
+                                <div class="cons">
+                                    <h4>Cons</h4>
+                                    <ul>
+                                        <li>Build quality concerns</li>
+                                        <li>Higher price point</li>
+                                        <li>Firm ride</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="car-item">
                         <img src="https://placehold.co/600x400" alt="Honda Civic Hatchback Sport">
                         <h3>Honda Civic Hatchback Sport (2022)</h3>
-                        
-                        <div class="key-specs">
-                            <ul>
-                                <li><strong>Price:</strong> $23,850-$28,400</li>
-                                <li><strong>Range:</strong> N/A</li>
-                                <li><strong>0-60:</strong> 7.2-8.2s</li>
-                                <li><strong>Cargo:</strong> 25.7 cubic feet</li>
-                                <li><strong>Ground clearance:</strong> 6.7 inches</li>
-                                <li><strong>ISOFIX points:</strong> 2</li>
-                            </ul>
-                        </div>
-
-                        <div class="fits-needs">
-                            <h4>Fits Your Needs</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Strong resale value</li>
-                                <li><i class="fas fa-check"></i> Good handling characteristics</li>
-                                <li><i class="fas fa-check"></i> Spacious interior</li>
-                                <li><i class="fas fa-check"></i> Low maintenance costs</li>
-                            </ul>
-                        </div>
-
-                        <div class="potential-gaps">
-                            <h4>Potential Gaps</h4>
-                            <ul>
-                                <li><i class="fas fa-times"></i> Less advanced tech features</li>
-                                <li><i class="fas fa-times"></i> No hybrid option</li>
-                                <li><i class="fas fa-times"></i> Higher initial cost</li>
-                            </ul>
+                        <button class="toggle-details">Full Details</button>
+                        <div class="card-content">
+                            <div class="key-specs">
+                                <div class="spec-row">
+                                    <span class="spec-label">Price Range</span>
+                                    <span class="spec-value">$24,100 - $29,850</span>
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-label">MPG</span>
+                                    <span class="spec-value">31 city / 38 highway</span>
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-label">Horsepower</span>
+                                    <span class="spec-value">180 hp</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pros-cons">
+                                <div class="pros">
+                                    <h4>Pros</h4>
+                                    <ul>
+                                        <li>Excellent fuel economy</li>
+                                        <li>Sporty handling</li>
+                                        <li>Premium interior feel</li>
+                                        <li>Strong resale value</li>
+                                    </ul>
+                                </div>
+                                <div class="cons">
+                                    <h4>Cons</h4>
+                                    <ul>
+                                        <li>Limited cargo space</li>
+                                        <li>CVT transmission feel</li>
+                                        <li>Some road noise</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1045,29 +1210,54 @@
                     tradeoffsSection.insertAdjacentHTML('beforeend', tradeoffsHtml);
                 }
 
+                // Questions to Answer
+                const questionsTitle = findElementByText('.section-wrapper h2.section-title', 'Questions to Answer');
+                if (questionsTitle) {
+                    const questionsSection = questionsTitle.parentElement;
+                    const questionsContainer = questionsSection.querySelector('.questions-container');
+                    if (questionsContainer && jsonData.questionsToAnswer) {
+                        const questionsHtml = jsonData.questionsToAnswer.map(question => `
+                            <div class="tradeoff-item">
+                                <h3>${question.mainQuestion}</h3>
+                                <p>${question.explanation}</p>
+                            </div>
+                        `).join('');
+                        questionsContainer.innerHTML = questionsHtml;
+                    }
+                }
+
                 // Recommended Cars
                 const carGrid = document.querySelector('.car-grid');
                 carGrid.innerHTML = jsonData.recommendedCars.map(car => `
                     <div class="car-item">
                         <img src="${car.image}" alt="${car.name}">
                         <h3>${car.name}</h3>
-                        <div class="key-specs">
-                            ${Object.entries(car.keySpecs).map(([key, value]) => `
-                                <div class="spec-item">
+                        <button class="toggle-details">Full Details</button>
+                        <div class="card-content">
+                            <div class="key-specs">
+                                ${Object.entries(car.keySpecs)
+                                    .filter(([key]) => key.toLowerCase() !== 'isofix points')
+                                    .map(([key, value]) => `
+                                <div class="spec-row">
                                     <span class="spec-label">${key}:</span>
                                     <span class="spec-value">${value}</span>
                                 </div>
                             `).join('')}
-                        </div>
-                        <div class="car-features">
-                            <h4>Fits Your Needs</h4>
-                            <ul>
-                                ${car.fitsYourNeeds.map(need => `<li>${need}</li>`).join('')}
-                            </ul>
-                            <h4>Potential Gaps</h4>
-                            <ul>
-                                ${car.potentialGaps.map(gap => `<li>${gap}</li>`).join('')}
-                            </ul>
+                            </div>
+                            <div class="pros-cons">
+                                <div class="pros">
+                                    <h4>Pros</h4>
+                                    <ul>
+                                        ${car.pros.map(pro => `<li>${pro}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="cons">
+                                    <h4>Cons</h4>
+                                    <ul>
+                                        ${car.cons.map(con => `<li>${con}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `).join('');
@@ -1101,7 +1291,175 @@
                     alert('Invalid JSON format. Please check your input.');
                 }
             });
+
+            // Add event listeners for toggle buttons
+            const toggleButtons = document.querySelectorAll('.toggle-details');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const carItem = this.closest('.car-item');
+                    carItem.classList.toggle('expanded');
+                    this.textContent = carItem.classList.contains('expanded') ? 'Show Less' : 'Full Details';
+                });
+            });
         });
+
+        const jsonData = {
+            "customer": {
+                "name": "Petra Williams",
+                "headline": "Parent struggling to balance finding an electric vehicle that fits their personality with one that is functional for their family is looking to buy a new or used EV for $30,000 - $50,000"
+            },
+            "mustHaveFeatures": [
+                "Child seat compatibility",
+                "High ground clearance",
+                "Fuel efficiency",
+                "Spacious interior",
+                "Easy city maneuverability",
+                "Modern tech",
+                "Apple CarPlay/Android Auto",
+                "High safety rating",
+                "All-wheel drive"
+            ],
+            "whereYouAre": "I need a new car because I can't count on my current car's reliability anymore. I am considering electric vehicles (EVs). The car must have child seat compatibility, high ground clearance, fuel efficiency, a spacious interior, easy city maneuverability, modern tech, Apple CarPlay/Android Auto, a high safety rating, and all-wheel drive.",
+            "whereYouHopeToGo": "I am focused on understanding the compromises I'll need to make to meet my new functional needs and finding a car that matches my personality and image. I want to feel confident that I got a good price, that the car is solid for me, and that I don't have to worry about it. I want to be happy with how it meets my new needs, feel good driving it, and ensure it reflects my personality. It's important to me that people see me the way I intend, so I feel great about how I come across. I need the car to accommodate family changes, offer better fuel efficiency, and allow for home charging. Low maintenance costs, fitting my budget, enjoying daily driving, feeling accomplished, conveying social status, and looking great are most important to me. It's least important that others can drive it easily or that I don't have to be careful with it.",
+            "yourConcerns": {
+                "aboutTheCar": [
+                    "Will this car be reliable?",
+                    "Will the car hold its value?"
+                ],
+                "aboutTheBuyingProcess": [
+                    "Will I get ripped off or 'sold?'"
+                ]
+            },
+            "tradeoffs": [
+                {
+                    "title": "Performance Over Range",
+                    "details": [
+                        "Selected vehicles with faster acceleration times over maximum range",
+                        "Chose options emphasizing driving dynamics and sporty characteristics",
+                        "Willing to accept slightly lower range for better performance metrics"
+                    ]
+                },
+                {
+                    "title": "Brand Recognition Over Value",
+                    "details": [
+                        "Consistently selected vehicles from well-established manufacturers",
+                        "Chose options from brands with strong market presence",
+                        "Preferred traditional luxury marques over newer value-oriented brands"
+                    ]
+                },
+                {
+                    "title": "Safety Over Cargo Space",
+                    "details": [
+                        "Selected vehicles with strong safety reputations despite smaller cargo capacity",
+                        "Prioritized advanced safety features over maximum utility",
+                        "Chose options from manufacturers known for safety innovation"
+                    ]
+                },
+                {
+                    "title": "Traditional Design Over Modern Styling",
+                    "details": [
+                        "Favored conventional automotive designs",
+                        "Selected vehicles with familiar styling cues",
+                        "Chose options with traditional luxury appointments"
+                    ]
+                },
+                {
+                    "title": "Domestic Market Preference",
+                    "details": [
+                        "Strong preference for vehicles with established US presence",
+                        "Selected options with robust dealer networks",
+                        "Chose models from brands with strong American market understanding"
+                    ]
+                }
+            ],
+            "recommendedCars": [
+                {
+                    "name": "Tesla Model Y",
+                    "image": "https://placehold.co/600x400",
+                    "keySpecs": {
+                        "Price": "$43,990-$53,990",
+                        "Range": "330 miles",
+                        "0-60": "3.5-6.0s",
+                        "Cargo": "76.2 cubic feet",
+                        "Ground clearance": "6.6 inches"
+                    },
+                    "pros": [
+                        "Strong resale value",
+                        "Leading tech features",
+                        "Spacious interior",
+                        "Low maintenance costs",
+                        "All-wheel drive"
+                    ],
+                    "cons": [
+                        "Build quality concerns",
+                        "No Apple CarPlay/Android Auto",
+                        "Higher initial cost"
+                    ]
+                },
+                {
+                    "name": "Hyundai IONIQ 5",
+                    "image": "https://placehold.co/600x400",
+                    "keySpecs": {
+                        "Price": "$41,450-$52,600",
+                        "Range": "303 miles",
+                        "0-60": "5.2s",
+                        "Cargo": "59.3 cubic feet",
+                        "Ground clearance": "6.1 inches"
+                    },
+                    "pros": [
+                        "Unique design",
+                        "Fast charging capability",
+                        "Spacious interior",
+                        "Good value proposition",
+                        "Apple CarPlay/Android Auto"
+                    ],
+                    "cons": [
+                        "Less established luxury brand",
+                        "Limited dealer network",
+                        "Some cheap interior materials"
+                    ]
+                },
+                {
+                    "name": "Ford Mustang Mach-E",
+                    "image": "https://placehold.co/600x400",
+                    "keySpecs": {
+                        "Price": "$45,995-$53,995",
+                        "Range": "312 miles",
+                        "0-60": "3.5s",
+                        "Cargo": "59.7 cubic feet",
+                        "Ground clearance": "5.7 inches"
+                    },
+                    "pros": [
+                        "Strong performance",
+                        "American brand recognition",
+                        "Good range",
+                        "Sporty handling",
+                        "All-wheel drive"
+                    ],
+                    "cons": [
+                        "Controversial styling",
+                        "Software issues reported",
+                        "Limited cargo space"
+                    ]
+                }
+            ],
+            "questionsToAnswer": [
+                {
+                    "mainQuestion": "Advanced technology features or traditional luxury elements?",
+                    "explanation": "The Tesla Model Y offers cutting-edge technology and a strong resale value, but it lacks Apple CarPlay/Android Auto, which you value. On the other hand, the Hyundai IONIQ 5 provides a unique design and fast charging but may not convey the luxury status you desire. Consider whether the latest tech innovations or a more traditional luxury feel align better with your personality and lifestyle."
+                },
+                {
+                    "mainQuestion": "Brand prestige versus value for money?",
+                    "explanation": "The Hyundai IONIQ 5 offers a good value proposition and unique design, but it comes from a less prestigious brand, which might not align with your social status goals. The Ford Mustang Mach-E, with its American brand recognition, might better fit your image preferences but could come with a higher price and potential software issues. Weigh the importance of brand prestige against the value and features offered by each vehicle."
+                },
+                {
+                    "mainQuestion": "Performance and sporty driving dynamics or practicality and family needs?",
+                    "explanation": "The Ford Mustang Mach-E provides strong performance and sporty handling, which might appeal to your desire for a car that reflects your personality. However, it has limited cargo space, which might not fully meet your family needs. The Tesla Model Y, with its spacious interior and child seat compatibility, offers more practicality but may not deliver the same sporty experience. Consider whether performance or practicality is more crucial for your daily driving experience."
+                }
+            ]
+        };
+
+        loadJsonData(jsonData);
     </script>
 </body>
 </html>
