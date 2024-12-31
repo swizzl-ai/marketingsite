@@ -68,7 +68,6 @@
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            position: relative;
         }
 
         .sticky-headers-container {
@@ -200,17 +199,23 @@
             background: #f5f5f7;
             padding: 1.5rem;
             font-weight: 600;
-            color: #333;
-            font-size: 1.1em;
-            text-align: left;
-            z-index: 99;
-            border-bottom: 2px solid #f5f5f7;
-            width: 350px;
-            transition: transform 0.1s ease-out, background-color 0.3s ease, color 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        }
+
+        .vehicle-headline {
+            font-size: 1.1rem;
+            color: #444444;
+            margin: 0.5rem 0;
+            line-height: 1.4;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .vehicle-headline::before {
+            content: '"';
+        }
+
+        .vehicle-headline::after {
+            content: '"';
         }
 
         .vehicle-name.favorited {
@@ -225,7 +230,6 @@
         .vehicle-name .title {
             font-weight: 600;
             font-size: 1em;
-            margin-right: 1rem;
         }
 
         .vehicle-name .subtitle {
@@ -575,6 +579,142 @@
                 -webkit-transform: translate3d(0,0,0);
             }
         }
+
+        /* Fixed Bar Styles */
+        .fixed-cheatsheet-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 100px);
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-width: 90%;
+            width: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .fixed-cheatsheet-bar.visible {
+            transform: translate(-50%, 0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .fixed-cheatsheet-bar .message {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .fixed-cheatsheet-bar .cta-button {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .fixed-cheatsheet-bar .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            max-height: 95vh;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .modal-content.visible {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .sales-sheet-section {
+            margin-bottom: 2rem;
+        }
+
+        .sales-sheet-section h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4568dc;
+        }
     </style>
 </head>
 <body>
@@ -583,6 +723,41 @@
             <img src="logo.png" alt="Logo">
         </div>
     </header>
+
+    <div class="overlay"></div>
+
+    <div class="fixed-cheatsheet-bar">
+        <span class="message">Select some favorites and we'll summarize the key questions you'll need to answer with a test drive</span>
+        <a href="../salessheet" class="cta-button">Get Test Drive Cheatsheet</a>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h2>Sales Cheat Sheet</h2>
+                <button class="modal-close" onclick="hideModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sales-sheet-section">
+                    <h3>Customer Profile</h3>
+                    <p class="customer-name"></p>
+                    <p class="customer-headline"></p>
+                </div>
+                <div class="sales-sheet-section">
+                    <h3>Must-Have Features</h3>
+                    <ul class="feature-list must-have-features"></ul>
+                </div>
+                <div class="sales-sheet-section">
+                    <h3>Nice-to-Have Features</h3>
+                    <ul class="feature-list nice-to-have-features"></ul>
+                </div>
+                <div class="sales-sheet-section">
+                    <h3>Recommended Vehicles</h3>
+                    <div class="recommended-vehicles"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main>
         <section class="hero">
@@ -600,34 +775,56 @@
 
     <div class="side-panel"></div>
 
-    <div class="overlay"></div>
-
-    <div id="contact-modal" class="modal">
-        <div class="modal-content">
-            <h2>Contact the Dealer</h2>
-            <form id="contact-form">
-                <div class="form-group">
-                    <label for="to-email">To:</label>
-                    <input type="email" id="to-email" value="sales@yourdealer.com" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="from-email">From:</label>
-                    <input type="email" id="from-email" value="john@youremail.com" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" rows="6"></textarea>
-                </div>
-                <button type="submit" class="send-button">Send</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="spacer"></div>
-
-    <script src="data.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
+    <script type="module">
+        import { vehicleData, prompts, survey, salesSheet } from './data.js';
+        
+        // Expose modal functions to global scope
+        window.showModal = function() {
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Populate modal content
+            document.querySelector('.customer-name').textContent = salesSheet.salesSheet.customer.name;
+            document.querySelector('.customer-headline').textContent = salesSheet.salesSheet.customer.headline;
+            
+            // Populate must-have features
+            const mustHaveList = document.querySelector('.must-have-features');
+            mustHaveList.innerHTML = salesSheet.salesSheet.mustHaveFeatures
+                .map(feature => `<li>${feature}</li>`)
+                .join('');
+            
+            // Populate nice-to-have features
+            const niceToHaveList = document.querySelector('.nice-to-have-features');
+            niceToHaveList.innerHTML = salesSheet.salesSheet.niceToHaveFeatures
+                .map(feature => `<li>${feature}</li>`)
+                .join('');
+            
+            // Populate recommended vehicles
+            const recommendedVehicles = document.querySelector('.recommended-vehicles');
+            recommendedVehicles.innerHTML = salesSheet.salesSheet.recommendedVehicles
+                .map(vehicle => `
+                    <div class="vehicle-recommendation">
+                        <h4>${vehicle.name}</h4>
+                        <p>${vehicle.keyPoints.join(', ')}</p>
+                    </div>
+                `).join('');
+            
+            modalOverlay.classList.add('visible');
+            setTimeout(() => {
+                modalContent.classList.add('visible');
+            }, 10);
+        };
+
+        window.hideModal = function() {
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            modalContent.classList.remove('visible');
+            setTimeout(() => {
+                modalOverlay.classList.remove('visible');
+            }, 300);
+        };
+        
         class VehicleCardManager {
             constructor() {
                 this.mainHeaderHeight = 72;
@@ -637,13 +834,15 @@
                 this.currentIndex = 0;
                 this.unusedVehicles = [...vehicleData.cars];  // Create a copy of all vehicles
                 this.displayedVehicles = [];  // Track currently displayed vehicles
+                this.favoritedCars = new Set();
+                this.fixedBar = document.querySelector('.fixed-cheatsheet-bar');
                 this.setupEventListeners();
                 this.loadMoreVehicles();
+                this.setupScrollSync();
             }
 
             loadMoreVehicles() {
                 if (this.unusedVehicles.length > 0) {
-                    // Take first 3 vehicles from unused list
                     const vehicles = this.unusedVehicles.splice(0, 3);
                     this.displayedVehicles.push(...vehicles);
                     this.renderVehicles(vehicles);
@@ -744,16 +943,20 @@
                 imageContainer.appendChild(img);
                 content.appendChild(imageContainer);
 
-                // Create container for specs and features
+                if (vehicle.headline) {
+                    const headlineDiv = document.createElement('div');
+                    headlineDiv.className = 'vehicle-headline';
+                    headlineDiv.textContent = vehicle.headline;
+                    content.appendChild(headlineDiv);
+                }
+
                 const specsAndFeatures = document.createElement('div');
                 specsAndFeatures.className = 'specs-and-features';
 
-                // Add key specs table if available
                 if (Array.isArray(vehicle.key_specs) && vehicle.key_specs.length > 0) {
                     const specsTable = document.createElement('table');
                     specsTable.className = 'specs-table';
                     
-                    // Create inner table for specs
                     const innerTable = document.createElement('table');
                     vehicle.key_specs.forEach(spec => {
                         const [key, ...valueParts] = spec.split(':');
@@ -772,7 +975,6 @@
                     specsAndFeatures.appendChild(specsTable);
                 }
                 
-                // Add feature pills
                 if (vehicle.present && Array.isArray(vehicle.present.list)) {
                     const pillsContainer = document.createElement('div');
                     pillsContainer.className = 'feature-pills';
@@ -803,7 +1005,6 @@
 
                 content.appendChild(specsAndFeatures);
 
-                // Handle fits_your_needs and potential_gaps with summaries
                 const sections = [
                     { name: 'fits_your_needs', source: 'present' },
                     { name: 'potential_gaps', source: 'not_present' }
@@ -827,7 +1028,6 @@
                     content.appendChild(section);
                 });
 
-                // Add tradeoffs section at the bottom
                 if (vehicle.tradeoffs && vehicle.tradeoffs.list && Array.isArray(vehicle.tradeoffs.list)) {
                     const tradeoffsSection = document.createElement('div');
                     tradeoffsSection.className = 'section-content-no-box';
@@ -852,7 +1052,6 @@
                     content.appendChild(tradeoffsSection);
                 }
                 
-                // Add dealer section
                 if (vehicle.dealer) {
                     const dealerSection = document.createElement('div');
                     dealerSection.className = 'dealer-section';
@@ -861,12 +1060,10 @@
                     dealerTitle.textContent = 'Where To Get It';
                     dealerSection.appendChild(dealerTitle);
 
-                    // Add map container right after title
                     const mapContainer = document.createElement('div');
                     mapContainer.className = 'map-container';
                     dealerSection.appendChild(mapContainer);
 
-                    // Make map container clickable to open Google Maps
                     mapContainer.addEventListener('click', () => {
                         const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(vehicle.dealer.address)}`;
                         window.open(googleMapsUrl, '_blank', 'noopener');
@@ -885,7 +1082,6 @@
 
                     dealerSection.appendChild(dealerInfo);
 
-                    // Add CTA button
                     const ctaButton = document.createElement('a');
                     ctaButton.className = 'dealer-cta';
                     ctaButton.href = vehicle.dealer.website;
@@ -896,7 +1092,6 @@
 
                     content.appendChild(dealerSection);
 
-                    // Initialize map after the container is added to the DOM
                     setTimeout(async () => {
                         const map = L.map(mapContainer, {
                             dragging: false,
@@ -913,7 +1108,6 @@
                         }).addTo(map);
 
                         try {
-                            // Use Nominatim geocoding service
                             const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(vehicle.dealer.address)}`);
                             const data = await response.json();
                             
@@ -951,81 +1145,30 @@
                         const icon = heartBtn.querySelector('i');
                         icon.className = header.classList.contains('favorited') ? 
                             'fa-solid fa-heart' : 'fa-regular fa-heart';
+                        const vehicleTitle = header.querySelector('.title').textContent;
+                        if (header.classList.contains('favorited')) {
+                            this.favoritedCars.add(vehicleTitle);
+                        } else {
+                            this.favoritedCars.delete(vehicleTitle);
+                        }
+                        this.updateFixedBarVisibility();
                     }
                     
                     if (closeBtn) {
                         const header = closeBtn.closest('.sticky-header');
                         const index = Array.from(this.stickyHeadersContainer.children).indexOf(header);
                         if (index !== -1) {
-                            // Remove the current vehicle
                             header.remove();
                             this.vehiclesContainer.children[index].remove();
-                            
-                            // Remove from displayed vehicles
                             this.displayedVehicles.splice(index, 1);
-                            
-                            // If we have unused vehicles, add a new one
                             if (this.unusedVehicles.length > 0) {
-                                const nextVehicle = this.unusedVehicles.shift(); // Take the next unused vehicle
+                                const nextVehicle = this.unusedVehicles.shift();
                                 this.displayedVehicles.push(nextVehicle);
-                                
-                                // Create and append new header
-                                const newHeader = document.createElement('div');
-                                newHeader.className = 'sticky-header';
-                                
-                                const titleWrapper = document.createElement('div');
-                                titleWrapper.className = 'title-wrapper';
-                                
-                                const title = document.createElement('div');
-                                title.className = 'title';
-                                title.textContent = nextVehicle.title;
-                                
-                                const subtitle = document.createElement('div');
-                                subtitle.className = 'subtitle';
-                                
-                                const priceSpec = nextVehicle.key_specs?.find(spec => spec?.toLowerCase().startsWith('price:'));
-                                let priceRange = '';
-                                if (priceSpec) {
-                                    const prices = priceSpec.match(/\$[\d,]+/g);
-                                    if (prices && prices.length >= 2) {
-                                        priceRange = `$${(parseInt(prices[0].replace(/[\$,]/g, '')) / 1000).toFixed(0)}k-${(parseInt(prices[1].replace(/[\$,]/g, '')) / 1000).toFixed(0)}k`;
-                                    } else if (prices && prices.length === 1) {
-                                        priceRange = `$${(parseInt(prices[0].replace(/[\$,]/g, '')) / 1000).toFixed(0)}k`;
-                                    }
-                                }
-                                
-                                subtitle.textContent = `${nextVehicle.year || '2025'} • ${priceRange} • New`;
-                                
-                                titleWrapper.appendChild(title);
-                                titleWrapper.appendChild(subtitle);
-                                
-                                const actions = document.createElement('div');
-                                actions.className = 'actions';
-                                
-                                const heartBtn = document.createElement('button');
-                                heartBtn.className = 'heart';
-                                heartBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
-                                
-                                const closeBtn = document.createElement('button');
-                                closeBtn.className = 'close';
-                                closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-                                
-                                actions.appendChild(heartBtn);
-                                actions.appendChild(closeBtn);
-                                
-                                newHeader.appendChild(titleWrapper);
-                                newHeader.appendChild(actions);
-                                
-                                this.stickyHeadersContainer.appendChild(newHeader);
-
-                                // Create and append new vehicle thread
-                                this.createVehicleThread(nextVehicle).then(thread => {
-                                    this.vehiclesContainer.appendChild(thread);
-                                });
+                                this.createAndAppendVehicle(nextVehicle);
                             }
                         }
                     }
-                    
+
                     if (thread || (header && !heartBtn && !closeBtn)) {
                         const index = thread ? 
                             Array.from(this.vehiclesContainer.children).indexOf(thread) :
@@ -1034,7 +1177,19 @@
                     }
                 });
 
-                this.setupScrollSync();
+                document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('modalOverlay')) {
+                        hideModal();
+                    }
+                });
+            }
+
+            updateFixedBarVisibility() {
+                if (this.favoritedCars.size > 0) {
+                    this.fixedBar.classList.add('visible');
+                } else {
+                    this.fixedBar.classList.remove('visible');
+                }
             }
 
             setupScrollSync() {

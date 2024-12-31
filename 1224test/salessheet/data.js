@@ -48,7 +48,6 @@ const TRADEOFFS_PROMPT = "You are a sales person trying to help someone make a d
 
 const REC_HEADLINE_PROMPT = "You are an expert car salesman and you want to introduce a specific vehicle to a potential customer with a quick quip that highlights specifically why this vehicle is a good fit and why it may be different than than other recommendations. This should be so concise you can't do complete a complete sentence, just ideas. Here's are some examples:'Premium sedan with loads of tech and modern vibes but a higher price tag and limited utility', 'Reliable, safe and fuel-efficient. A modern ride that's still practical', 'High end of our recommendations on price and premium feel/luxury, but still a good value'";
 
-
 const vehicleData = {
   "cars": [
     {
@@ -684,12 +683,5 @@ const salesSheet = {
   }
 };
 
-const prompts = {
-  FITS_PROMPT,
-  GAPS_PROMPT,
-  TRADEOFFS_PROMPT,
-  REC_HEADLINE_PROMPT
-};
-
 // Export all constants
-export { prompts, survey, vehicleData, salesSheet };
+export { FITS_PROMPT, GAPS_PROMPT, TRADEOFFS_PROMPT, REC_HEADLINE_PROMPT, survey, vehicleData, salesSheet };
