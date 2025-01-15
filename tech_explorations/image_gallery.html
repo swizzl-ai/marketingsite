@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flickity Gallery Demo</title>
+  <!-- Flickity CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Button styles */
+    .open-modal-btn, .open-modal-btn-wide {
+      display: inline-block;
+      margin: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50px;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 450px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .modal.modal-wide {
+      width: 550px;
+    }
+
+    /* Overlay styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .modal-header .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-content {
+      padding: 10px;
+    }
+
+    /* Gallery styles */
+    .gallery-container {
+      background-color: #f5f5f5;
+      padding: 20px 0 40px;
+    }
+
+    .gallery {
+      height: 250px;
+      background-color: #f5f5f5;
+    }
+
+    .gallery-wide {
+      height: 250px;
+      background-color: #f5f5f5;
+    }
+
+    .gallery-cell {
+      width: 100%;
+      height: 250px;
+    }
+
+    .gallery-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    /* Fullscreen modal styles */
+    .modal-fullscreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+    }
+
+    .gallery-fullscreen {
+      height: 100vh;
+    }
+
+    .gallery-fullscreen .gallery-cell {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .gallery-fullscreen .gallery-cell img {
+      max-height: calc(100vh - 80px);
+      width: auto;
+      max-width: 850px;
+      object-fit: contain;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+    }
+
+    .fullscreen-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 2001;
+      background: none;
+      border: none;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<button class="open-modal-btn">Open Mobile</button>
+<button class="open-modal-btn-wide">Open Desktop</button>
+
+<div class="modal-overlay" id="modal-overlay"></div>
+<div id="modal" class="modal">
+  <div class="modal-header">
+    <h2>Toyota Rav4 2024</h2>
+    <button class="close-btn" aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-content">
+    <div class="gallery-container">
+      <div class="gallery">
+        <div class="gallery-cell">
+          <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/max/2024/rav4/trdoff-road/4448/2qx/36/5.png?fmt=png-alpha&wid=930&qlt=90" alt="2024 Toyota RAV4 TRD Off-Road">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://di-uploads-pod15.dealerinspire.com/florencetoyota/uploads/2024/01/mlp-img-top-2024-rav4.png" alt="2024 Toyota RAV4">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://www.motortrend.com/uploads/2023/10/2024-Toyota-RAV4-TRD-front-view-20.jpg" alt="2024 Toyota RAV4 Front View">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://www.buyatoyota.com/sharpr/bat/assets/img/vehicle-info/RAV4_Prime/2024/hero_image_rav4prime.png" alt="2024 Toyota RAV4 Prime">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://i.ytimg.com/vi/UYLXriLQ4YA/maxresdefault.jpg" alt="2024 Toyota RAV4">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay-wide"></div>
+<div id="modal-wide" class="modal modal-wide">
+  <div class="modal-header">
+    <h2>Toyota Rav4 2024 (Wide View)</h2>
+    <button class="close-btn" aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-content">
+    <div class="gallery-container">
+      <div class="gallery-wide">
+        <div class="gallery-cell">
+          <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/max/2024/rav4/trdoff-road/4448/2qx/36/5.png?fmt=png-alpha&wid=930&qlt=90" alt="2024 Toyota RAV4 TRD Off-Road">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://di-uploads-pod15.dealerinspire.com/florencetoyota/uploads/2024/01/mlp-img-top-2024-rav4.png" alt="2024 Toyota RAV4">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://www.motortrend.com/uploads/2023/10/2024-Toyota-RAV4-TRD-front-view-20.jpg" alt="2024 Toyota RAV4 Front View">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://www.buyatoyota.com/sharpr/bat/assets/img/vehicle-info/RAV4_Prime/2024/hero_image_rav4prime.png" alt="2024 Toyota RAV4 Prime">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://i.ytimg.com/vi/UYLXriLQ4YA/maxresdefault.jpg" alt="2024 Toyota RAV4">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fullscreen" id="modal-fullscreen">
+  <button class="fullscreen-close" aria-label="Close fullscreen">&times;</button>
+  <div class="gallery-fullscreen">
+    <div class="gallery-cell">
+      <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/max/2024/rav4/trdoff-road/4448/2qx/36/5.png?fmt=png-alpha&wid=930&qlt=90" alt="2024 Toyota RAV4 TRD Off-Road">
+    </div>
+    <div class="gallery-cell">
+      <img src="https://di-uploads-pod15.dealerinspire.com/florencetoyota/uploads/2024/01/mlp-img-top-2024-rav4.png" alt="2024 Toyota RAV4">
+    </div>
+    <div class="gallery-cell">
+      <img src="https://www.motortrend.com/uploads/2023/10/2024-Toyota-RAV4-TRD-front-view-20.jpg" alt="2024 Toyota RAV4 Front View">
+    </div>
+    <div class="gallery-cell">
+      <img src="https://www.buyatoyota.com/sharpr/bat/assets/img/vehicle-info/RAV4_Prime/2024/hero_image_rav4prime.png" alt="2024 Toyota RAV4 Prime">
+    </div>
+    <div class="gallery-cell">
+      <img src="https://i.ytimg.com/vi/UYLXriLQ4YA/maxresdefault.jpg" alt="2024 Toyota RAV4">
+    </div>
+  </div>
+</div>
+
+<!-- Flickity JavaScript -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script>
+  // Initialize Flickity
+  const flkty = new Flickity('.gallery', {
+    cellAlign: 'center',
+    contain: true,
+    wrapAround: true,
+    pageDots: true,
+    prevNextButtons: true
+  });
+
+  const flktyWide = new Flickity('.gallery-wide', {
+    cellAlign: 'center',
+    contain: true,
+    wrapAround: true,
+    pageDots: true,
+    prevNextButtons: true
+  });
+
+  const flktyFullscreen = new Flickity('.gallery-fullscreen', {
+    cellAlign: 'center',
+    contain: true,
+    wrapAround: true,
+    pageDots: true,
+    prevNextButtons: true,
+    draggable: true
+  });
+
+  // Modal functionality
+  const modal = document.getElementById('modal');
+  const modalWide = document.getElementById('modal-wide');
+  const modalFullscreen = document.getElementById('modal-fullscreen');
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalOverlayWide = document.getElementById('modal-overlay-wide');
+  const openModalBtn = document.querySelector('.open-modal-btn');
+  const openModalBtnWide = document.querySelector('.open-modal-btn-wide');
+  const closeModalBtns = document.querySelectorAll('.close-btn');
+  const closeFullscreenBtn = document.querySelector('.fullscreen-close');
+
+  // Function to sync fullscreen gallery with source gallery
+  function syncFullscreenGallery(sourceGallery, index) {
+    // Get the current image source
+    const currentImg = sourceGallery.querySelectorAll('.gallery-cell img')[index];
+    
+    // Update fullscreen gallery images if needed
+    const fullscreenImages = document.querySelectorAll('.gallery-fullscreen .gallery-cell img');
+    fullscreenImages.forEach((img, i) => {
+      img.src = sourceGallery.querySelectorAll('.gallery-cell img')[i].src;
+      img.alt = sourceGallery.querySelectorAll('.gallery-cell img')[i].alt;
+    });
+
+    modalFullscreen.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Need to resize and select after display is set to block
+    setTimeout(() => {
+      flktyFullscreen.resize();
+      flktyFullscreen.select(index, false, true);
+    }, 0);
+  }
+
+  // Add click handlers to all gallery images
+  document.querySelector('.gallery').querySelectorAll('img').forEach((img, index) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      syncFullscreenGallery(document.querySelector('.gallery'), index);
+    });
+  });
+
+  document.querySelector('.gallery-wide').querySelectorAll('img').forEach((img, index) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      syncFullscreenGallery(document.querySelector('.gallery-wide'), index);
+    });
+  });
+
+  closeFullscreenBtn.addEventListener('click', () => {
+    modalFullscreen.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+
+  // Escape key handler for fullscreen
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modalFullscreen.style.display === 'block') {
+      modalFullscreen.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+
+  openModalBtn.addEventListener('click', () => {
+    modal.style.display = 'block';
+    modalOverlay.style.display = 'block';
+    flkty.resize();
+  });
+
+  openModalBtnWide.addEventListener('click', () => {
+    modalWide.style.display = 'block';
+    modalOverlayWide.style.display = 'block';
+    flktyWide.resize();
+  });
+
+  closeModalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalWide.style.display = 'none';
+      modalOverlay.style.display = 'none';
+      modalOverlayWide.style.display = 'none';
+    });
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target === modalOverlay) {
+      modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    }
+    if (event.target === modalOverlayWide) {
+      modalWide.style.display = 'none';
+      modalOverlayWide.style.display = 'none';
+    }
+    if (event.target === modalFullscreen) {
+      modalFullscreen.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>
