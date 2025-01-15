@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Preview - Desktop vs Mobile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .preview-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #f5f3ff;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .preview-pane {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .preview-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .email-wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .email-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .desktop-view .email-content {
+            min-width: 320px;
+        }
+        .mobile-view .email-content {
+            width: 320px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .message {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #7157F5;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .mobile-view .cta-button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .cta-container {
+            text-align: center;
+        }
+        .email-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        .sender-info {
+            display: flex;
+            align-items: center;
+        }
+        .sender-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .sender-details {
+            line-height: 1.4;
+        }
+        .sender-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .sender-email {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .email-subject {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+        .desktop-view .email-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .desktop-view .email-subject {
+            flex: 1;
+            text-align: right;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid #eee;
+        }
+        .mobile-view .sender-info {
+            margin-bottom: 8px;
+        }
+        .mobile-view .sender-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .mobile-view .email-subject {
+            font-size: 0.95em;
+            color: #666;
+            font-weight: normal;
+        }
+        .code-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .code-title {
+            font-weight: bold;
+            color: #333;
+        }
+        .copy-button {
+            background: #7157F5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .copy-button:hover {
+            background: #5b44d9;
+        }
+        .code-content {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-pane desktop-view">
+            <div class="preview-title">Desktop Gmail Preview</div>
+            <div class="email-wrapper">
+                <div class="email-header">
+                    <div class="sender-info">
+                        <img src="img/hanna.png" alt="Hanna Chen" class="sender-photo">
+                        <div class="sender-details">
+                            <div class="sender-name">Hanna from Find My Next Car</div>
+                        </div>
+                    </div>
+                    <div class="email-subject">✨🚙 David's Recommendations from Find My Next Car</div>
+                </div>
+                <div class="email-content">
+                    <img src="img/logo.png" alt="Logo" class="logo">
+                    <div class="message">
+                        Well Done David!<br><br>
+                        You've saved yourself hours of searching with <strong>Find My Next Car</strong>. We've saved all your recommendations and the key decisions you'll need to make in a decision document you can access anytime.
+                    </div>
+                    <div class="cta-container">
+                        <a href="https://app.findmynextcar.co" class="cta-button">SEE MY RECOMMENDATIONS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="preview-pane mobile-view">
+            <div class="preview-title">Mobile Gmail Preview</div>
+            <div class="email-wrapper">
+                <div class="email-header">
+                    <div class="sender-info">
+                        <img src="img/hanna.png" alt="Hanna Chen" class="sender-photo">
+                        <div class="sender-details">
+                            <div class="sender-name">Hanna from Find My Next Car</div>
+                            <div class="email-subject">✨🚙 David's Recommendations from Find My Next Car</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="email-content">
+                    <img src="img/logo.png" alt="Logo" class="logo">
+                    <div class="message">
+                        Well Done David!<br><br>
+                        You've saved yourself hours of searching with <strong>Find My Next Car</strong>. We've saved all your recommendations and the key decisions you'll need to make in a decision document you can access anytime.
+                    </div>
+                    <div class="cta-container">
+                        <a href="https://app.findmynextcar.co" class="cta-button">SEE MY RECOMMENDATIONS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-section">
+        <div class="code-header">
+            <div class="code-title">Email HTML Code</div>
+            <button class="copy-button" onclick="copyEmailCode()">Copy Code</button>
+        </div>
+        <pre class="code-content" id="emailCode">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Find My Next Car - Recommendations&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        .email-wrapper { max-width: 400px; margin: 0 auto; background: #f5f3ff; padding: 30px; }
+        .email-header { margin-bottom: 20px; }
+        .sender-info { display: flex; align-items: center; margin-bottom: 10px; }
+        .sender-photo { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; }
+        .sender-name { font-weight: bold; color: #333; }
+        .email-subject { font-size: 1.1em; font-weight: bold; color: #333; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; }
+        .email-content { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+        .logo { max-width: 200px; height: auto; margin: 0 auto 20px; display: block; }
+        .message { font-size: 20px; line-height: 1.6; color: #333; margin-bottom: 30px; }
+        .cta-container { text-align: center; }
+        .cta-button { display: inline-block; background: #7157F5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="email-wrapper"&gt;
+        &lt;div class="email-header"&gt;
+            &lt;div class="sender-info"&gt;
+                &lt;img src="img/hanna.png" alt="Hanna Chen" class="sender-photo"&gt;
+                &lt;div class="sender-name"&gt;Hanna from Find My Next Car&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="email-subject"&gt;✨🚙 David's Recommendations from Find My Next Car&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="email-content"&gt;
+            &lt;img src="img/logo.png" alt="Logo" class="logo"&gt;
+            &lt;div class="message"&gt;
+                Well Done David!&lt;br&gt;&lt;br&gt;
+                You've saved yourself hours of searching with &lt;strong&gt;Find My Next Car&lt;/strong&gt;. We've saved all your recommendations and the key decisions you'll need to make in a decision document you can access anytime.
+            &lt;/div&gt;
+            &lt;div class="cta-container"&gt;
+                &lt;a href="https://app.findmynextcar.co" class="cta-button"&gt;SEE MY RECOMMENDATIONS&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+    <script>
+        function copyEmailCode() {
+            const codeElement = document.getElementById('emailCode');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const button = document.querySelector('.copy-button');
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
