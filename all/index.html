@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Directory</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .directory-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .list-item {
+            padding: 8px 0;
+        }
+        .list-item a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .list-item a:hover {
+            text-decoration: underline;
+        }
+        .folder {
+            color: #666;
+            font-weight: bold;
+        }
+        .nested {
+            margin-left: 20px;
+            border-left: 2px solid #eee;
+            padding-left: 15px;
+        }
+        .file-item {
+            color: #444;
+            font-size: 0.95em;
+        }
+        #loginForm {
+            max-width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+        #loginForm input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        #loginForm button {
+            width: 100%;
+            padding: 10px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #loginForm button:hover {
+            background: #0052a3;
+        }
+        #protectedContent {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loginForm">
+        <h2>Password Required</h2>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+
+    <div id="protectedContent">
+        <div class="directory-list">
+            <h1>Site Directory</h1>
+            
+            <div class="section">
+                <h2>Root HTML Files</h2>
+                <div class="list-item file-item"><a href="../current_site.html">current_site.html</a></div>
+                <div class="list-item file-item"><a href="../design_options.html">design_options.html</a></div>
+                <div class="list-item file-item"><a href="../ecommerce.html">ecommerce.html</a></div>
+                <div class="list-item file-item"><a href="../framersite.html">framersite.html</a></div>
+                <div class="list-item file-item"><a href="../index.html">index.html</a></div>
+                <div class="list-item file-item"><a href="../le_tigre.html">le_tigre.html</a></div>
+                <div class="list-item file-item"><a href="../magnum.html">magnum.html</a></div>
+                <div class="list-item file-item"><a href="../pitch_deck.html">pitch_deck.html</a></div>
+            </div>
+
+            <div class="section">
+                <h2>Folders and Their Contents</h2>
+                
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../1224test">1224test</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../1224test/salesheet.html">salesheet.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/matchup.html">matchup.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/imagetest.html">imagetest.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/salesheet2.html">salesheet2.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/recommendations/index.html">recommendations/index.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/submitresponsemail.html">submitresponsemail.html</a></div>
+                        <div class="list-item file-item"><a href="../1224test/salesheet/index.html">salesheet/index.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../carquiz">carquiz</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../carquiz/index.html">index.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../cars">cars</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../cars/index.html">index.html</a></div>
+                        <div class="list-item file-item"><a href="../cars/a.html">a.html</a></div>
+                        <div class="list-item file-item"><a href="../cars/b.html">b.html</a></div>
+                        <div class="list-item file-item"><a href="../cars/c.html">c.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../chatdemo">chatdemo</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../chatdemo/index.html">index.html</a></div>
+                        <div class="list-item file-item"><a href="../chatdemo/chat/index.html">chat/index.html</a></div>
+                        <div class="list-item file-item"><a href="../chatdemo/widgets/tradein.html">widgets/tradein.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../demo">demo</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../demo/index.html">index.html</a></div>
+                        <div class="list-item file-item"><a href="../demo/inventory.html">inventory.html</a></div>
+                        <div class="list-item file-item"><a href="../demo/inventory_charlotte.html">inventory_charlotte.html</a></div>
+                        <div class="list-item file-item"><a href="../demo/inventory_linear.html">inventory_linear.html</a></div>
+                        <div class="list-item file-item"><a href="../demo/quiz.html">quiz.html</a></div>
+                        <div class="list-item file-item"><a href="../demo/options.html">options.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../letigre">letigre</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../letigre/index.html">index.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../salessheet">salessheet</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../salessheet/index.html">index.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../techdemo">techdemo</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../techdemo/index.html">index.html</a></div>
+                        <div class="list-item file-item"><a href="../techdemo/paste.html">paste.html</a></div>
+                        <div class="list-item file-item"><a href="../techdemo/imagetest.html">imagetest.html</a></div>
+                    </div>
+                </div>
+
+                <div class="folder-group">
+                    <div class="list-item folder"><a href="../wixsite">wixsite</a></div>
+                    <div class="nested">
+                        <div class="list-item file-item"><a href="../wixsite/index.html">index.html</a></div>
+                        <div class="list-item file-item"><a href="../wixsite/wixsite.html">wixsite.html</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "swizzrizz";
+        
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === correctPassword) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('protectedContent').style.display = 'block';
+                // Store in session storage so the user doesn't have to login again during this session
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        // Check if user is already authenticated
+        window.onload = function() {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('protectedContent').style.display = 'block';
+            } else {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('protectedContent').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
