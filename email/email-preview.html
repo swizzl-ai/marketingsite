@@ -229,49 +229,18 @@
             <div class="code-title">Email HTML Code</div>
             <button class="copy-button" onclick="copyEmailCode()">Copy Code</button>
         </div>
-        <pre class="code-content" id="emailCode">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Find My Next Car - Recommendations&lt;/title&gt;
-    &lt;style&gt;
-        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
-        .email-wrapper { max-width: 400px; margin: 0 auto; background: #f5f3ff; padding: 30px; }
-        .email-header { margin-bottom: 20px; }
-        .sender-info { display: flex; align-items: center; margin-bottom: 10px; }
-        .sender-photo { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; }
-        .sender-name { font-weight: bold; color: #333; }
-        .email-subject { font-size: 1.1em; font-weight: bold; color: #333; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; }
-        .email-content { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
-        .logo { max-width: 200px; height: auto; margin: 0 auto 20px; display: block; }
-        .message { font-size: 20px; line-height: 1.6; color: #333; margin-bottom: 30px; }
-        .cta-container { text-align: center; }
-        .cta-button { display: inline-block; background: #7157F5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div class="email-wrapper"&gt;
-        &lt;div class="email-header"&gt;
-            &lt;div class="sender-info"&gt;
-                &lt;img src="img/hanna.png" alt="Hanna Chen" class="sender-photo"&gt;
-                &lt;div class="sender-name"&gt;Hanna from Find My Next Car&lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class="email-subject"&gt;✨🚙 David's Recommendations from Find My Next Car&lt;/div&gt;
+        <pre class="code-content" id="emailCode">&lt;div style="max-width: 400px; margin: 0 auto; background: #f5f3ff; padding: 30px; font-family: Arial, sans-serif;"&gt;
+    &lt;div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"&gt;
+        &lt;img src="img/logo.png" alt="Logo" style="max-width: 200px; height: auto; margin: 0 auto 20px; display: block;"&gt;
+        &lt;div style="font-size: 20px; line-height: 1.6; color: #333; margin-bottom: 30px;"&gt;
+            Well Done David!&lt;br&gt;&lt;br&gt;
+            You've saved yourself hours of searching with &lt;strong&gt;Find My Next Car&lt;/strong&gt;. We've saved all your recommendations and the key decisions you'll need to make in a decision document you can access anytime.
         &lt;/div&gt;
-        &lt;div class="email-content"&gt;
-            &lt;img src="img/logo.png" alt="Logo" class="logo"&gt;
-            &lt;div class="message"&gt;
-                Well Done David!&lt;br&gt;&lt;br&gt;
-                You've saved yourself hours of searching with &lt;strong&gt;Find My Next Car&lt;/strong&gt;. We've saved all your recommendations and the key decisions you'll need to make in a decision document you can access anytime.
-            &lt;/div&gt;
-            &lt;div class="cta-container"&gt;
-                &lt;a href="https://app.findmynextcar.co" class="cta-button"&gt;SEE MY RECOMMENDATIONS&lt;/a&gt;
-            &lt;/div&gt;
+        &lt;div style="text-align: center;"&gt;
+            &lt;a href="https://app.findmynextcar.co" style="display: inline-block; background: #7157F5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold;"&gt;SEE MY RECOMMENDATIONS&lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+&lt;/div&gt;</pre>
     </div>
     <script>
         function copyEmailCode() {
