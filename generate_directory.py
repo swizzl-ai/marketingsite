@@ -108,6 +108,14 @@ def generate_html(structure):
             font-size: 0.9em;
             margin-top: 40px;
         }}
+        .search-container {{
+            margin-bottom: 20px;
+        }}
+        .search-container input {{
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+        }}
     </style>
 </head>
 <body>
@@ -121,6 +129,10 @@ def generate_html(structure):
         <div class="directory-list">
             <h1>Site Directory</h1>
             
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search pages..." oninput="filterDirectory()">
+            </div>
+
             <div class="section">
                 <h2>Root HTML Files</h2>
                 {root_files}
@@ -157,6 +169,47 @@ def generate_html(structure):
                 document.getElementById('loginForm').style.display = 'block';
                 document.getElementById('protectedContent').style.display = 'none';
             }}
+        }}
+
+        function filterDirectory() {{
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const fileItems = document.querySelectorAll('.file-item');
+            const folderGroups = document.querySelectorAll('.folder-group');
+            const sections = document.querySelectorAll('.section');
+            
+            // First, handle file items
+            fileItems.forEach(item => {{
+                const link = item.querySelector('a');
+                const text = link.textContent.toLowerCase();
+                const matches = text.includes(searchText);
+                item.style.display = matches ? '' : 'none';
+            }});
+            
+            // Then handle folder groups
+            folderGroups.forEach(group => {{
+                const folderItem = group.querySelector('.folder');
+                const nestedDiv = group.querySelector('.nested');
+                const folderName = folderItem.textContent.toLowerCase();
+                const folderMatches = folderName.includes(searchText);
+                
+                // Check if any nested items are visible
+                let hasVisibleNestedItems = false;
+                if (nestedDiv) {{
+                    const nestedItems = nestedDiv.querySelectorAll('.file-item');
+                    hasVisibleNestedItems = Array.from(nestedItems).some(item => item.style.display !== 'none');
+                }}
+                
+                // Show folder group if folder name matches or has visible nested items
+                group.style.display = (folderMatches || hasVisibleNestedItems) ? '' : 'none';
+                folderItem.style.display = ''; // Always show folder name if group is visible
+            }});
+            
+            // Finally, handle sections
+            sections.forEach(section => {{
+                const items = section.querySelectorAll('.file-item, .folder-group');
+                const hasVisibleItems = Array.from(items).some(item => item.style.display !== 'none');
+                section.style.display = hasVisibleItems ? '' : 'none';
+            }});
         }}
         
         onload();
