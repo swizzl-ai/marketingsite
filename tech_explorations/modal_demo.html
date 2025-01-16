@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchored Modal Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .modal-trigger {
+            padding: 12px 24px;
+            background: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .modal {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+        }
+
+        @media (min-width: 768px) {
+            .modal {
+                top: 25px;
+                bottom: 25px;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .modal {
+                top: 0;
+                bottom: 0;
+                border-radius: 0;
+            }
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            z-index: 1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-button {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .sections-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .content-section {
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            background: #f5f5f5;
+            padding: 12px 16px;
+            border-radius: 6px;
+        }
+
+        .content-section.expanded h3 {
+            background: none;
+            padding: 0 0 12px 0;
+            font-size: 18px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .loading-indicator {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #eee;
+            border-top-color: #0070f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .section-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section-content.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            padding-right: 30px;
+        }
+
+        .modal-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: #0070f3;
+            font-size: 0.9em;
+            margin: 4px 0;
+            color: #666;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 500;
+            width: 40%;
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="modal-trigger">Open Modal</button>
+
+    <div class="modal-overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">New 2025 Toyota RAV4 Hybrid LE</h2>
+            <p class="modal-price">$33,714</p>
+            <button class="close-button">&times;</button>
+        </div>
+        <div class="modal-content">
+            <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/max/2024/rav4/trdoff-road/4448/2qx/36/5.png?fmt=png-alpha&wid=930&qlt=90" alt="2024 Toyota RAV4 TRD Off-Road" style="width: 100%; height: auto; margin-bottom: 24px;">
+            
+            <div class="sections-wrapper">
+                <div class="content-section">
+                    <h3>Fits Your Needs <span class="loading-indicator"></span></h3>
+                    <div class="section-content">
+                        <p>The New 2025 Toyota RAV4 Hybrid LE is an excellent match for you, DR, as it perfectly aligns with your preference for a fuel-efficient, gas-powered SUV. This hybrid vehicle boasts impressive fuel economy with 41 MPG in the city and 38 MPG on the highway, addressing your desire for better fuel efficiency while maintaining the SUV body style you favor. The RAV4's hybrid powertrain significantly reduces overall fuel costs, easing concerns about maintenance expenses. This model comes equipped with advanced safety and driver-assistance features, including Adaptive Cruise Control and Lane Departure Warning, fulfilling your need for Assisted Driving technology. Offered by Price Family Dealerships, this vehicle is conveniently located near you in Larkspur, CA, making it accessible for you to explore further. With its practical features, economic benefits, and alignment with your personal style, this vehicle promises to meet your new transportation needs and make any sacrifices feel truly worthwhile.</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Gaps <span class="loading-indicator"></span></h3>
+                    <div class="section-content">
+                        <p>Based on our conversation, it appears that the 2025 Toyota RAV4 Hybrid LE may not be the best fit for your needs. You expressed a preference for a used SUV with better fuel efficiency that doesn't require you to make significant compromises in other areas—particularly in terms of cost. Although the RAV4 Hybrid offers excellent fuel efficiency with 41 city/38 highway MPG, its status as a new vehicle does not align with your desire for a used model. Additionally, the maintenance costs associated with hybrids can sometimes be higher than those of traditional gasoline vehicles due to the complexity of their systems, which might not alleviate your concern about maintenance expenses. Considering these factors, it may be worthwhile to explore other used SUV options that better match your budget and requirements for lower maintenance costs, while still offering improved fuel economy.</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Tradeoffs <span class="loading-indicator"></span></h3>
+                    <div class="section-content">
+                        <ul class="feature-list">
+                            <li>Embracing a higher purchase cost for improved fuel efficiency, which could save money over time with increased MPG</li>
+                            <li>Opting for a newer model with lower mileage in exchange for the potential higher insurance premiums associated with a hybrid</li>
+                            <li>Maintaining a hybrid powertrain that potentially offers lower long-term maintenance costs despite a more complex system</li>
+                            <li>Adapting to a slightly steeper depreciation rate commonly seen with hybrids in exchange for cutting-edge technology and a modern driving experience</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Features <span class="loading-indicator"></span></h3>
+                    <div class="section-content">
+                        <ul class="feature-list">
+                            <li>Assisted Driving</li>
+                            <li>Better Fuel Efficiency</li>
+                            <li>SUV Body Style</li>
+                            <li>Used Vehicle</li>
+                            <li>Gas Engine</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Full Specs <span class="loading-indicator"></span></h3>
+                    <div class="section-content">
+                        <table class="specs-table">
+                    <tr><td>Model Year</td><td>2025</td></tr>
+                    <tr><td>Make</td><td>Toyota</td></tr>
+                    <tr><td>Model</td><td>RAV4 Hybrid LE</td></tr>
+                    <tr><td>Exterior Color</td><td>Not specified</td></tr>
+                    <tr><td>Interior Color</td><td>Fb20</td></tr>
+                    <tr><td>Body Type</td><td>SUV</td></tr>
+                    <tr><td>Drivetrain</td><td>4WD</td></tr>
+                    <tr><td>Engine</td><td>2.5L I4</td></tr>
+                    <tr><td>Cylinders</td><td>4</td></tr>
+                    <tr><td>Transmission</td><td>CVT (eCVT)</td></tr>
+                    <tr><td>Horsepower</td><td>219 hp</td></tr>
+                    <tr><td>Torque</td><td>163 lb-ft</td></tr>
+                    <tr><td>Fuel Type</td><td>Unleaded</td></tr>
+                    <tr><td>Fuel Economy (City)</td><td>41 MPG</td></tr>
+                    <tr><td>Fuel Economy (Highway)</td><td>38 MPG</td></tr>
+                    <tr><td>Fuel Economy (Combined)</td><td>39 MPG</td></tr>
+                    <tr><td>Towing Capacity</td><td>1750 lbs</td></tr>
+                    <tr><td>Seating Capacity</td><td>5</td></tr>
+                    <tr><td>Cargo Volume (Behind 2nd Row)</td><td>37.5 cu ft</td></tr>
+                    <tr><td>Cargo Volume (Maximum)</td><td>69.8 cu ft</td></tr>
+                    <tr><td>Wheelbase</td><td>105.9 in</td></tr>
+                    <tr><td>Overall Length</td><td>180.9 in</td></tr>
+                    <tr><td>Overall Width</td><td>73 in</td></tr>
+                    <tr><td>Overall Height</td><td>67 in</td></tr>
+                    <tr><td>Ground Clearance</td><td>8.1 in</td></tr>
+                    <tr><td>Curb Weight</td><td>3690 lbs</td></tr>
+                    <tr><td>Mileage</td><td>3 miles</td></tr>
+                    <tr><td>Price</td><td>$33,714</td></tr>
+                    <tr><td>Days on Market</td><td>36 days</td></tr>
+                    <tr><td>City</td><td>San Rafael</td></tr>
+                    <tr><td>State</td><td>CA</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modalTrigger = document.querySelector('.modal-trigger');
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const modal = document.querySelector('.modal');
+        const closeButton = document.querySelector('.close-button');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        function openModal() {
+            modalOverlay.style.display = 'block';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Reset content sections
+            contentSections.forEach(section => {
+                section.classList.remove('visible');
+            });
+
+            // Progressive loading of content sections
+            const sectionContents = document.querySelectorAll('.section-content');
+            const loadingIndicators = document.querySelectorAll('.loading-indicator');
+            
+            sectionContents.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('visible');
+                    loadingIndicators[index].style.display = 'none';
+                }, (index + 1) * 2500); // 2.5 second delay between each section
+            });
+        }
+
+        function closeModal() {
+            modalOverlay.style.display = 'none';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        modalTrigger.addEventListener('click', openModal);
+        closeButton.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        // Prevent modal from closing when clicking inside it
+        modal.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>
