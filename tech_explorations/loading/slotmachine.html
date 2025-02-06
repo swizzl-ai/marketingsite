@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Slot Machines</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-8">
+    <div class="max-w-6xl w-full space-y-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800">Car Selectors</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Slot Machine 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 space-y-6">
+                <select id="carSelect1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select Car 1</option>
+                    <option value="0">Ford F-Series 2025</option>
+                    <option value="1">Chevrolet Silverado 2025</option>
+                    <option value="2">Toyota RAV4 2025</option>
+                    <option value="3">Tesla Model Y 2025</option>
+                    <option value="4">Honda CR-V 2025</option>
+                    <option value="5">GMC Sierra 2025</option>
+                    <option value="6">Toyota Camry 2025</option>
+                    <option value="7">Nissan Rogue 2025</option>
+                </select>
+                <div class="relative h-64 border-4 border-gray-800 rounded-lg overflow-hidden bg-gray-900">
+                    <div id="stripContainer1" class="absolute w-full transition-transform duration-[50ms] ease-linear"></div>
+                </div>
+            </div>
+
+            <!-- Slot Machine 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 space-y-6">
+                <select id="carSelect2" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select Car 2</option>
+                    <option value="0">Ford F-Series 2025</option>
+                    <option value="1">Chevrolet Silverado 2025</option>
+                    <option value="2">Toyota RAV4 2025</option>
+                    <option value="3">Tesla Model Y 2025</option>
+                    <option value="4">Honda CR-V 2025</option>
+                    <option value="5">GMC Sierra 2025</option>
+                    <option value="6">Toyota Camry 2025</option>
+                    <option value="7">Nissan Rogue 2025</option>
+                </select>
+                <div class="relative h-64 border-4 border-gray-800 rounded-lg overflow-hidden bg-gray-900">
+                    <div id="stripContainer2" class="absolute w-full transition-transform duration-[50ms] ease-linear"></div>
+                </div>
+            </div>
+
+            <!-- Slot Machine 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 space-y-6">
+                <select id="carSelect3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select Car 3</option>
+                    <option value="0">Ford F-Series 2025</option>
+                    <option value="1">Chevrolet Silverado 2025</option>
+                    <option value="2">Toyota RAV4 2025</option>
+                    <option value="3">Tesla Model Y 2025</option>
+                    <option value="4">Honda CR-V 2025</option>
+                    <option value="5">GMC Sierra 2025</option>
+                    <option value="6">Toyota Camry 2025</option>
+                    <option value="7">Nissan Rogue 2025</option>
+                </select>
+                <div class="relative h-64 border-4 border-gray-800 rounded-lg overflow-hidden bg-gray-900">
+                    <div id="stripContainer3" class="absolute w-full transition-transform duration-[50ms] ease-linear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const carOptions = [
+            { name: 'Ford F-Series 2025', image: 'images/car1.jpg', index: 0 },
+            { name: 'Chevrolet Silverado 2025', image: 'images/car2.jpg', index: 1 },
+            { name: 'Toyota RAV4 2025', image: 'images/car3.jpg', index: 2 },
+            { name: 'Tesla Model Y 2025', image: 'images/car4.jpg', index: 3 },
+            { name: 'Honda CR-V 2025', image: 'images/car5.jpg', index: 4 },
+            { name: 'GMC Sierra 2025', image: 'images/car7.jpg', index: 5 },
+            { name: 'Toyota Camry 2025', image: 'images/car8.jpg', index: 6 },
+            { name: 'Nissan Rogue 2025', image: 'images/car9.jpg', index: 7 }
+        ];
+
+        class SlotMachine {
+            constructor(id) {
+                this.id = id;
+                this.stripContainer = document.getElementById(`stripContainer${id}`);
+                this.currentPosition = 0;
+                this.animationInterval = null;
+                this.isFirstSelection = true;
+                this.initialize();
+            }
+
+            initialize() {
+                this.createImageStrip();
+                this.startSpinning();
+                this.isFirstSelection = true;
+
+                const select = document.getElementById(`carSelect${this.id}`);
+                select.addEventListener('change', (e) => {
+                    const selectedIndex = parseInt(e.target.value);
+                    if (!isNaN(selectedIndex)) {
+                        // Get the selected option text to display in console
+                        const selectedOption = select.options[select.selectedIndex];
+                        console.log(`Selected car: ${selectedOption.text}`);
+                        this.selectImage(selectedIndex);
+                    }
+                });
+            }
+
+            createImageStrip() {
+                this.stripContainer.innerHTML = '';
+                // Create initial set of random images
+                for (let i = 0; i < 8; i++) {
+                    const randomIndex = Math.floor(Math.random() * carOptions.length);
+                    const car = carOptions[randomIndex];
+                    const div = document.createElement('div');
+                    div.className = 'absolute w-full transition-top duration-0';
+                    div.style.top = `${i * 256}px`;
+                    div.dataset.carIndex = car.index.toString(); // Store the car index
+                    div.innerHTML = `
+                        <img src="${car.image}" 
+                             alt="${car.name}" 
+                             class="w-full h-64 object-cover">
+                    `;
+                    this.stripContainer.appendChild(div);
+                }
+            }
+
+            startSpinning() {
+                const speed = 16; // Slightly slower initial speed
+                const frameRate = 16;
+                const imageHeight = 256;
+                let lastRecyclePosition = 0;
+
+                this.animationInterval = setInterval(() => {
+                    this.currentPosition -= speed;
+                    
+                    // Check if we need to recycle images
+                    const recycleThreshold = imageHeight;
+                    if (Math.abs(this.currentPosition - lastRecyclePosition) >= recycleThreshold) {
+                        const containers = Array.from(this.stripContainer.children);
+                        
+                        // Find the highest and lowest positions
+                        let maxTop = -Infinity;
+                        let minTop = Infinity;
+                        containers.forEach(container => {
+                            const top = parseInt(container.style.top);
+                            maxTop = Math.max(maxTop, top);
+                            minTop = Math.min(minTop, top);
+                        });
+                        
+                        // Move images that are too far up to the bottom
+                        containers.forEach(container => {
+                            const top = parseInt(container.style.top);
+                            const containerPos = top + this.currentPosition;
+                            
+                            if (containerPos < -imageHeight * 2) {
+                                // Create a new random car image
+                                const randomIndex = Math.floor(Math.random() * carOptions.length);
+                                const car = carOptions[randomIndex];
+                                container.style.top = `${maxTop + imageHeight}px`;
+                                container.dataset.carIndex = car.index.toString();
+                                container.innerHTML = `
+                                    <img src="${car.image}" 
+                                         alt="${car.name}" 
+                                         class="w-full h-64 object-cover"
+                                         title="${car.name}">
+                                `;
+                            }
+                        });
+                        
+                        lastRecyclePosition = this.currentPosition;
+                    }
+                    
+                    this.stripContainer.style.transform = `translateY(${this.currentPosition}px)`;
+                }, frameRate);
+            }
+
+            selectImage(index) {
+                if (!this.isFirstSelection) {
+                    return;
+                }
+                this.isFirstSelection = false;
+
+                clearInterval(this.animationInterval);
+                
+                const imageHeight = 256;
+                const selectedCar = carOptions[index];
+                console.log(`Selected car ${index}: ${selectedCar.name}`);
+                
+                // Find the highest current position
+                let maxTop = -Infinity;
+                Array.from(this.stripContainer.children).forEach(container => {
+                    const top = parseInt(container.style.top);
+                    maxTop = Math.max(maxTop, top);
+                });
+                
+                // Create and append the selected image below all others
+                const div = document.createElement('div');
+                div.className = 'absolute w-full transition-top duration-0';
+                const newTop = maxTop + imageHeight;
+                div.style.top = `${newTop}px`;
+                div.dataset.carIndex = selectedCar.index.toString(); // Store the car index
+                div.innerHTML = `
+                    <img src="${selectedCar.image}" 
+                         alt="${selectedCar.name}" 
+                         class="w-full h-64 object-cover"
+                         title="${selectedCar.name}">
+                `;
+                this.stripContainer.appendChild(div);
+                
+                // Calculate the target position to show the new image at the bottom
+                const targetPosition = -(newTop - imageHeight);
+                const startPosition = this.currentPosition;
+                const totalDistance = targetPosition - startPosition;
+                
+                const startTime = Date.now();
+                const slowdownDuration = 2000;
+                
+                const slowDown = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / slowdownDuration, 1);
+                    
+                    // Custom easing function that starts fast and slows down
+                    const easeOut = 1 - Math.pow(1 - progress, 4);
+                    
+                    this.currentPosition = startPosition + (totalDistance * easeOut);
+                    this.stripContainer.style.transform = `translateY(${this.currentPosition}px)`;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(slowDown);
+                    } else {
+                        // Clean up old images that are no longer visible
+                        Array.from(this.stripContainer.children).forEach(container => {
+                            const top = parseInt(container.style.top);
+                            if (top + this.currentPosition < -imageHeight * 2) {
+                                container.remove();
+                            }
+                        });
+                        
+                        // Verify the selected car is visible
+                        const visibleCars = Array.from(this.stripContainer.children)
+                            .map(container => ({
+                                index: parseInt(container.dataset.carIndex),
+                                top: parseInt(container.style.top),
+                                name: container.querySelector('img').alt
+                            }))
+                            .filter(car => {
+                                const pos = car.top + this.currentPosition;
+                                return pos >= -imageHeight && pos <= imageHeight;
+                            });
+                        console.log('Visible cars:', visibleCars);
+                    }
+                };
+                
+                requestAnimationFrame(slowDown);
+            }
+        }
+
+        // Initialize three slot machines
+        const slotMachines = [
+            new SlotMachine(1),
+            new SlotMachine(2),
+            new SlotMachine(3)
+        ];
+    </script>
+</body>
+</html>
