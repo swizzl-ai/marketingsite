@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.7.0/build/vanilla-calendar.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@2.7.0/build/vanilla-calendar.min.js"></script>
+    <style>
+        .vanilla-calendar {
+            max-width: 100%;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+        /* Style the navigation buttons */
+        .vanilla-calendar-header__button {
+            all: unset !important;
+            cursor: pointer !important;
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: #e5edff !important;
+            color: #2563eb !important;
+            font-size: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.2s ease !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 8px !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        .vanilla-calendar-header__button:hover {
+            background: #2563eb !important;
+            color: white !important;
+            transform: scale(1.1) !important;
+        }
+        .vanilla-calendar-header__button::before {
+            content: '←' !important;
+            display: block !important;
+            font-weight: bold !important;
+        }
+        .vanilla-calendar-header__button[data-calendar-toggle="next"]::before {
+            content: '→' !important;
+        }
+        /* Style the month/year text */
+        .vanilla-calendar-header__content {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+            color: #1f2937 !important;
+        }
+        /* Style today's date */
+        .vanilla-calendar-day__btn_today {
+            background-color: #e5edff !important;
+            border: 2px solid #2563eb !important;
+            color: #2563eb !important;
+            font-weight: bold !important;
+        }
+        /* Style disabled dates */
+        .vanilla-calendar-day__btn_disabled {
+            opacity: 0.4 !important;
+            text-decoration: line-through !important;
+            cursor: not-allowed !important;
+        }
+        /* Override Tailwind and ensure navigation buttons are visible */
+        .vanilla-calendar .vanilla-calendar-header {
+            position: relative !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 8px !important;
+        }
+        .vanilla-calendar .vanilla-calendar-header__content {
+            text-align: center !important;
+            padding: 0 8px !important;
+        }
+        .vanilla-calendar .vanilla-calendar-header__button {
+            all: unset !important;
+            appearance: none !important;
+            position: relative !important;
+            font-size: 24px !important;
+            line-height: 1 !important;
+            font-weight: bold !important;
+            color: #2563eb !important;
+            cursor: pointer !important;
+            padding: 8px 12px !important;
+            border-radius: 9999px !important;
+            background-color: #f3f4f6 !important;
+            min-width: 40px !important;
+            min-height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .vanilla-calendar .vanilla-calendar-header__button::before {
+            content: '←' !important;
+            display: block !important;
+        }
+        .vanilla-calendar .vanilla-calendar-header__button[data-calendar-toggle="next"]::before {
+            content: '→' !important;
+        }
+        /* Increase text size for calendar days */
+        .vanilla-calendar-day__btn {
+            font-size: 1.1rem !important;
+        }
+        /* Increase text size for month and year */
+        .vanilla-calendar-header__content {
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+        }
+        /* Style for past dates */
+        .vanilla-calendar-day__btn_disabled {
+            opacity: 0.4 !important;
+            text-decoration: line-through !important;
+            cursor: not-allowed !important;
+        }
+        /* Style for today's date */
+        .vanilla-calendar-day__btn_today {
+            background-color: #e5edff !important;
+            border: 2px solid #2563eb !important;
+            color: #2563eb !important;
+            font-weight: bold !important;
+        }
+        /* Style for navigation arrows */
+        button[aria-label="Previous month"],
+        button[aria-label="Next month"] {
+            color: #2563eb !important;
+            font-size: 1.5rem !important;
+            font-weight: bold !important;
+            background-color: #f3f4f6 !important;
+            border-radius: 9999px !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 0.5rem !important;
+            border: none !important;
+            cursor: pointer !important;
+            position: relative !important;
+        }
+        button[aria-label="Previous month"]::before,
+        button[aria-label="Next month"]::before {
+            content: '◀' !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            font-size: 1.2rem !important;
+        }
+        button[aria-label="Next month"]::before {
+            content: '▶' !important;
+        }
+        button[aria-label="Previous month"]:hover,
+        button[aria-label="Next month"]:hover {
+            background-color: #e5edff !important;
+            color: #1e40af !important;
+            transform: scale(1.1) !important;
+            transition: all 0.2s ease !important;
+        }
+        /* Style for past dates */
+        .vanilla-calendar-date--disabled {
+            opacity: 0.4;
+            text-decoration: line-through;
+            cursor: not-allowed;
+        }
+        /* Style for today's date */
+        .vanilla-calendar-date--today {
+            background-color: #e5edff !important;
+            border: 2px solid #2563eb !important;
+            color: #2563eb !important;
+            font-weight: bold;
+        }
+        /* Style for navigation arrows */
+        .vanilla-calendar-arrow {
+            color: #2563eb;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0.5rem;
+        }
+        .vanilla-calendar-arrow:hover {
+            background-color: #e5edff;
+            border-radius: 4px;
+        }
+        .vanilla-calendar.fade-out {
+            opacity: 0;
+        }
+        .time-slot {
+            transition: all 0.3s ease;
+        }
+        .time-slot.selected {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #4CAF50;
+        }
+
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+
+        .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: #FFFFFF;
+            transform: rotate(-45deg);
+        }
+
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: #4CAF50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+
+        .success-checkmark .check-icon .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: content-box;
+            border: 4px solid rgba(76, 175, 80, .5);
+        }
+
+        .success-checkmark .check-icon .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background-color: #FFFFFF;
+        }
+
+        @keyframes rotate-circle {
+            0% { transform: rotate(-45deg); }
+            5% { transform: rotate(-45deg); }
+            12% { transform: rotate(-405deg); }
+            100% { transform: rotate(-405deg); }
+        }
+
+        @keyframes icon-line-tip {
+            0% { width: 0; left: 1px; top: 19px; }
+            54% { width: 0; left: 1px; top: 19px; }
+            70% { width: 50px; left: -8px; top: 37px; }
+            84% { width: 17px; left: 21px; top: 48px; }
+            100% { width: 25px; left: 14px; top: 46px; }
+        }
+
+        @keyframes icon-line-long {
+            0% { width: 0; right: 46px; top: 54px; }
+            65% { width: 0; right: 46px; top: 54px; }
+            84% { width: 55px; right: 0px; top: 35px; }
+            100% { width: 47px; right: 8px; top: 38px; }
+        }
+
+        .success-message {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in-up 0.5s forwards;
+            animation-delay: 0.75s;
+        }
+
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <!-- Fixed header with title and close button -->
+        <div class="flex items-center justify-between mb-6 border-b pb-4">
+            <button class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-lg font-semibold text-center flex-grow mr-6">Select A Time to Test Drive</h3>
+        </div>
+
+        <div class="flex flex-col items-center mb-6 text-center">
+            <img src="car1.jpg" alt="F H Dailey Chevrolet" class="w-20 h-20 rounded-full object-cover mb-4">
+            <div>
+                <h2 class="font-bold text-xl">F H Dailey Chevrolet</h2>
+                <p class="text-gray-600">800 Davist St</p>
+                <p class="text-gray-600">San Leandro, CA</p>
+            </div>
+        </div>
+        
+        <div class="booking-container relative">
+            <div class="flex items-center justify-start mb-4">
+                <button id="back-button" class="hidden text-blue-600 hover:text-blue-700 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <span id="booking-title" class="text-gray-600 ml-2 text-lg font-medium"></span>
+            </div>
+            <div id="calendar" class="mb-6"></div>
+            <div id="time-slots" class="hidden grid grid-cols-2 gap-2 mb-6"></div>
+            <button id="book-button" class="hidden w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Book Appointment</button>
+        </div>
+
+        <div id="success-confirmation" class="hidden mt-8">
+            <div class="success-checkmark mb-5">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                    <div class="icon-circle"></div>
+                    <div class="icon-fix"></div>
+                </div>
+            </div>
+            <div class="success-message">
+                <h3 class="text-xl font-semibold text-green-600 mb-4">You're Booked!</h3>
+                <p class="text-gray-600 mb-2">Check your email for a confirmation.</p>
+                <p class="text-gray-800 font-medium mb-1">FH Dailey is expecting you:</p>
+                <p id="appointment-date" class="text-gray-800 font-medium"></p>
+                <p id="appointment-time" class="text-gray-800 font-medium"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendar = new VanillaCalendar('#calendar', {
+                input: false,
+                type: 'default',
+
+                settings: {
+                    range: {
+                        min: new Date().toISOString(),
+                    },
+                    visibility: {
+                        theme: 'light'
+                    },
+                    selection: {
+                        day: 'single'
+                    }
+                },
+                actions: {
+                    clickDay(e, dates) {
+                        selectedDate = new Date(dates);
+                        const formattedDate = selectedDate.toLocaleDateString('en-US', { 
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        document.getElementById('booking-title').textContent = formattedDate;
+                        
+                        const calendarElement = document.getElementById('calendar');
+                        calendarElement.classList.add('fade-out');
+                        setTimeout(() => {
+                            calendarElement.style.display = 'none';
+                            timeSlots.classList.remove('hidden');
+                            document.getElementById('back-button').classList.remove('hidden');
+                            generateTimeSlots();
+                            calendarElement.classList.remove('fade-out');
+                        }, 300);
+                    }
+                }
+            });
+            calendar.init();
+
+
+
+            const timeSlots = document.getElementById('time-slots');
+            const bookButton = document.getElementById('book-button');
+            let selectedTimeSlot = null;
+            let selectedDate = null;
+
+            function generateTimeSlots() {
+                timeSlots.innerHTML = '';
+                const startTime = 9 * 60 + 30; // 9:30 AM in minutes
+                const endTime = 19 * 60; // 7:00 PM in minutes
+
+                for (let time = startTime; time < endTime; time += 30) {
+                    const hours = Math.floor(time / 60);
+                    const minutes = time % 60;
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    const formattedHours = hours > 12 ? hours - 12 : hours;
+                    const timeString = `${formattedHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+
+                    const button = document.createElement('button');
+                    button.className = 'time-slot w-full py-2 px-4 rounded border border-gray-300 hover:border-blue-500 focus:outline-none';
+                    button.textContent = timeString;
+                    button.addEventListener('click', () => selectTimeSlot(button));
+                    timeSlots.appendChild(button);
+                }
+            }
+
+            function selectTimeSlot(button) {
+                if (selectedTimeSlot) {
+                    selectedTimeSlot.classList.remove('selected');
+                }
+                button.classList.add('selected');
+                selectedTimeSlot = button;
+                bookButton.classList.remove('hidden');
+            }
+
+
+
+            // Book button click handler
+            document.getElementById('book-button').addEventListener('click', () => {
+                if (selectedTimeSlot && selectedDate) {
+                    const timeText = selectedTimeSlot.textContent;
+                    const dateText = selectedDate.toLocaleDateString('en-US', { 
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                    // Hide dealership info and booking interface
+                    document.querySelector('.flex.flex-col.items-center.mb-6').style.display = 'none';
+                    document.querySelector('.booking-container').style.display = 'none';
+
+                    // Update header text
+                    document.querySelector('.text-lg.font-semibold.text-center').textContent = 'Select A Time to Test Drive';
+
+                    // Show and update the success confirmation
+                    const successConfirmation = document.getElementById('success-confirmation');
+                    successConfirmation.classList.remove('hidden');
+                    successConfirmation.style.display = 'block';
+                    document.getElementById('appointment-date').textContent = dateText;
+                    document.getElementById('appointment-time').textContent = `at ${timeText}`;
+                }
+            });
+
+            const backButton = document.getElementById('back-button');
+            backButton.addEventListener('click', () => {
+                timeSlots.classList.add('hidden');
+                bookButton.classList.add('hidden');
+                backButton.classList.add('hidden');
+                document.getElementById('booking-title').textContent = 'Select A Time to Test Drive';
+                
+                const calendarElement = document.getElementById('calendar');
+                calendarElement.style.display = 'block';
+                setTimeout(() => {
+                    calendarElement.style.transform = 'translateX(0)';
+                }, 50);
+            });
+
+
+        });
+    </script>
+</body>
+</html>
