@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMNC API Test</title>
+    <style>
+        pre {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .error {
+            color: red;
+        }
+        .sample {
+            margin-top: 2rem;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>FMNC API Response Structure</h1>
+    <button onclick="fetchData()">Fetch Live Data</button>
+    <div id="result"></div>
+
+    <div class="sample">
+        <h2>Sample Response Structure</h2>
+        <pre id="sampleJson"></pre>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        async function fetchData() {
+            const resultDiv = document.getElementById('result');
+            try {
+                const response = await fetch('https://api.findmynextcar.co/analytics-feed', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': API_CONFIG.authorization,
+                        'Accept': 'application/json'
+                    },
+                    mode: 'cors',
+                    credentials: 'omit'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display the raw data structure
+                resultDiv.innerHTML = `
+                    <h2>Raw Response:</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    
+                    <h2>Data Structure Analysis:</h2>
+                    <pre>${analyzeStructure(data)}</pre>
+                `;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultDiv.innerHTML = `<pre class="error">Error: ${error.message}\n\nPlease check the browser console for more details.\n\nPossible issues:\n1. CORS policy restrictions\n2. Network connectivity\n3. API endpoint might be down\n4. Invalid credentials</pre>`;
+            }
+        }
+
+        function analyzeStructure(data, depth = 0, path = '') {
+            let result = '';
+            const indent = '  '.repeat(depth);
+
+            if (Array.isArray(data)) {
+                result += `${indent}Type: Array\n`;
+                if (data.length > 0) {
+                    result += `${indent}First item structure:\n`;
+                    result += analyzeStructure(data[0], depth + 1, `${path}[0]`);
+                    result += `${indent}Array length: ${data.length}\n`;
+                }
+            } else if (typeof data === 'object' && data !== null) {
+                result += `${indent}Type: Object\n`;
+                for (const [key, value] of Object.entries(data)) {
+                    const newPath = path ? `${path}.${key}` : key;
+                    result += `${indent}${key}: `;
+                    if (typeof value === 'object' && value !== null) {
+                        result += '\n' + analyzeStructure(value, depth + 1, newPath);
+                    } else {
+                        result += `${typeof value}\n`;
+                    }
+                }
+            } else {
+                result += `${indent}Type: ${typeof data}\n`;
+            }
+
+            return result;
+        }
+        // Sample JSON data
+        const sampleData = {
+            "Contact Details": {
+                "email": "example@email.com",
+                "first_name": "John",
+                "phone_number": "1234567890",
+                "rough_location": {
+                    "description": "Seattle, WA",
+                    "zip_code": "98101"
+                }
+            },
+            "Filter Parameters (Rough Preferences)": {
+                "body_type": "SUV",
+                "car_type": "used",
+                "drivetrain": "4WD",
+                "price_range": "0-35000",
+                "seating_capacity": "6"
+            },
+            "Job Estimate": "J3 (J2: 47%, J3: 53%)",
+            "Last Seen At": "2025-02-12T17:32:37.785155Z",
+            "Session ID": "5f19ef1c-9278-42af-b7ae-244537bf8806",
+            "Started At": "2025-02-12T17:28:32.412177Z",
+            "Step / Version": 18,
+            "Search Criteria": [
+                "car_type: used",
+                "body_type: SUV",
+                "engine_power: gas",
+                "drivetrain: 4WD",
+                "seating_capacity: 6+",
+                "price_range: 0-35000",
+                "high_value_features: high safety rating"
+            ],
+            "Recommendation History": [{
+                "interaction_id": "acead74d-3550-4380-b6c7-c9b299c8b95c",
+                "reaction": "like",
+                "recommendation": {
+                    "image_url": "https://example.com/car-image.jpg",
+                    "make": "Toyota",
+                    "model": "Highlander",
+                    "model_filter_value": "Highlander",
+                    "num_examples": 5,
+                    "reasoning": "The Toyota Highlander offers spacious interior, 4WD, and high seating capacity for up to 7 passengers. Known for reliability and safety features."
+                }
+            }],
+            "Recommendation Counts": {
+                "like": 1,
+                "dislike": 0,
+                "neutral": 0
+            },
+            "Recent Interactions": "# Conversation transcript\n\n```\nASSISTANT: Let's figure out your next car, with confidence.\n\nUSER: Let's Go\n\nASSISTANT: What is the help you are looking for?\n\nUSER: I need help finding the right car for my needs.\n```\n",
+            "Pending Interactions": "# Pending interactions\n\n```\nASSISTANT: What specific features are you looking for in your next car?\n```\n"
+        };
+
+        // Display sample JSON on page load
+        window.addEventListener('load', () => {
+            document.getElementById('sampleJson').textContent = JSON.stringify(sampleData, null, 2);
+        });
+    </script>
+</body>
+</html>
