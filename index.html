@@ -77,7 +77,7 @@
     .blue-steele-hero-image {
       max-width: 100%;
       height: auto;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0rem;
     }
 
     .blue-steele-header h1 {
@@ -179,6 +179,12 @@
       margin-bottom: 1rem;
     }
 
+    .side-by-side-container .side-content img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+
     .blue-steele-step h3 {
       color: #222;
       margin-bottom: 0.5rem;
@@ -231,7 +237,7 @@
     }
 
     .blue-steele-hero {
-      padding: 4rem 2rem;
+      padding: 4rem 0rem;
       background-color: rgba(248, 248, 248, 0.1);
     }
 
@@ -697,6 +703,170 @@
       padding: 1rem 0;
     }
   }
+
+  /* Help Section Styles */
+  .help-section {
+    padding: 80px 0;
+    text-align: center;
+  }
+
+  .help-section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  /* Desktop Help Section */
+  .help-section-desktop {
+    display: block;
+  }
+  
+  .help-section-desktop .help-section-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .help-section-desktop .help-section-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: auto;
+    align-self: flex-start;
+    margin-top: -15px;
+    position: relative;
+    z-index: 6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .help-section-desktop .help-section-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  .help-section-desktop .help-section-card:nth-child(even) {
+    align-self: flex-end;
+  }
+
+  .help-section-desktop .help-section-card:nth-child(2) { z-index: 5; }
+  .help-section-desktop .help-section-card:nth-child(3) { z-index: 4; }
+  .help-section-desktop .help-section-card:nth-child(4) { z-index: 3; }
+  .help-section-desktop .help-section-card:nth-child(5) { z-index: 2; }
+  .help-section-desktop .help-section-card:nth-child(6) { z-index: 1; }
+
+  .help-section-desktop .help-section-card:hover {
+    z-index: 7;
+  }
+
+  .help-section-desktop .help-section-card p {
+    font-size: 1.5rem !important;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+  }
+
+  /* Mobile Help Section */
+  .help-section-mobile {
+    display: none;
+  }
+
+  .help-section-mobile .help-section-cards {
+    padding: 0 20px;
+  }
+
+  .help-section-mobile .help-section-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 280px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .help-section-mobile .help-section-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .help-section-mobile .help-section-card p {
+    font-size: 1.2rem !important;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+  }
+
+  .help-section-mobile .help-section-card:nth-child(odd) {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .help-section-mobile .help-section-card:nth-child(even) {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  @media (max-width: 600px) {
+    .help-section-desktop {
+      display: none;
+    }
+    .help-section-mobile {
+      display: block;
+    }
+  }
+  .side-by-side-container {
+    display: flex;
+    background: rgba(78, 47, 154, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    align-items: stretch;
+  }
+
+  .side-content {
+    flex: 1;
+    padding: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: rgba(78, 47, 154, 0.3);
+    margin: 0 2rem;
+  }
+
+  .side-content img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+  }
+
+  .side-content h3 {
+    color: #4E2F9A;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .side-content p {
+    color: #333;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .side-by-side-container {
+      flex-direction: column;
+    }
+
+    .divider {
+      width: auto;
+      height: 1px;
+      margin: 1.5rem 0;
+    }
+  }
 </style>
 </head>
 <body>
@@ -725,15 +895,63 @@
           <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
         </div>
         <div class="blue-steele-hero-image">
-          <img src="mainimg/optimized/consultant.png" alt="Sales Consultant Illustration" width="400" height="300">
+          <img src="mainimg/purchase.png" alt="Sales Consultant Illustration" width="400" height="300">
         </div>
       </div> 
     </section>
 
-    <!-- Main Content -->
+    <!-- Help Section Desktop -->
+    <section class="help-section help-section-desktop" id="helpSection">
+      <h2 style="color: #222; font-size: 1.75rem; text-align: center; margin-bottom: 6rem;">Do Any Of These Sound Like You?</h2>
+      <div class="help-section-cards">
+        <div class="help-section-card">
+          <p>"There's too big a difference between my top guy and everybody else"</p>
+        </div>
+        <div class="help-section-card">
+          <p>"My sales team's too transactional"</p>
+        </div>
+        <div class="help-section-card">
+          <p>"We keep missing easy things and dropping money on the floor"</p>
+        </div>
+        <div class="help-section-card">
+          <p>"It's very hard to get a lead to come in"</p>
+        </div>
+
+        <div class="help-section-card">
+          <p>"It's really hard to get new sales guys up to speed on how to sell properly"</p>
+        </div>
+        <div class="help-section-card">
+          <p>"My sales team needs to be more consultative"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help Section Mobile -->
+    <section class="help-section help-section-mobile">
+      <h2 style="color: #222; font-size: 1.5rem; text-align: center; margin-bottom: 3rem;">Do Any Of These Sound Like You?</h2>
+      <div class="help-section-cards">
+        <div class="help-section-card">
+          <p style="font-size: 1.2rem;">"My sales team's too transactional"</p>
+        </div>
+        <div class="help-section-card">
+          <p style="font-size: 1.2rem;">"It's very hard to get a lead to come in"</p>
+        </div>
+        <div class="help-section-card">
+          <p style="font-size: 1.2rem;">"There's too big a difference between my top guy and everybody else"</p>
+        </div>
+        <div class="help-section-card">
+          <p style="font-size: 1.2rem;">"We keep missing easy things and dropping money on the floor"</p>
+        </div>
+        <div class="help-section-card">
+          <p style="font-size: 1.2rem;">"It's really hard to get new sales guys up to speed on how to sell properly"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content
     <main class="blue-steele-main">
-      <!-- Does This Sound Like You? -->
-      <section class="blue-steele-section">
+      Does This Sound Like You? -->
+      <!-- <section class="blue-steele-section">
         <div class="blue-steele-quote-container">
           <div class="blue-steele-quote-image">
             <img src="mainimg/optimized/frustrated.png" alt="Frustrated Sales Manager" loading="lazy" width="300" height="200">
@@ -747,7 +965,7 @@
             </blockquote>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- How Swizzl Connects Sales and Marketing -->
       <section class="blue-steele-section">
@@ -774,31 +992,35 @@
 
       <!-- How We Do It -->
       <section class="blue-steele-section">
-        <h2>Why It Works</h2>
-        <div class="blue-steele-steps">
-          <div class="blue-steele-step">
-            <img src="mainimg/optimized/expertise.png" alt="Expertise Icon">
-            <h3>Relevant Expertise</h3>
-            <p>Deep expertise in marketing, performance sales, and product design.</p>
+        <h2>Your Challenge with Today's Car Buyers</h2>
+        <div class="side-by-side-container">
+          <div class="side-content">
+            <img src="mainimg/optimized/frustrated_old.png" alt="Expertise Icon">
+            <h3>The Problem: Indecision and Resistance</h3>
+            <p class="section-body-text" style="text-align: left;">Many customers don't know exactly what they want when they begin searching. Your top performers naturally take a consultative approach, but most salespeople struggle to guide customers effectively.</p><br>
+            <p class="section-body-text" style="text-align: left;">Meanwhile, buyers grow increasingly resistant to sales conversations, and basic chatbots fail to adequately prepare them for meaningful showroom visits.</p>
           </div>
-          <div class="blue-steele-step">
-            <img src="mainimg/optimized/motivations.png" alt="Models Icon">
-            <h3>Customer Motivation Models</h3>
-            <p>Proprietary models that describe buying decisions.</p>
-          </div>
-          <div class="blue-steele-step">
-            <img src="mainimg/optimized/ai.png" alt="AI Icon">
-            <h3>Bleeding-Edge AI</h3>
-            <p>Supercharged and scalable AI-driven insights.</p>
+          <div class="divider"></div>
+          <div class="side-content">
+            <img src="mainimg/optimized/consultant.png" alt="Models Icon">
+            <h3>The Solution: Swizzl</h3>
+            <p class="section-body-text" style="text-align: left;">Swizzl helps customers discover their true needs and make informed trade-off decisions before ever stepping foot in your dealership. This means:
+              <ul style="text-align: left; margin-top: 1rem; margin-left: 1.5rem; line-height: 1.5;">
+              <li style="margin-bottom: 0.5rem;">Better-qualified appointments with buyers who know what they want</li>
+              <li style="margin-bottom: 0.5rem;">Sales teams equipped with detailed customer preferences from the start</li>
+              <li style="margin-bottom: 0.5rem;">More efficient conversations that lead to faster closings</li>
+              <li>No more wasted time on unprepared shoppers</li>
+              </ul></p>
           </div>
         </div>
         <a href="#book-demo" class="blue-steele-button">Book a Demo</a>
       </section>
 
-      <!-- Testimonials -->
+      <!-- Dealer Testimonials -->
       <section class="blue-steele-section">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonials-grid">
+        <h2>What Dealers Say</h2>
+        <div style="margin: 0 auto; padding: 0 20px;">
+          <div class="testimonials-grid">
           <div class="testimonial-card">
             <img src="mainimg/optimized/dane.jpg" alt="Dane - Sales Director">
             <div class="testimonial-content">
@@ -815,8 +1037,48 @@
               <p class="testimonial-text">"What impresses me most about Swizzl is how it elevates our entire team's performance. It combines proven sales tactics in such an elegant way that even our newer reps are performing like veterans. It's like having our best practices automated and standardized across the board."</p>
             </div>
           </div>
+          </div>
         </div>
       </section>
+
+
+      <!-- Client Testimonials -->
+      <section class="blue-steele-section">
+        <h2>Your Customers Love Us</h2>
+        <div style="margin: 0 auto; padding: 0 20px;">
+          <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 0 auto;">
+            <!-- Sara's Testimonial -->
+            <div class="testimonial-card" style="background: #fff; border-radius: 20px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                    <img src="mainimg/sara.jpg" alt="Sara" style="width: 120px; height: 120px; border-radius: 60px; object-fit: cover; margin-bottom: 20px; align-self: center;">
+                    <p style="font-style: italic; color: #333; margin-bottom: 20px; line-height: 1.6;">"I was drowning in car listings and conflicting advice. Nothing seemed to click. Then this tool helped me nail exactly what I needed - a hybrid SUV that screams 'professional' without breaking the bank. Now I'm driving something that feels like it was built just for me."</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #4E2F9A;">
+                      <div style="font-size: 18px; margin-bottom: 8px;">Sara</div>
+                      <div style="font-size: 14px; opacity: 0.8;">Marketing Director</div>
+                    </div>
+                  </div>
+          
+                  <!-- Mike's Testimonial -->
+                  <div class="testimonial-card" style="background: #fff; border-radius: 20px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                    <img src="mainimg/mike.jpg" alt="Mike" style="width: 120px; height: 120px; border-radius: 60px; object-fit: cover; margin-bottom: 20px; align-self: center;">
+                    <p style="font-style: italic; color: #333; margin-bottom: 20px; line-height: 1.6;">"Car shopping used to be my nightmare. Pushy salesmen, endless debates with buddies about what truck works best. This service cut through all that noise. I ended up with a pickup that handles my job sites and weekend mountain trips like a champ. Game changer."</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #4E2F9A;">
+                      <div style="font-size: 18px; margin-bottom: 8px;">Mike</div>
+                      <div style="font-size: 14px; opacity: 0.8;">Construction Supervisor</div>
+                    </div>
+                  </div>
+          
+                  <!-- Elena's Testimonial -->
+                  <div class="testimonial-card" style="background: #fff; border-radius: 20px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                    <img src="mainimg/elena.jpg" alt="Elena" style="width: 120px; height: 120px; border-radius: 60px; object-fit: cover; margin-bottom: 20px; align-self: center;">
+                    <p style="font-style: italic; color: #333; margin-bottom: 20px; line-height: 1.6;">"Finding a car that works for school drop-offs, road trips, and keeping my kids safe? Impossible, I thought. This process showed me a minivan I never would've considered - now it's like our family's command center on wheels. Who knew car shopping could actually be stress-free?"</p>
+                    <div class="testimonial-author" style="font-weight: 600; color: #4E2F9A;">
+                      <div style="font-size: 18px; margin-bottom: 8px;">Elena</div>
+                      <div style="font-size: 14px; opacity: 0.8;">Work-From-Home Mom</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
 
       <!-- Our Team -->
       <section class="blue-steele-section">
@@ -884,7 +1146,25 @@
               </a>
             </div>
           </div>
+
+          <div class="team-card">
+            <img src="mainimg/optimized/kyle.jpg" alt="Petrus J.v. Rensburg">
+            <h3>Kyle Bazzy</h3>
+            <p class="team-title">Founding Sales</p>
+            <ul class="team-details">
+              <li>Proven Sales Leader</li>
+              <li>VP & Director Roles</li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/kylebazzy/" target="_blank" rel="noopener noreferrer" aria-label="Petrus J.v. Rensburg's LinkedIn">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
+
+
       </section>
 
 

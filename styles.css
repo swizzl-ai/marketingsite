@@ -108,6 +108,13 @@ button {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Section body text */
+.section-body-text {
+  font-size: 1.1rem;
+  text-align: left;
+  line-height: 1.6;
+}
+
 /* Le Tigre Page Styles */
 .le-tigre-container {
   overflow: hidden;
