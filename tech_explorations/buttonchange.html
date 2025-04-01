@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Progress Button Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .save-button {
+            background-color: #7157F5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            width: fit-content;
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .save-button.success {
+            background-color: #4CAF50;
+        }
+
+        .save-button i {
+            font-size: 18px;
+        }
+
+        .save-button .success-icon {
+            display: none;
+        }
+
+        .save-button.success .initial-icon {
+            display: none;
+        }
+
+        .save-button.success .success-icon {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <button class="save-button">
+        <i class="fa-regular fa-envelope initial-icon"></i>
+        <i class="fa-solid fa-check success-icon"></i>
+        <span class="button-text">Save My Progress</span>
+    </button>
+
+    <script>
+        const button = document.querySelector('.save-button');
+        const buttonText = button.querySelector('.button-text');
+
+        button.addEventListener('click', () => {
+            if (!button.classList.contains('success')) {
+                button.classList.add('success');
+                buttonText.textContent = 'Email Sent!';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.classList.remove('success');
+                    buttonText.textContent = 'Save My Progress';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
